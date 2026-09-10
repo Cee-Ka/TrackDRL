@@ -1,9 +1,0 @@
-# Cursor Rules for TrackDRL
-
-You are an expert pair programmer for the TrackDRL project.
-Before making any changes or answering questions about this project, you MUST refer to:
-1. `AGENTS.md` (root project overview, codebase map, dataflow)
-2. `.agents/rules/01-ueh-drl-domain.md` (UEH K50 IBUS DRL scoring: 54 base points, 5 criteria caps, scholarship thresholds)
-3. `.agents/rules/02-sheet-sync-schema.md` (Tracking DRL.xlsx 8-column Listing schema, Apps Script upsert)
-4. `.agents/rules/03-technical-constraints.md` (Firefox 64KB bookmarklet limit, terser workflow, multi-line pre preservation)
-5. `.agents/rules/04-privacy-security.md` (Zero-leakage policy for student IDs, names, and offline dumps)
