@@ -46,8 +46,9 @@
    * **Cách A (Nhanh nhất - 1 Click Copy):** Bấm nút **Copy Bảng Điểm** trên tool, sau đó mở Google Sheet hoặc Excel, click ô **A1** và nhấn **`Cmd + V`**. Toàn bộ bảng điểm 9 cột (Điểm cho sẵn, Điểm web DRS, Điểm tổng, Cần thiếu, Trạng thái) sẽ hiện ra ngay lập tức!
    * **Cách B (Đồng bộ tự động qua Webhook):** Cung cấp mã Google Apps Script để tự động cập nhật Dashboard Google Sheet đẹp mắt và lưu trữ lịch sử cập nhật.
 
-6. **Hoàn Toàn Thân Thiện Với Non-Tech & Tương Thích 100% macOS:**
-   * Hoạt động mượt mà trên cả **Safari** và **Google Chrome** trên máy Mac.
+6. **Hoàn Toàn Thân Thiện Với Non-Tech & Tương Thích Đa Nền Tảng:**
+   * Hoạt động mượt mà trên cả **Firefox**, **Google Chrome**, **Safari**, Edge và Cốc Cốc (macOS, Windows, Linux).
+   * Đã được nén tối ưu (dưới 64KB) để tương thích chuẩn kỹ thuật với cơ chế Bookmark của Firefox.
    * Không cần cài đặt Node.js hay phần mềm phức tạp, chỉ cần kéo thả nút Bookmarklet.
    * An toàn tuyệt đối: Chạy cục bộ trên trình duyệt, không lưu trữ thông tin cá nhân ra ngoài.
 
@@ -56,11 +57,14 @@
 ## 🚀 Hướng Dẫn Cài Đặt (Chỉ mất 1 - 2 phút)
 
 ### Bước 1: Mở trang cài đặt trực quan
-1. Mở file [install.html](file:///home/ceeka/Documents/TrackDRL/install.html) trên máy Mac của bạn bằng trình duyệt Chrome hoặc Safari:
-   * Mở Terminal gõ: `open /home/ceeka/Documents/TrackDRL/install.html` (hoặc nhấp đúp vào file `install.html` trong Finder).
-2. Bật thanh Dấu trang (Bookmark Bar) trên Mac:
-   * **Chrome / Safari:** Bấm tổ hợp phím `Cmd + Shift + B`.
-3. Nhấn giữ và kéo nút màu xanh **🎯 Track DRL UEH-ISB (K50)** thả lên thanh Bookmark.
+1. Mở file [install.html](file:///home/ceeka/Documents/TrackDRL/install.html) (hoặc [index.html](file:///home/ceeka/Documents/TrackDRL/index.html)) bằng trình duyệt **Firefox, Chrome, hoặc Safari**:
+   * Trên macOS: Gõ `open install.html` trong Terminal (hoặc nhấp đúp file).
+   * Trên Linux/Windows: Mở trực tiếp file bằng trình duyệt bạn đang dùng.
+2. Bật thanh Dấu trang (Bookmark Bar):
+   * **Firefox:** Nhấn `Ctrl + Shift + B` (Mac: `Cmd + Shift + B`) ➔ Chuột phải toolbar chọn *Bookmarks Toolbar ➔ Always Show*.
+   * **Chrome / Edge / Cốc Cốc:** Nhấn `Ctrl + Shift + B` (Mac: `Cmd + Shift + B`).
+   * **Safari (macOS):** Nhấn `Cmd + Shift + B` (hoặc vào menu *View ➔ Always Show Bookmarks Bar*).
+3. Nhấn giữ và kéo nút màu xanh **🎯 Track DRL UEH-ISB (K50)** thả lên thanh Bookmark (hoặc bấm nút *Copy mã Bookmarklet* để tạo thủ công nếu không muốn kéo).
 
 ---
 
@@ -79,7 +83,7 @@
 
 ## 💡 Cách Sử Dụng Hằng Ngày
 
-1. Mở Safari hoặc Chrome trên máy Mac, truy cập vào cổng: **[drs.ueh.edu.vn/Student/TrainingScore](https://drs.ueh.edu.vn/Student/TrainingScore)**.
+1. Mở trình duyệt bất kỳ (**Firefox**, **Chrome**, **Safari**, Edge...), truy cập vào cổng: **[drs.ueh.edu.vn/Student/TrainingScore](https://drs.ueh.edu.vn/Student/TrainingScore)**.
 2. Đăng nhập bằng tài khoản sinh viên UEH.
 3. Bấm vào nút Bookmark **🎯 Track DRL UEH-ISB (K50)** trên thanh Dấu trang.
 4. Cửa sổ phân tích (HUD) sẽ xuất hiện ngay lập tức:

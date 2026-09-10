@@ -16,7 +16,7 @@
  * ==============================================================================
  */
 
-(function () {
+(function initTracker() {
     // 1. Kiểm tra URL trang DRS
     if (!window.location.hostname.includes("drs.ueh.edu.vn")) {
         if (confirm("⚠️ Bạn cần mở trang Điểm Rèn Luyện UEH (drs.ueh.edu.vn) để sử dụng công cụ này.\n\nBạn có muốn mở drs.ueh.edu.vn ngay bây giờ không?")) {
@@ -61,7 +61,7 @@
             max: 25,
             defaultPts: 15.0, // Mục 1.1: 15đ
             defaultDesc: "Mục 1.1 cho sẵn (15đ)",
-            keywords: ["tiêu chí 1", "nhóm 1", "chấp hành pháp luật", "nội quy", "quy chế", "sinh hoạt công dân"]
+            keywords: ["mục 1", "tiêu chí 1", "nhóm 1", "chấp hành pháp luật", "nội quy", "quy chế", "sinh hoạt công dân"]
         },
         TC2: {
             code: "TC2",
@@ -71,7 +71,7 @@
             max: 20,
             defaultPts: 10.0 + currentGpaPts, // Mục 2.1: 10đ + GPA (Giỏi 4đ) = 14đ
             defaultDesc: "Mục 2.1 cho sẵn (10đ) + GPA (" + currentGpaPts + "đ)",
-            keywords: ["tiêu chí 2", "nhóm 2", "thái độ trong học tập", "học vụ", "khảo thí", "nckh", "khởi nghiệp", "trao đổi sinh viên", "học thuật"]
+            keywords: ["mục 2", "tiêu chí 2", "nhóm 2", "thái độ trong học tập", "học vụ", "khảo thí", "nckh", "khởi nghiệp", "trao đổi sinh viên", "học thuật"]
         },
         TC3: {
             code: "TC3",
@@ -81,7 +81,7 @@
             max: 20,
             defaultPts: 5.0, // Mục 3.1: 5đ
             defaultDesc: "Mục 3.1 cho sẵn (5đ)",
-            keywords: ["tiêu chí 3", "nhóm 3", "chính trị", "văn hóa", "văn nghệ", "thể thao", "phát triển bền vững", "đại học xanh", "môi trường", "tình nguyện sinh viên"]
+            keywords: ["mục 3", "tiêu chí 3", "nhóm 3", "chính trị", "văn hóa", "văn nghệ", "thể thao", "phát triển bền vững", "đại học xanh", "môi trường", "tình nguyện sinh viên"]
         },
         TC4: {
             code: "TC4",
@@ -91,7 +91,7 @@
             max: 15,
             defaultPts: 10.0, // Mục 4.1: 10đ
             defaultDesc: "Mục 4.1 cho sẵn (10đ)",
-            keywords: ["tiêu chí 4", "nhóm 4", "quan hệ cộng đồng", "sinh hoạt tại cộng đồng", "nội - ngoại trú", "nơi cư trú"]
+            keywords: ["mục 4", "tiêu chí 4", "nhóm 4", "quan hệ cộng đồng", "sinh hoạt tại cộng đồng", "nội - ngoại trú", "nơi cư trú"]
         },
         TC5: {
             code: "TC5",
@@ -101,7 +101,7 @@
             max: 20,
             defaultPts: 10.0, // Mục 5.1: 10đ
             defaultDesc: "Mục 5.1 cho sẵn (10đ)",
-            keywords: ["tiêu chí 5", "nhóm 5", "cán bộ lớp", "cán sự", "đoàn thể", "chi đoàn", "chi hội", "câu lạc bộ", "khen thưởng", "sinh viên 5 tốt", "giấy khen", "bằng khen", "thành tích"]
+            keywords: ["mục 5", "tiêu chí 5", "nhóm 5", "cán bộ lớp", "cán sự", "đoàn thể", "chi đoàn", "chi hội", "câu lạc bộ", "khen thưởng", "sinh viên 5 tốt", "giấy khen", "bằng khen", "thành tích"]
         }
     };
 
@@ -129,73 +129,87 @@
         console.warn("Lỗi đọc info SV", e);
     }
 
-    // 4. Trích xuất điểm hoạt động từ các thẻ trên web DRS
+    // 4. Trích xuất điểm từ web DRS
     try {
-        var groupCards = document.querySelectorAll(".score-group-card, .score-card, .card, [class*='score-group']");
-        
+        // Cách 1: Quét trực tiếp các thẻ điểm .score-group-card (chính xác nhất trên giao diện DRS)
+        var groupCards = document.querySelectorAll(".score-group-card");
+        if (groupCards.length === 0) {
+            groupCards = document.querySelectorAll(".score-card");
+        }
+
         groupCards.forEach(function (card) {
-            var cardText = card.innerText.toLowerCase();
-            
-            // Bỏ qua thẻ đếm hoạt động / lịch sử
-            if (cardText.includes("số hoạt động") || cardText.includes("chờ duyệt") || cardText.includes("lịch sử")) {
+            var cardText = card.innerText.trim();
+            var lowerText = cardText.toLowerCase();
+
+            // Bỏ qua các thẻ không phải 5 tiêu chí: Green Citizens (1.G, 2.G, 3.G, 4.G), thẻ đếm hoạt động, chờ duyệt
+            if (/^[1-4]\.g/i.test(cardText) || lowerText.includes("green campus") || lowerText.includes("hoạt động xanh") || lowerText.includes("lối sống xanh") || lowerText.includes("số hoạt động") || lowerText.includes("chờ duyệt") || lowerText.includes("lịch sử")) {
                 return;
             }
 
             var scoreVal = null;
-            var scoreEl = card.querySelector(".current-score, [class*='current-score']");
+            var scoreEl = card.querySelector(".current-score");
             if (scoreEl) {
                 var sVal = parseFloat(scoreEl.innerText.replace(",", "."));
                 if (!isNaN(sVal)) scoreVal = sVal;
             }
 
             if (scoreVal === null) {
-                var m = card.innerText.match(/(\d+(\.\d+)?)\s*\/\s*(\d+(\.\d+)?)/);
-                if (m) scoreVal = parseFloat(m[1]);
+                var sm = cardText.match(/(\d+(?:[.,]\d+)?)\s*\/\s*\d+/);
+                if (sm) scoreVal = parseFloat(sm[1].replace(",", "."));
             }
 
-            if (scoreVal !== null) {
+            if (scoreVal !== null && !isNaN(scoreVal)) {
+                // Ưu tiên khớp chính xác số thứ tự "Mục X" hoặc "Tiêu chí X" hoặc "Nhóm X" (1 đến 5)
+                var numMatch = cardText.match(/(?:mục|tiêu\s*chí|nhóm)\s*([1-5])(?!\.g|\s*\.g|\w)\b/i);
+                if (numMatch) {
+                    var tcKey = "TC" + numMatch[1];
+                    webScores[tcKey] = scoreVal;
+                    return;
+                }
+
+                // Fallback theo từ khóa đặc thù
                 for (var key in tcConfig) {
                     var cfg = tcConfig[key];
-                    var isMatch = false;
                     for (var k = 0; k < cfg.keywords.length; k++) {
-                        if (cardText.includes(cfg.keywords[k])) {
-                            isMatch = true;
-                            break;
+                        if (lowerText.includes(cfg.keywords[k])) {
+                            webScores[key] = scoreVal;
+                            return;
                         }
-                    }
-                    if (isMatch) {
-                        webScores[key] = Math.max(webScores[key], scoreVal);
                     }
                 }
             }
         });
 
-        // Nếu cards chưa đọc được, quét qua table chi tiết
-        var tables = document.querySelectorAll("table");
-        tables.forEach(function (table) {
-            var rows = table.querySelectorAll("tr");
-            rows.forEach(function (row) {
-                var rowText = row.innerText.toLowerCase();
-                for (var key in tcConfig) {
-                    var cfg = tcConfig[key];
-                    if (rowText.includes("tiêu chí " + cfg.num) || rowText.includes(cfg.keywords[2])) {
-                        var numMatches = row.innerText.match(/(\d+(\.\d+)?)\s*\/\s*(\d+)/) || row.innerText.match(/\b\d+(\.\d+)?\b/g);
-                        if (numMatches && numMatches.length > 0) {
-                            var parsed = parseFloat(numMatches[1] || numMatches[0]);
-                            if (!isNaN(parsed) && webScores[key] === 0) {
-                                webScores[key] = parsed;
+        // Cách 2: Quét bảng chi tiết nếu có tiêu chí nào chưa đọc được (chế độ xem Table chi tiết)
+        var hasMissing = Object.values(webScores).some(function (v) { return v === 0; });
+        if (hasMissing) {
+            var tables = document.querySelectorAll("table");
+            tables.forEach(function (table) {
+                var rows = table.querySelectorAll("tr");
+                rows.forEach(function (row) {
+                    var cells = row.querySelectorAll("td, th");
+                    if (cells.length >= 3) {
+                        var col0 = cells[0].innerText.trim();
+                        var numMatch = col0.match(/^([1-5])$/);
+                        if (numMatch) {
+                            var tcKey = "TC" + numMatch[1];
+                            if (webScores[tcKey] === 0) {
+                                var parsed = parseFloat(cells[2].innerText.trim().replace(",", "."));
+                                if (!isNaN(parsed)) {
+                                    webScores[tcKey] = parsed;
+                                }
                             }
                         }
                     }
-                }
+                });
             });
-        });
+        }
 
     } catch (e) {
         console.warn("Lỗi đọc điểm từ web DRS", e);
     }
 
-    // 5. Tính toán Điểm Thực Tế = Điểm Cho Sẵn + Điểm Hoạt Động DRS
+    // 5. Tính toán Điểm Thực Tế & Phân rã Điểm Nền tảng vs Điểm Hoạt động
     var scores = {};
     var totalDefaultPoints = 0;
     var totalWebActivitiesPoints = 0;
@@ -204,22 +218,55 @@
     var criteriaAnalysis = [];
     var deficientList = [];
 
+    // Điểm nền tảng cố định cho từng tiêu chí (chuẩn Tracking DRL.xlsx & Quy chế UEH)
+    var fixedBaseMap = {
+        TC1: 15.0, // Mục 1.1: 15đ
+        TC2: 10.0, // Mục 2.1: 10đ
+        TC3: 5.0,  // Mục 3.1: 5đ
+        TC4: 10.0, // Mục 4.1: 10đ
+        TC5: 10.0  // Mục 5.1: 10đ
+    };
+
     for (var tcKey in tcConfig) {
         var cfg = tcConfig[tcKey];
-        var defPts = savedIncludeDefaults ? cfg.defaultPts : 0;
-        var webPts = webScores[tcKey] || 0;
+        var fixedBase = fixedBaseMap[tcKey] || 0;
+        var gpaBonus = (tcKey === "TC2") ? currentGpaPts : 0;
+        var totalDefForTC = fixedBase + gpaBonus;
 
-        // Xử lý thông minh: nếu web đã hiển thị số điểm lớn hơn điểm cho sẵn, nghĩa là web đã cộng điểm cho sẵn
-        var finalPts = 0;
-        if (webPts >= defPts && defPts > 0) {
-            finalPts = Math.min(cfg.max, webPts);
-            totalWebActivitiesPoints += (webPts - defPts);
+        var rawWebVal = webScores[tcKey] || 0;
+
+        // Điểm hoạt động ngoại khóa thực tế:
+        // Trên web DRS, nếu rawWebVal >= fixedBase, nghĩa là web đã gồm điểm nền tảng.
+        // Riêng TC2, web mặc định có 10đ nền tảng + 4đ GPA Giỏi (mục 2.2.1)
+        var actPts = 0;
+        if (tcKey === "TC2") {
+            var webBaseGPA = 4.0;
+            if (rawWebVal >= (fixedBase + webBaseGPA)) {
+                actPts = rawWebVal - (fixedBase + webBaseGPA);
+            } else if (rawWebVal >= fixedBase) {
+                actPts = 0;
+            } else {
+                actPts = rawWebVal;
+            }
         } else {
-            finalPts = Math.min(cfg.max, defPts + webPts);
-            totalWebActivitiesPoints += webPts;
+            if (rawWebVal >= fixedBase) {
+                actPts = rawWebVal - fixedBase;
+            } else {
+                actPts = rawWebVal;
+            }
+        }
+
+        var finalPts = 0;
+        var defPts = savedIncludeDefaults ? totalDefForTC : 0;
+
+        if (savedIncludeDefaults) {
+            finalPts = Math.min(cfg.max, totalDefForTC + actPts);
+        } else {
+            finalPts = Math.min(cfg.max, actPts);
         }
 
         totalDefaultPoints += defPts;
+        totalWebActivitiesPoints += actPts;
         scores[tcKey] = finalPts;
         totalScore += finalPts;
 
@@ -236,7 +283,7 @@
             name: cfg.name,
             fullName: cfg.fullName,
             defaultPts: defPts,
-            webPts: webPts,
+            webPts: actPts,
             current: finalPts,
             max: cfg.max,
             diff: diff,
@@ -308,18 +355,21 @@
         "animation: uehSlideIn 0.35s ease-out"
     ].join(";");
 
-    var styleSheet = document.createElement("style");
-    styleSheet.innerText = `
-        @keyframes uehSlideIn {
-            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        #ueh-drl-tracker-hud::-webkit-scrollbar { width: 6px; }
-        #ueh-drl-tracker-hud::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
-        .ueh-hud-tab-btn.active { background: #005F69 !important; color: white !important; }
-        .ueh-act-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-    `;
-    document.head.appendChild(styleSheet);
+    if (!document.getElementById("ueh-tracker-style")) {
+        var styleSheet = document.createElement("style");
+        styleSheet.id = "ueh-tracker-style";
+        styleSheet.innerText = `
+            @keyframes uehSlideIn {
+                from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+                to { opacity: 1; transform: translateY(0) scale(1); }
+            }
+            #ueh-drl-tracker-hud::-webkit-scrollbar { width: 6px; }
+            #ueh-drl-tracker-hud::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
+            .ueh-hud-tab-btn.active { background: #005F69 !important; color: white !important; }
+            .ueh-act-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        `;
+        document.head.appendChild(styleSheet);
+    }
 
     var webhookUrl = localStorage.getItem("ueh_drl_webhook_url") || "";
 
@@ -480,14 +530,13 @@
     document.getElementById("ueh-toggle-defaults").onchange = function () {
         localStorage.setItem("ueh_drl_inc_defaults", this.checked ? "true" : "false");
         hud.remove();
-        // Gọi lại bookmarklet
-        eval(document.getElementById("mainBookmarkletLink")?.getAttribute("href") || "");
+        initTracker();
     };
 
     document.getElementById("ueh-gpa-select").onchange = function () {
         localStorage.setItem("ueh_drl_gpa_tier", this.value);
         hud.remove();
-        eval(document.getElementById("mainBookmarkletLink")?.getAttribute("href") || "");
+        initTracker();
     };
 
     // Xử lý nút Đóng & Thu nhỏ
