@@ -42,9 +42,18 @@
      * ⚪ **Đã Max:** Cảnh báo tiêu chí đã đạt điểm tối đa.
    * Cung cấp nút đăng ký trực tiếp và nút sao chép toàn bộ danh sách sự kiện ra bảng tính.
 
-5. **2 Lựa Chọn Xuất & Đồng Bộ Dữ Liệu Tiện Lợi:**
-   * **Cách A (Nhanh nhất - 1 Click Copy):** Bấm nút **Copy Bảng Điểm** trên tool, sau đó mở Google Sheet hoặc Excel, click ô **A1** và nhấn **`Cmd + V`**. Toàn bộ bảng điểm 9 cột (Điểm cho sẵn, Điểm web DRS, Điểm tổng, Cần thiếu, Trạng thái) sẽ hiện ra ngay lập tức!
-   * **Cách B (Đồng bộ tự động qua Webhook):** Cung cấp mã Google Apps Script để tự động cập nhật Dashboard Google Sheet đẹp mắt và lưu trữ lịch sử cập nhật.
+5. **Tích Hợp Đồng Bộ Khớp 100% Format File `Tracking DRL.xlsx`:**
+   * **Cơ chế hoạt động của template `Tracking DRL.xlsx`:**
+     * File gồm 2 tab chính: tab `Listing DRL` (Bảng `Listing` 8 cột: *Hoạt động, Mã hoạt động, Mục, Tình trạng, Điểm, Đóng tiền, Link, Note*) và tab `Đã cập nhật DRL` (chứa cây tiêu chí và các công thức `=sumifs(Listing[Điểm], Listing[Mục], A..., Listing[Tình trạng], "100%")`).
+   * **2 Lựa chọn lấy dữ liệu tiện lợi & nhất quán:**
+     * **Cách A (1-Click Copy vào Excel/Sheet):**
+       * Bấm nút **📋 Copy Listing DRL (8 Cột)** trên Bookmarklet HUD để copy toàn bộ các hoạt động đã hoàn thành từ DRS theo đúng chuẩn 8 cột.
+       * Mở tab `Listing DRL` (trong file `Tracking DRL.xlsx` hoặc Google Sheet), chọn ô **A1** và bấm **`Ctrl + V`** (Mac: `Cmd + V`).
+       * Tab `Đã cập nhật DRL` sẽ tự động tính toán ra đúng **58.5 điểm** mà không cần sửa bất kỳ công thức nào!
+       * Ngoài ra có nút **📊 Copy 5 Tiêu Chí** để copy bảng tổng quan đối chiếu.
+     * **Cách B (Đồng bộ tự động qua Webhook Apps Script):**
+       * Tự động nhận diện và cập nhật vào tab `Listing DRL`: đối soát theo Mã hoạt động, gán tình trạng 100%, cập nhật điểm và đường link, đồng thời **bảo toàn nguyên vẹn mọi dòng sự kiện thủ công, cột đóng tiền và ghi chú cá nhân** của bạn!
+       * Tự động tạo và làm mới tab Dashboard `📊 Tổng quan K50 IBUS` cùng tab `🎯 Hoạt Động Gợi Ý`.
 
 6. **Hoàn Toàn Thân Thiện Với Non-Tech & Tương Thích Đa Nền Tảng:**
    * Hoạt động mượt mà trên cả **Firefox**, **Google Chrome**, **Safari**, Edge và Cốc Cốc (macOS, Windows, Linux).

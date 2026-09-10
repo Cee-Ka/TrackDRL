@@ -209,6 +209,65 @@
         console.warn("Lỗi đọc điểm từ web DRS", e);
     }
 
+    // 4b. Trích xuất danh sách hoạt động đã tham gia (khớp 100% cấu trúc Listing DRL trong Tracking DRL.xlsx)
+    var registeredActivities = [];
+    try {
+        var actTable = document.querySelector(".activity-table, table.table-hover");
+        if (actTable) {
+            var aRows = actTable.querySelectorAll("tbody tr");
+            if (aRows.length === 0) {
+                aRows = actTable.querySelectorAll("tr:not(:first-child)");
+            }
+            aRows.forEach(function (row) {
+                var cells = row.querySelectorAll("td");
+                if (cells.length >= 6) {
+                    var cell0 = cells[0];
+                    var rawTitle = cell0.innerText.trim();
+                    var role = cells[1] ? cells[1].innerText.trim() : "";
+                    var org = cells[2] ? cells[2].innerText.trim() : "";
+                    var date = cells[3] ? cells[3].innerText.trim() : "";
+                    var group = cells[4] ? cells[4].innerText.trim() : "";
+                    var status = cells[5] ? cells[5].innerText.trim() : "";
+                    var pointsText = cells[6] ? cells[6].innerText.trim() : "";
+
+                    var linkEl = row.querySelector("a[href*='/activity/Details/'], a[href*='/Details/'], a[href*='activity']");
+                    var actLink = linkEl ? linkEl.href : "";
+                    var codeMatch = actLink.match(/\/Details\/([A-Za-z0-9_]+)/i) || rawTitle.match(/\b(\d{4}_[A-Za-z0-9_]+)\b/);
+                    var actCode = codeMatch ? codeMatch[1] : "";
+
+                    var critMatch = rawTitle.match(/\b([1-5]\.\d+(?:\.\d+)*)\b/);
+                    var criteriaCode = critMatch ? critMatch[1] : "";
+
+                    var titleLines = rawTitle.split("\n").map(function(s){ return s.trim(); }).filter(Boolean);
+                    var cleanTitle = titleLines[0] || rawTitle;
+                    cleanTitle = cleanTitle.replace(/\s*[1-5]\.\d+(?:\.\d+)*\s*[-–—|].*$/, "").trim();
+
+                    var ptMatch = pointsText.match(/(\d+(?:[.,]\d+)?)/) || rawTitle.match(/Điểm:\s*(\d+(?:[.,]\d+)?)/i);
+                    var actPts = ptMatch ? parseFloat(ptMatch[1].replace(",", ".")) : 0.0;
+
+                    var isDone = status.toLowerCase().includes("hoàn thành") || actPts > 0;
+                    var statusStr = isDone ? "100%" : "50%";
+
+                    registeredActivities.push({
+                        name: cleanTitle,
+                        code: actCode,
+                        criteria: criteriaCode,
+                        status: statusStr,
+                        points: actPts,
+                        fee: "",
+                        link: actLink,
+                        note: status + (date ? " (" + date + ")" : ""),
+                        role: role,
+                        org: org,
+                        date: date
+                    });
+                }
+            });
+        }
+    } catch (e) {
+        console.warn("Lỗi trích xuất hoạt động đã tham gia:", e);
+    }
+
     // 5. Tính toán Điểm Thực Tế & Phân rã Điểm Nền tảng vs Điểm Hoạt động
     var scores = {};
     var totalDefaultPoints = 0;
@@ -507,17 +566,20 @@
                 
                 <div style="display: flex; flex-direction: column; gap: 8px;">
                     <button id="ueh-sync-sheet-btn" style="background: #005F69; color: white; border: none; padding: 10px; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-shadow: 0 4px 12px rgba(0,95,105,0.25);">
-                        <span>🚀 Đồng bộ tự động vào Google Sheet</span>
+                        <span>🚀 Đồng bộ Google Sheet (Chuẩn Tracking DRL)</span>
                     </button>
                     
-                    <div style="display: flex; gap: 8px;">
-                        <button id="ueh-copy-table-btn" title="Sao chép toàn bộ bảng điểm (dán được ngay vào Google Sheet hoặc Excel)" style="flex: 1; background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; padding: 9px 8px; border-radius: 10px; font-weight: 700; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
-                            📊 Copy Bảng Điểm (Dán Sheet)
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <button id="ueh-copy-listing-btn" title="Sao chép toàn bộ hoạt động đã hoàn thành chuẩn 8 cột (dán trực tiếp vào tab Listing DRL của Tracking DRL.xlsx)" style="background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; padding: 9px 6px; border-radius: 10px; font-weight: 700; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                            📋 Copy Listing DRL (8 Cột)
                         </button>
-                        <button id="ueh-copy-data-btn" title="Sao chép tóm tắt dạng văn bản để gửi chat/tin nhắn" style="flex: 1; background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1; padding: 9px 8px; border-radius: 10px; font-weight: 600; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
-                            📝 Copy Tóm Tắt
+                        <button id="ueh-copy-table-btn" title="Sao chép bảng phân rã 5 tiêu chí (dán vào sheet Đã cập nhật DRL hoặc Excel)" style="background: #EFF6FF; color: #1E40AF; border: 1px solid #BFDBFE; padding: 9px 6px; border-radius: 10px; font-weight: 700; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                            📊 Copy 5 Tiêu Chí
                         </button>
                     </div>
+                    <button id="ueh-copy-data-btn" title="Sao chép tóm tắt dạng văn bản để gửi chat/tin nhắn" style="background: #F1F5F9; color: #334155; border: 1px solid #CBD5E1; padding: 8px; border-radius: 10px; font-weight: 600; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                        📝 Copy Tóm Tắt Tin Nhắn
+                    </button>
                 </div>
                 <div id="ueh-sync-msg" style="font-size: 11px; text-align: center; margin-top: 6px; font-weight: 600;"></div>
             </div>
@@ -722,6 +784,7 @@
             criteriaAnalysis: criteriaAnalysis,
             defaultPoints: totalDefaultPoints,
             webPoints: totalWebActivitiesPoints,
+            registeredActivities: registeredActivities,
             recommendedActivities: fetchedActivities
         };
 
@@ -736,9 +799,9 @@
             syncBtn.innerHTML = "✅ Đồng bộ thành công!";
             syncBtn.style.background = "#10B981";
             syncMsg.style.color = "#10B981";
-            syncMsg.innerText = "Dữ liệu đã được cập nhật vào Google Sheet!";
+            syncMsg.innerText = "Dữ liệu đã được cập nhật vào Google Sheet (Listing DRL & Dashboard)!";
             setTimeout(function () {
-                syncBtn.innerHTML = "🚀 Đồng bộ tự động vào Google Sheet";
+                syncBtn.innerHTML = "🚀 Đồng bộ Google Sheet (Chuẩn Tracking DRL)";
                 syncBtn.style.background = "#005F69";
             }, 3500);
         })
@@ -750,7 +813,47 @@
         });
     };
 
-    // 10. Xử lý Copy Bảng Điểm (Khớp 100% Tracking DRL.xlsx)
+    // 10. Xử lý Copy Bảng Listing DRL (Khớp 100% cấu trúc Bảng Listing trong Tracking DRL.xlsx - 8 Cột)
+    var copyListingBtn = document.getElementById("ueh-copy-listing-btn");
+    if (copyListingBtn) {
+        copyListingBtn.onclick = function () {
+            if (!registeredActivities || registeredActivities.length === 0) {
+                alert("Chưa tìm thấy hoạt động nào trên bảng điểm hiện tại!");
+                return;
+            }
+
+            var tsvRows = [];
+            tsvRows.push(["Hoạt động", "Mã hoạt động", "Mục", "Tình trạng", "Điểm", "Đóng tiền", "Link", "Note"]);
+
+            for (var k = 0; k < registeredActivities.length; k++) {
+                var act = registeredActivities[k];
+                tsvRows.push([
+                    act.name,
+                    act.code,
+                    act.criteria,
+                    act.status,
+                    act.points,
+                    "",
+                    act.link,
+                    act.note
+                ]);
+            }
+
+            var tsvContent = tsvRows.map(function (r) { return r.join("\t"); }).join("\n");
+            navigator.clipboard.writeText(tsvContent).then(function () {
+                syncMsg.style.color = "#059669";
+                syncMsg.innerHTML = "✅ <b>Đã copy Bảng Listing DRL (8 cột)!</b> Mở file <i>Tracking DRL.xlsx</i> hoặc Google Sheet, chọn tab <b>Listing DRL</b> (ô A1) rồi bấm <b>Ctrl + V</b>.";
+                copyListingBtn.innerHTML = "✓ Đã Copy 8 Cột!";
+                setTimeout(function () {
+                    copyListingBtn.innerHTML = "📋 Copy Listing DRL (8 Cột)";
+                }, 3000);
+            }).catch(function (err) {
+                alert("Lỗi sao chép: " + err);
+            });
+        };
+    }
+
+    // 11. Xử lý Copy Bảng Điểm 5 Tiêu Chí (Khớp tab Đã cập nhật DRL)
     var copyTableBtn = document.getElementById("ueh-copy-table-btn");
     if (copyTableBtn) {
         copyTableBtn.onclick = function () {
@@ -766,7 +869,7 @@
                 var it = criteriaAnalysis[i];
                 var statusText = it.isCapped ? "ĐÃ ĐẠT MAX (KỊCH TRẦN)" : (it.diff > 0 ? "Cần thêm " + it.diff.toFixed(1) + " điểm" : "Chưa có điểm");
                 tsvRows.push([
-                    it.num,
+                    "TC" + it.num,
                     it.fullName,
                     it.defaultPts,
                     it.webPts,
@@ -785,10 +888,10 @@
 
             navigator.clipboard.writeText(tsvContent).then(function () {
                 syncMsg.style.color = "#059669";
-                syncMsg.innerHTML = "✅ <b>Đã copy Bảng Điểm Chuẩn!</b> Mở Google Sheet / Excel và bấm <b>Cmd + V</b> để dán.";
+                syncMsg.innerHTML = "✅ <b>Đã copy Bảng 5 Tiêu Chí!</b> Mở Google Sheet / Excel và bấm <b>Ctrl + V</b> để dán.";
                 copyTableBtn.innerHTML = "✓ Đã Copy!";
                 setTimeout(function () {
-                    copyTableBtn.innerHTML = "📊 Copy Bảng Điểm (Dán Sheet)";
+                    copyTableBtn.innerHTML = "📊 Copy 5 Tiêu Chí";
                 }, 3000);
             }).catch(function (err) {
                 alert("Lỗi sao chép: " + err);
@@ -796,7 +899,7 @@
         };
     }
 
-    // 11. Xử lý Copy Bảng Hoạt Động Gợi Ý
+    // 12. Xử lý Copy Bảng Hoạt Động Gợi Ý
     var copyActsBtn = document.getElementById("ueh-copy-acts-btn");
     if (copyActsBtn) {
         copyActsBtn.onclick = function () {

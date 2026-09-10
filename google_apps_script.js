@@ -15,18 +15,21 @@ function doPost(e) {
     var data = JSON.parse(e.postData.contents);
     var ss = SpreadsheetApp.getActiveSpreadsheet();
 
-    // 1. Cập nhật Tab Tổng quan Dashboard
+    // 1. Đồng bộ trực tiếp vào Tab 'Listing DRL' (Khớp 100% bảng Tracking DRL.xlsx)
+    syncListingDrlSheet(ss, data.registeredActivities || []);
+
+    // 2. Cập nhật Tab Tổng quan Dashboard
     updateDashboardSheet(ss, data);
 
-    // 2. Cập nhật Tab Hoạt Động Gợi Ý
+    // 3. Cập nhật Tab Hoạt Động Gợi Ý
     updateActivitiesSheet(ss, data.recommendedActivities || []);
 
-    // 3. Ghi lịch sử đồng bộ
+    // 4. Ghi lịch sử đồng bộ
     logSyncHistory(ss, data);
 
     return ContentService.createTextOutput(JSON.stringify({
       status: "success",
-      message: "Đồng bộ thành công dữ liệu ĐRL chuẩn 5 Tiêu chí cho sinh viên K50 IBUS!",
+      message: "Đồng bộ thành công dữ liệu ĐRL chuẩn Tracking DRL.xlsx (Listing DRL & 5 Tiêu chí)!",
       timestamp: new Date().toISOString()
     })).setMimeType(ContentService.MimeType.JSON);
 
@@ -40,6 +43,121 @@ function doPost(e) {
 
 function doGet(e) {
   return ContentService.createTextOutput("UEH-ISB DRL Sync Web App (v3.5) đang hoạt động bình thường! Dùng Bookmarklet trên drs.ueh.edu.vn để đẩy dữ liệu.");
+}
+
+/**
+ * Đồng bộ danh sách hoạt động trực tiếp vào Tab 'Listing DRL'
+ * Khớp 100% cấu trúc Bảng 'Listing' trong file 'Tracking DRL.xlsx' (8 cột chuẩn):
+ * [A] Hoạt động | [B] Mã hoạt động | [C] Mục | [D] Tình trạng | [E] Điểm | [F] Đóng tiền | [G] Link | [H] Note
+ */
+function syncListingDrlSheet(ss, registeredActivities) {
+  var sheetName = "Listing DRL";
+  var sheet = ss.getSheetByName(sheetName);
+  var uehTeal = "#005F69";
+
+  var headers = ["Hoạt động", "Mã hoạt động", "Mục", "Tình trạng", "Điểm", "Đóng tiền", "Link", "Note"];
+
+  if (!sheet) {
+    // Nếu chưa có tab Listing DRL (ví dụ người dùng mở Google Sheet mới)
+    sheet = ss.insertSheet(sheetName, 0);
+    sheet.getRange("A1:H1").setValues([headers])
+      .setFontWeight("bold")
+      .setBackground(uehTeal)
+      .setFontColor("#FFFFFF")
+      .setHorizontalAlignment("center")
+      .setVerticalAlignment("middle");
+    sheet.setRowHeight(1, 36);
+    sheet.setFrozenRows(1);
+  }
+
+  if (!registeredActivities || registeredActivities.length === 0) {
+    return;
+  }
+
+  var lastRow = sheet.getLastRow();
+  var codeMap = {};
+  var nameMap = {};
+
+  if (lastRow >= 2) {
+    var numCols = Math.max(8, sheet.getLastColumn());
+    var existingValues = sheet.getRange(2, 1, lastRow - 1, numCols).getValues();
+    for (var r = 0; r < existingValues.length; r++) {
+      var rowIdx = r + 2;
+      var actName = (existingValues[r][0] || "").toString().trim();
+      var actCode = (existingValues[r][1] || "").toString().trim();
+      if (actCode) {
+        codeMap[actCode] = rowIdx;
+      }
+      if (actName) {
+        nameMap[actName.toLowerCase()] = rowIdx;
+      }
+    }
+  }
+
+  for (var i = 0; i < registeredActivities.length; i++) {
+    var act = registeredActivities[i];
+    if (!act.name && !act.code) continue;
+
+    var targetRow = null;
+    if (act.code && codeMap[act.code]) {
+      targetRow = codeMap[act.code];
+    } else if (act.name && nameMap[act.name.toLowerCase()]) {
+      targetRow = nameMap[act.name.toLowerCase()];
+    }
+
+    if (targetRow) {
+      // Đã có trong Sheet: Cập nhật mã mục, tình trạng 100%, điểm DRS
+      if (act.criteria) sheet.getRange(targetRow, 3).setValue(act.criteria);
+      
+      var statusVal = (act.status === "100%" || act.points > 0) ? 1 : 0.5;
+      sheet.getRange(targetRow, 4).setValue(statusVal).setNumberFormat("0%").setHorizontalAlignment("center");
+      sheet.getRange(targetRow, 5).setValue(act.points).setNumberFormat("0.0").setHorizontalAlignment("center");
+
+      // Giữ nguyên cột Đóng tiền (F), chỉ điền Link/Note nếu ô hiện tại đang trống
+      var currentLink = sheet.getRange(targetRow, 7).getValue();
+      if (!currentLink && act.link) {
+        sheet.getRange(targetRow, 7).setValue(act.link);
+      }
+      var currentNote = sheet.getRange(targetRow, 8).getValue();
+      if (!currentNote && act.note) {
+        sheet.getRange(targetRow, 8).setValue(act.note);
+      }
+    } else {
+      // Hoạt động mới từ DRS: Thêm dòng mới vào cuối bảng Listing DRL
+      var newStatus = (act.status === "100%" || act.points > 0) ? 1 : 0.5;
+      var newRow = [
+        act.name,
+        act.code || "",
+        act.criteria || "",
+        newStatus,
+        act.points || 0,
+        "", // Đóng tiền
+        act.link || "",
+        act.note || "Đồng bộ từ DRS"
+      ];
+      sheet.appendRow(newRow);
+      var newRowIdx = sheet.getLastRow();
+
+      sheet.getRange(newRowIdx, 1).setHorizontalAlignment("left");
+      sheet.getRange(newRowIdx, 2).setHorizontalAlignment("center");
+      sheet.getRange(newRowIdx, 3).setHorizontalAlignment("center");
+      sheet.getRange(newRowIdx, 4).setNumberFormat("0%").setHorizontalAlignment("center");
+      sheet.getRange(newRowIdx, 5).setNumberFormat("0.0").setHorizontalAlignment("center");
+      sheet.getRange(newRowIdx, 6).setHorizontalAlignment("center");
+      sheet.getRange(newRowIdx, 7).setHorizontalAlignment("left");
+      sheet.getRange(newRowIdx, 8).setHorizontalAlignment("left");
+    }
+  }
+
+  // Tối ưu độ rộng các cột chuẩn
+  sheet.setColumnWidth(1, 380); // Tên hoạt động
+  sheet.setColumnWidth(2, 220); // Mã hoạt động
+  sheet.setColumnWidth(3, 90);  // Mục
+  sheet.setColumnWidth(4, 90);  // Tình trạng
+  sheet.setColumnWidth(5, 70);  // Điểm
+  sheet.setColumnWidth(6, 90);  // Đóng tiền
+  sheet.setColumnWidth(7, 240); // Link
+  sheet.setColumnWidth(8, 200); // Note
 }
 
 /**
