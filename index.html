@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cài đặt Tool Track ĐRL UEH.ISB (K50 IBUS) - v3.5</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --ueh-teal: #005F69;
+            --ueh-teal-dark: #00454D;
+            --ueh-teal-light: #E6F4F5;
+            --mac-bg: #F8FAFC;
+        }
+        body {
+            background-color: var(--mac-bg);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            color: #1E293B;
+            padding-bottom: 60px;
+        }
+        .hero-banner {
+            background: linear-gradient(135deg, var(--ueh-teal) 0%, #008891 100%);
+            color: white;
+            padding: 50px 20px;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 10px 30px rgba(0, 95, 105, 0.2);
+            text-align: center;
+        }
+        .card-custom {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-top: 30px;
+        }
+        .drag-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #005F69;
+            color: white !important;
+            padding: 16px 36px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(0, 95, 105, 0.35);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: grab;
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+        }
+        .drag-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 95, 105, 0.45);
+        }
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            background: var(--ueh-teal);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .code-box {
+            background: #0F172A;
+            color: #38BDF8;
+            border-radius: 12px;
+            padding: 18px;
+            font-family: 'SF Mono', Monaco, Consolas, monospace;
+            font-size: 12px;
+            max-height: 280px;
+            overflow-y: auto;
+            position: relative;
+        }
+        .badge-k50 {
+            background: #FEF3C7;
+            color: #92400E;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: inline-block;
+        }
+        .feature-tag {
+            background: var(--ueh-teal-light);
+            color: var(--ueh-teal);
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+        .badge-new {
+            background: #DCFCE7;
+            color: #15803D;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Header -->
+    <div class="hero-banner">
+        <div class="container">
+            <div class="badge-k50 mb-3">🎓 DÀNH CHO SINH VIÊN ISB-IBUS KHÓA 50</div>
+            <h1 class="fw-bold display-5 mb-0">🎯 Smart DRL Tracker UEH-ISB (v3.5)</h1>
+
+        </div>
+    </div>
+
+    <div class="container" style="max-width: 900px;">
+
+        <!-- BƯỚC 1: KÉO BOOKMARKLET -->
+        <div class="card-custom text-center">
+            <div class="d-flex align-items-center justify-content-center gap-3 mb-3">
+                <div class="step-circle">1</div>
+                <h3 class="fw-bold mb-0 text-start">Kéo Bookmarklet v3.5 vào thanh Bookmark trên Mac (Safari / Chrome)</h3>
+            </div>
+            
+            <p class="text-muted mb-4">
+                Bấm phím <code>Cmd + Shift + B</code> trên Chrome hoặc bật <i>View ➔ Always Show Bookmarks Bar</i> trên Safari.<br>
+                Sau đó, <b>hãy nhấn giữ và kéo nút màu xanh bên dưới thả lên thanh Bookmark</b> (thay thế bookmark cũ):
+            </p>
+
+            <div class="p-4 mb-3" style="background: #F1F5F9; border-radius: 16px; border: 2px dashed #CBD5E1;">
+                <a class="drag-btn" id="mainBookmarkletLink" href="javascript:/%2A%2A%0A%20%2A%20%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%0A%20%2A%20SMART%20BOOKMARKLET%3A%20UEH-ISB%20DRL%20TRACKER%20%28K50%20IBUS%29%20-%20PHI%C3%8AN%20B%E1%BA%A2N%203.5%0A%20%2A%20%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%0A%20%2A%20C%E1%BA%ADp%20nh%E1%BA%ADt%20chu%E1%BA%A9n%20x%C3%A1c%20theo%20c%C6%A1%20ch%E1%BA%BF%20%C4%90i%E1%BB%83m%20R%C3%A8n%20Luy%E1%BB%87n%20UEH%20%26%20Kh%E1%BB%9Bp%20100%25%20Tracking%20DRL.xlsx%3A%0A%20%2A%20%20-%20T%E1%BB%B1%20%C4%91%E1%BB%99ng%20c%E1%BB%99ng%20c%C3%A1c%20m%E1%BB%A5c%20%C4%90%C6%AF%E1%BB%A2C%20CHO%20S%E1%BA%B4N%20M%E1%BA%B6C%20%C4%90%E1%BB%8ANH%20%28t%C3%B4%20xanh%20d%C6%B0%C6%A1ng%20trong%20Tracking%20DRL.xlsx%29%3A%0A%20%2A%20%20%20%20%20%20%2B%201.1%3A%20%C3%9D%20th%E1%BB%A9c%20ch%E1%BA%A5p%20h%C3%A0nh%20ph%C3%A1p%20lu%E1%BA%ADt%2C%20n%E1%BB%99i%20quy%20quy%20ch%E1%BA%BF%20%28%2B15.0%C4%91%29%0A%20%2A%20%20%20%20%20%20%2B%202.1%3A%20%C3%9D%20th%E1%BB%A9c%20tr%C3%A1ch%20nhi%E1%BB%87m%20trong%20h%E1%BB%8Dc%20t%E1%BA%ADp%20%28%2B10.0%C4%91%29%0A%20%2A%20%20%20%20%20%20%2B%202.2.1%3A%20%C4%90i%E1%BB%83m%20x%E1%BA%BFp%20lo%E1%BA%A1i%20h%E1%BB%8Dc%20t%E1%BA%ADp%20%28Gi%E1%BB%8Fi%20%2B4.0%C4%91%20/%20Xu%E1%BA%A5t%20s%E1%BA%AFc%20%2B5.0%C4%91%20/%20Kh%C3%A1%20%2B3.0%C4%91%29%0A%20%2A%20%20%20%20%20%20%2B%203.1%3A%20C%C3%B3%20tr%C3%A1ch%20nhi%E1%BB%87m%20tham%20gia%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20ch%C3%ADnh%20tr%E1%BB%8B%20-%20x%C3%A3%20h%E1%BB%99i%20%28%2B5.0%C4%91%29%0A%20%2A%20%20%20%20%20%20%2B%204.1%3A%20Sinh%20ho%E1%BA%A1t%20t%E1%BA%A1i%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%20%28%2B10.0%C4%91%29%0A%20%2A%20%20%20%20%20%20%2B%205.1%3A%20Tinh%20th%E1%BA%A7n%20tr%C3%A1ch%20nhi%E1%BB%87m%2C%20th%C3%A1i%20%C4%91%E1%BB%99%20l%C3%A0m%20vi%E1%BB%87c%2C%20uy%20t%C3%ADn%20%28%2B10.0%C4%91%29%0A%20%2A%20%20%20%20%3D%3D%3E%20T%E1%BB%95ng%20%C4%91i%E1%BB%83m%20c%C6%A1%20s%E1%BB%9F%20cho%20s%E1%BA%B5n%20%3D%2054.0%20%C4%91i%E1%BB%83m%21%0A%20%2A%20%20-%20C%E1%BB%99ng%20d%E1%BB%93n%20v%E1%BB%9Bi%20%C4%91i%E1%BB%83m%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20ngo%E1%BA%A1i%20kh%C3%B3a%20th%E1%BB%B1c%20t%E1%BA%BF%20t%C3%ADch%20l%C5%A9y%20tr%C3%AAn%20web%20DRS.%0A%20%2A%20%20-%20%C4%90%E1%BB%91i%20so%C3%A1t%20ch%C3%ADnh%20x%C3%A1c%20ng%C6%B0%E1%BB%A1ng%20H%E1%BB%8Dc%20b%E1%BB%95ng%20Vi%E1%BB%87n%20ISB%20%28Kh%C3%A1%2065%20-%20T%E1%BB%91t%2080%20-%20Xu%E1%BA%A5t%20s%E1%BA%AFc%2090%29.%0A%20%2A%20%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%3D%0A%20%2A/%0A%0A%28function%20%28%29%20%7B%0A%20%20%20%20//%201.%20Ki%E1%BB%83m%20tra%20URL%20trang%20DRS%0A%20%20%20%20if%20%28%21window.location.hostname.includes%28%22drs.ueh.edu.vn%22%29%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28confirm%28%22%E2%9A%A0%EF%B8%8F%20B%E1%BA%A1n%20c%E1%BA%A7n%20m%E1%BB%9F%20trang%20%C4%90i%E1%BB%83m%20R%C3%A8n%20Luy%E1%BB%87n%20UEH%20%28drs.ueh.edu.vn%29%20%C4%91%E1%BB%83%20s%E1%BB%AD%20d%E1%BB%A5ng%20c%C3%B4ng%20c%E1%BB%A5%20n%C3%A0y.%5Cn%5CnB%E1%BA%A1n%20c%C3%B3%20mu%E1%BB%91n%20m%E1%BB%9F%20drs.ueh.edu.vn%20ngay%20b%C3%A2y%20gi%E1%BB%9D%20kh%C3%B4ng%3F%22%29%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20window.location.href%20%3D%20%22https%3A//drs.ueh.edu.vn/Student/TrainingScore%22%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20if%20%28%21window.location.pathname.includes%28%22/Student/TrainingScore%22%29%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28confirm%28%22%F0%9F%92%A1%20%C4%90%E1%BB%83%20%C4%91%E1%BB%8Dc%20ch%C3%ADnh%20x%C3%A1c%20b%E1%BA%A3ng%20%C4%91i%E1%BB%83m%20chi%20ti%E1%BA%BFt%2C%20b%E1%BA%A1n%20c%E1%BA%A7n%20%E1%BB%9F%20trang%20%27Xem%20%C4%91i%E1%BB%83m%20r%C3%A8n%20luy%E1%BB%87n%27.%5Cn%5CnChuy%E1%BB%83n%20%C4%91%E1%BA%BFn%20trang%20Xem%20%C4%91i%E1%BB%83m%20ngay%20b%C3%A2y%20gi%E1%BB%9D%3F%22%29%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20window.location.href%20%3D%20%22https%3A//drs.ueh.edu.vn/Student/TrainingScore%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20//%20%C4%90%C3%B3ng%20popup%20c%C5%A9%20n%E1%BA%BFu%20%C4%91ang%20m%E1%BB%9F%0A%20%20%20%20var%20existingModal%20%3D%20document.getElementById%28%22ueh-drl-tracker-hud%22%29%3B%0A%20%20%20%20if%20%28existingModal%29%20%7B%0A%20%20%20%20%20%20%20%20existingModal.remove%28%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20//%202.%20C%C3%A0i%20%C4%91%E1%BA%B7t%20c%C3%A1c%20m%E1%BB%A5c%20Cho%20S%E1%BA%B5n%20%28Default%20Points%20t%E1%BB%AB%20Tracking%20DRL.xlsx%29%0A%20%20%20%20var%20savedGpaTier%20%3D%20localStorage.getItem%28%22ueh_drl_gpa_tier%22%29%20%7C%7C%20%22gioi%22%3B%20//%20xuatsac%2C%20gioi%2C%20kha%2C%20tb%0A%20%20%20%20var%20savedIncludeDefaults%20%3D%20localStorage.getItem%28%22ueh_drl_inc_defaults%22%29%20%21%3D%3D%20%22false%22%3B%20//%20default%20true%0A%0A%20%20%20%20var%20gpaPointsMap%20%3D%20%7B%0A%20%20%20%20%20%20%20%20%22xuatsac%22%3A%20%7B%20label%3A%20%22Xu%E1%BA%A5t%20s%E1%BA%AFc%20%28%E2%89%A5%203.6%29%22%2C%20pts%3A%205.0%20%7D%2C%0A%20%20%20%20%20%20%20%20%22gioi%22%3A%20%7B%20label%3A%20%22Gi%E1%BB%8Fi%20%283.2%20-%203.59%29%22%2C%20pts%3A%204.0%20%7D%2C%0A%20%20%20%20%20%20%20%20%22kha%22%3A%20%7B%20label%3A%20%22Kh%C3%A1%20%282.5%20-%203.19%29%22%2C%20pts%3A%203.0%20%7D%2C%0A%20%20%20%20%20%20%20%20%22tb%22%3A%20%7B%20label%3A%20%22Trung%20b%C3%ACnh%20%28%3C%202.5%29%22%2C%20pts%3A%202.0%20%7D%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20var%20currentGpaPts%20%3D%20gpaPointsMap%5BsavedGpaTier%5D%3F.pts%20%7C%7C%204.0%3B%0A%0A%20%20%20%20//%20C%E1%BA%A5u%20h%C3%ACnh%205%20Ti%C3%AAu%20ch%C3%AD%20chu%E1%BA%A9n%20theo%20Tracking%20DRL.xlsx%0A%20%20%20%20var%20tcConfig%20%3D%20%7B%0A%20%20%20%20%20%20%20%20TC1%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20code%3A%20%22TC1%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20num%3A%201%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20name%3A%20%22Ch%E1%BA%A5p%20h%C3%A0nh%20ph%C3%A1p%20lu%E1%BA%ADt%2C%20n%E1%BB%99i%20quy%2C%20quy%20ch%E1%BA%BF%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20fullName%3A%20%22%C4%90%C3%A1nh%20gi%C3%A1%20tr%C3%A1ch%20nhi%E1%BB%87m%20ch%E1%BA%A5p%20h%C3%A0nh%20ph%C3%A1p%20lu%E1%BA%ADt%20v%C3%A0%20n%E1%BB%99i%20quy%2C%20quy%20ch%E1%BA%BF%20c%E1%BB%A7a%20UEH%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20max%3A%2025%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultPts%3A%2015.0%2C%20//%20M%E1%BB%A5c%201.1%3A%2015%C4%91%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultDesc%3A%20%22M%E1%BB%A5c%201.1%20cho%20s%E1%BA%B5n%20%2815%C4%91%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20keywords%3A%20%5B%22ti%C3%AAu%20ch%C3%AD%201%22%2C%20%22nh%C3%B3m%201%22%2C%20%22ch%E1%BA%A5p%20h%C3%A0nh%20ph%C3%A1p%20lu%E1%BA%ADt%22%2C%20%22n%E1%BB%99i%20quy%22%2C%20%22quy%20ch%E1%BA%BF%22%2C%20%22sinh%20ho%E1%BA%A1t%20c%C3%B4ng%20d%C3%A2n%22%5D%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20TC2%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20code%3A%20%22TC2%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20num%3A%202%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20name%3A%20%22Th%C3%A1i%20%C4%91%E1%BB%99%20v%C3%A0%20tr%C3%A1ch%20nhi%E1%BB%87m%20trong%20h%E1%BB%8Dc%20t%E1%BA%ADp%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20fullName%3A%20%22Tr%C3%A1ch%20nhi%E1%BB%87m%2C%20tinh%20th%E1%BA%A7n%20v%C3%A0%20th%C3%A1i%20%C4%91%E1%BB%99%20trong%20h%E1%BB%8Dc%20t%E1%BA%ADp%20t%E1%BA%A1i%20UEH%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20max%3A%2020%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultPts%3A%2010.0%20%2B%20currentGpaPts%2C%20//%20M%E1%BB%A5c%202.1%3A%2010%C4%91%20%2B%20GPA%20%28Gi%E1%BB%8Fi%204%C4%91%29%20%3D%2014%C4%91%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultDesc%3A%20%22M%E1%BB%A5c%202.1%20cho%20s%E1%BA%B5n%20%2810%C4%91%29%20%2B%20GPA%20%28%22%20%2B%20currentGpaPts%20%2B%20%22%C4%91%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20keywords%3A%20%5B%22ti%C3%AAu%20ch%C3%AD%202%22%2C%20%22nh%C3%B3m%202%22%2C%20%22th%C3%A1i%20%C4%91%E1%BB%99%20trong%20h%E1%BB%8Dc%20t%E1%BA%ADp%22%2C%20%22h%E1%BB%8Dc%20v%E1%BB%A5%22%2C%20%22kh%E1%BA%A3o%20th%C3%AD%22%2C%20%22nckh%22%2C%20%22kh%E1%BB%9Fi%20nghi%E1%BB%87p%22%2C%20%22trao%20%C4%91%E1%BB%95i%20sinh%20vi%C3%AAn%22%2C%20%22h%E1%BB%8Dc%20thu%E1%BA%ADt%22%5D%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20TC3%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20code%3A%20%22TC3%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20num%3A%203%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20name%3A%20%22V%C4%83n%20h%C3%B3a%2C%20th%E1%BB%83%20thao%2C%20ph%C3%A1t%20tri%E1%BB%83n%20b%E1%BB%81n%20v%E1%BB%AFng%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20fullName%3A%20%22Ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20ch%C3%ADnh%20tr%E1%BB%8B%2C%20v%C4%83n%20h%C3%B3a%2C%20th%E1%BB%83%20thao%2C%20ph%C3%A1t%20tri%E1%BB%83n%20b%E1%BB%81n%20v%E1%BB%AFng%20%26%20%C4%90%E1%BA%A1i%20h%E1%BB%8Dc%20Xanh%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20max%3A%2020%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultPts%3A%205.0%2C%20//%20M%E1%BB%A5c%203.1%3A%205%C4%91%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultDesc%3A%20%22M%E1%BB%A5c%203.1%20cho%20s%E1%BA%B5n%20%285%C4%91%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20keywords%3A%20%5B%22ti%C3%AAu%20ch%C3%AD%203%22%2C%20%22nh%C3%B3m%203%22%2C%20%22ch%C3%ADnh%20tr%E1%BB%8B%22%2C%20%22v%C4%83n%20h%C3%B3a%22%2C%20%22v%C4%83n%20ngh%E1%BB%87%22%2C%20%22th%E1%BB%83%20thao%22%2C%20%22ph%C3%A1t%20tri%E1%BB%83n%20b%E1%BB%81n%20v%E1%BB%AFng%22%2C%20%22%C4%91%E1%BA%A1i%20h%E1%BB%8Dc%20xanh%22%2C%20%22m%C3%B4i%20tr%C6%B0%E1%BB%9Dng%22%2C%20%22t%C3%ACnh%20nguy%E1%BB%87n%20sinh%20vi%C3%AAn%22%5D%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20TC4%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20code%3A%20%22TC4%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20num%3A%204%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20name%3A%20%22%C3%9D%20th%E1%BB%A9c%20c%C3%B4ng%20d%C3%A2n%20trong%20quan%20h%E1%BB%87%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20fullName%3A%20%22%C4%90%C3%A1nh%20gi%C3%A1%20v%E1%BB%81%20%C3%BD%20th%E1%BB%A9c%20c%C3%B4ng%20d%C3%A2n%20trong%20quan%20h%E1%BB%87%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20max%3A%2015%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultPts%3A%2010.0%2C%20//%20M%E1%BB%A5c%204.1%3A%2010%C4%91%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultDesc%3A%20%22M%E1%BB%A5c%204.1%20cho%20s%E1%BA%B5n%20%2810%C4%91%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20keywords%3A%20%5B%22ti%C3%AAu%20ch%C3%AD%204%22%2C%20%22nh%C3%B3m%204%22%2C%20%22quan%20h%E1%BB%87%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%22%2C%20%22sinh%20ho%E1%BA%A1t%20t%E1%BA%A1i%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%22%2C%20%22n%E1%BB%99i%20-%20ngo%E1%BA%A1i%20tr%C3%BA%22%2C%20%22n%C6%A1i%20c%C6%B0%20tr%C3%BA%22%5D%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20TC5%3A%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20code%3A%20%22TC5%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20num%3A%205%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20name%3A%20%22C%C3%A1n%20s%E1%BB%B1%20l%E1%BB%9Bp%2C%20%C4%91o%C3%A0n%20th%E1%BB%83%20%26%20Th%C3%A0nh%20t%C3%ADch%20thi%20%C4%91ua%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20fullName%3A%20%22C%C3%B4ng%20t%C3%A1c%20c%C3%A1n%20b%E1%BB%99%20l%E1%BB%9Bp%2C%20%C4%91o%C3%A0n%20th%E1%BB%83%2C%20t%E1%BB%95%20ch%E1%BB%A9c%20%26%20Th%C3%A0nh%20t%C3%ADch%20%C4%91%E1%BA%B7c%20bi%E1%BB%87t%2C%20khen%20th%C6%B0%E1%BB%9Fng%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20max%3A%2020%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultPts%3A%2010.0%2C%20//%20M%E1%BB%A5c%205.1%3A%2010%C4%91%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultDesc%3A%20%22M%E1%BB%A5c%205.1%20cho%20s%E1%BA%B5n%20%2810%C4%91%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20keywords%3A%20%5B%22ti%C3%AAu%20ch%C3%AD%205%22%2C%20%22nh%C3%B3m%205%22%2C%20%22c%C3%A1n%20b%E1%BB%99%20l%E1%BB%9Bp%22%2C%20%22c%C3%A1n%20s%E1%BB%B1%22%2C%20%22%C4%91o%C3%A0n%20th%E1%BB%83%22%2C%20%22chi%20%C4%91o%C3%A0n%22%2C%20%22chi%20h%E1%BB%99i%22%2C%20%22c%C3%A2u%20l%E1%BA%A1c%20b%E1%BB%99%22%2C%20%22khen%20th%C6%B0%E1%BB%9Fng%22%2C%20%22sinh%20vi%C3%AAn%205%20t%E1%BB%91t%22%2C%20%22gi%E1%BA%A5y%20khen%22%2C%20%22b%E1%BA%B1ng%20khen%22%2C%20%22th%C3%A0nh%20t%C3%ADch%22%5D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20var%20studentName%20%3D%20%22Sinh%20vi%C3%AAn%20K50%22%3B%0A%20%20%20%20var%20studentId%20%3D%20%22%22%3B%0A%20%20%20%20var%20semester%20%3D%20%22H%E1%BB%8Dc%20k%E1%BB%B3%20hi%E1%BB%87n%20t%E1%BA%A1i%22%3B%0A%20%20%20%20var%20webScores%20%3D%20%7B%20TC1%3A%200%2C%20TC2%3A%200%2C%20TC3%3A%200%2C%20TC4%3A%200%2C%20TC5%3A%200%20%7D%3B%0A%0A%20%20%20%20//%203.%20Tr%C3%ADch%20xu%E1%BA%A5t%20th%C3%B4ng%20tin%20sinh%20vi%C3%AAn%20%26%20H%E1%BB%8Dc%20k%E1%BB%B3%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20var%20userText%20%3D%20document.querySelector%28%22.user-info-ueh%2C%20.navbar-nav-ueh%2C%20header%2C%20.navbar%22%29%3F.innerText%20%7C%7C%20%22%22%3B%0A%20%20%20%20%20%20%20%20var%20idMatch%20%3D%20userText.match%28/%5Cb%2831%5Cd%7B6%2C8%7D%7C%5Cd%7B8%2C10%7D%29%5Cb/%29%3B%0A%20%20%20%20%20%20%20%20if%20%28idMatch%29%20studentId%20%3D%20idMatch%5B1%5D%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20nameMatch%20%3D%20userText.match%28/Ch%C3%A0o%2C%3F%5Cs%2A%28%5B%5E%5Cn%5Cr%5C%7C%E2%80%A2%5D%2B%29/i%29%20%7C%7C%20userText.match%28/%28%5BA-Z%C3%80-%E1%BB%B8%5D%5Ba-z%C3%A0-%E1%BB%B9%5D%2B%28%3F%3A%5Cs%2B%5BA-Z%C3%80-%E1%BB%B8%5D%5Ba-z%C3%A0-%E1%BB%B9%5D%2B%29%7B1%2C4%7D%29/%29%3B%0A%20%20%20%20%20%20%20%20if%20%28nameMatch%29%20studentName%20%3D%20nameMatch%5B1%5D.trim%28%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20var%20semEl%20%3D%20document.querySelector%28%22select%5Bname%2A%3D%27HocKy%27%5D%2C%20select%5Bname%2A%3D%27Semester%27%5D%2C%20.activity-filters%2C%20h2%2C%20h3%22%29%3B%0A%20%20%20%20%20%20%20%20if%20%28semEl%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20semText%20%3D%20semEl.innerText%20%7C%7C%20semEl.value%20%7C%7C%20%22%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20sMatch%20%3D%20semText.match%28/H%E1%BB%8Dc%20k%E1%BB%B3%5Cs%2A%5Cd%2B%28%5Cs%2A-%5Cs%2A%5Cd%2B%29%3F%28%5Cs%2An%C4%83m%5Cs%2A%5Cd%7B4%7D-%5Cd%7B4%7D%29%3F/i%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28sMatch%29%20semester%20%3D%20sMatch%5B0%5D%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%20catch%20%28e%29%20%7B%0A%20%20%20%20%20%20%20%20console.warn%28%22L%E1%BB%97i%20%C4%91%E1%BB%8Dc%20info%20SV%22%2C%20e%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20//%204.%20Tr%C3%ADch%20xu%E1%BA%A5t%20%C4%91i%E1%BB%83m%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20t%E1%BB%AB%20c%C3%A1c%20th%E1%BA%BB%20tr%C3%AAn%20web%20DRS%0A%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20var%20groupCards%20%3D%20document.querySelectorAll%28%22.score-group-card%2C%20.score-card%2C%20.card%2C%20%5Bclass%2A%3D%27score-group%27%5D%22%29%3B%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20groupCards.forEach%28function%20%28card%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20cardText%20%3D%20card.innerText.toLowerCase%28%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20//%20B%E1%BB%8F%20qua%20th%E1%BA%BB%20%C4%91%E1%BA%BFm%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20/%20l%E1%BB%8Bch%20s%E1%BB%AD%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28cardText.includes%28%22s%E1%BB%91%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%22%29%20%7C%7C%20cardText.includes%28%22ch%E1%BB%9D%20duy%E1%BB%87t%22%29%20%7C%7C%20cardText.includes%28%22l%E1%BB%8Bch%20s%E1%BB%AD%22%29%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20scoreVal%20%3D%20null%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20scoreEl%20%3D%20card.querySelector%28%22.current-score%2C%20%5Bclass%2A%3D%27current-score%27%5D%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28scoreEl%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20sVal%20%3D%20parseFloat%28scoreEl.innerText.replace%28%22%2C%22%2C%20%22.%22%29%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28%21isNaN%28sVal%29%29%20scoreVal%20%3D%20sVal%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28scoreVal%20%3D%3D%3D%20null%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20m%20%3D%20card.innerText.match%28/%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5Cs%2A%5C/%5Cs%2A%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29/%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28m%29%20scoreVal%20%3D%20parseFloat%28m%5B1%5D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28scoreVal%20%21%3D%3D%20null%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20for%20%28var%20key%20in%20tcConfig%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20cfg%20%3D%20tcConfig%5Bkey%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20isMatch%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20for%20%28var%20k%20%3D%200%3B%20k%20%3C%20cfg.keywords.length%3B%20k%2B%2B%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28cardText.includes%28cfg.keywords%5Bk%5D%29%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20isMatch%20%3D%20true%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20break%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28isMatch%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20webScores%5Bkey%5D%20%3D%20Math.max%28webScores%5Bkey%5D%2C%20scoreVal%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20//%20N%E1%BA%BFu%20cards%20ch%C6%B0a%20%C4%91%E1%BB%8Dc%20%C4%91%C6%B0%E1%BB%A3c%2C%20qu%C3%A9t%20qua%20table%20chi%20ti%E1%BA%BFt%0A%20%20%20%20%20%20%20%20var%20tables%20%3D%20document.querySelectorAll%28%22table%22%29%3B%0A%20%20%20%20%20%20%20%20tables.forEach%28function%20%28table%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20rows%20%3D%20table.querySelectorAll%28%22tr%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20rows.forEach%28function%20%28row%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20rowText%20%3D%20row.innerText.toLowerCase%28%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20for%20%28var%20key%20in%20tcConfig%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20cfg%20%3D%20tcConfig%5Bkey%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28rowText.includes%28%22ti%C3%AAu%20ch%C3%AD%20%22%20%2B%20cfg.num%29%20%7C%7C%20rowText.includes%28cfg.keywords%5B2%5D%29%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20numMatches%20%3D%20row.innerText.match%28/%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5Cs%2A%5C/%5Cs%2A%28%5Cd%2B%29/%29%20%7C%7C%20row.innerText.match%28/%5Cb%5Cd%2B%28%5C.%5Cd%2B%29%3F%5Cb/g%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28numMatches%20%26%26%20numMatches.length%20%3E%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20parsed%20%3D%20parseFloat%28numMatches%5B1%5D%20%7C%7C%20numMatches%5B0%5D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28%21isNaN%28parsed%29%20%26%26%20webScores%5Bkey%5D%20%3D%3D%3D%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20webScores%5Bkey%5D%20%3D%20parsed%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%29%3B%0A%20%20%20%20%20%20%20%20%7D%29%3B%0A%0A%20%20%20%20%7D%20catch%20%28e%29%20%7B%0A%20%20%20%20%20%20%20%20console.warn%28%22L%E1%BB%97i%20%C4%91%E1%BB%8Dc%20%C4%91i%E1%BB%83m%20t%E1%BB%AB%20web%20DRS%22%2C%20e%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20//%205.%20T%C3%ADnh%20to%C3%A1n%20%C4%90i%E1%BB%83m%20Th%E1%BB%B1c%20T%E1%BA%BF%20%3D%20%C4%90i%E1%BB%83m%20Cho%20S%E1%BA%B5n%20%2B%20%C4%90i%E1%BB%83m%20Ho%E1%BA%A1t%20%C4%90%E1%BB%99ng%20DRS%0A%20%20%20%20var%20scores%20%3D%20%7B%7D%3B%0A%20%20%20%20var%20totalDefaultPoints%20%3D%200%3B%0A%20%20%20%20var%20totalWebActivitiesPoints%20%3D%200%3B%0A%20%20%20%20var%20totalScore%20%3D%200%3B%0A%0A%20%20%20%20var%20criteriaAnalysis%20%3D%20%5B%5D%3B%0A%20%20%20%20var%20deficientList%20%3D%20%5B%5D%3B%0A%0A%20%20%20%20for%20%28var%20tcKey%20in%20tcConfig%29%20%7B%0A%20%20%20%20%20%20%20%20var%20cfg%20%3D%20tcConfig%5BtcKey%5D%3B%0A%20%20%20%20%20%20%20%20var%20defPts%20%3D%20savedIncludeDefaults%20%3F%20cfg.defaultPts%20%3A%200%3B%0A%20%20%20%20%20%20%20%20var%20webPts%20%3D%20webScores%5BtcKey%5D%20%7C%7C%200%3B%0A%0A%20%20%20%20%20%20%20%20//%20X%E1%BB%AD%20l%C3%BD%20th%C3%B4ng%20minh%3A%20n%E1%BA%BFu%20web%20%C4%91%C3%A3%20hi%E1%BB%83n%20th%E1%BB%8B%20s%E1%BB%91%20%C4%91i%E1%BB%83m%20l%E1%BB%9Bn%20h%C6%A1n%20%C4%91i%E1%BB%83m%20cho%20s%E1%BA%B5n%2C%20ngh%C4%A9a%20l%C3%A0%20web%20%C4%91%C3%A3%20c%E1%BB%99ng%20%C4%91i%E1%BB%83m%20cho%20s%E1%BA%B5n%0A%20%20%20%20%20%20%20%20var%20finalPts%20%3D%200%3B%0A%20%20%20%20%20%20%20%20if%20%28webPts%20%3E%3D%20defPts%20%26%26%20defPts%20%3E%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20finalPts%20%3D%20Math.min%28cfg.max%2C%20webPts%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20totalWebActivitiesPoints%20%2B%3D%20%28webPts%20-%20defPts%29%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20finalPts%20%3D%20Math.min%28cfg.max%2C%20defPts%20%2B%20webPts%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20totalWebActivitiesPoints%20%2B%3D%20webPts%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20totalDefaultPoints%20%2B%3D%20defPts%3B%0A%20%20%20%20%20%20%20%20scores%5BtcKey%5D%20%3D%20finalPts%3B%0A%20%20%20%20%20%20%20%20totalScore%20%2B%3D%20finalPts%3B%0A%0A%20%20%20%20%20%20%20%20var%20diff%20%3D%20Math.max%280%2C%20cfg.max%20-%20finalPts%29%3B%0A%20%20%20%20%20%20%20%20var%20isCapped%20%3D%20finalPts%20%3E%3D%20cfg.max%3B%0A%0A%20%20%20%20%20%20%20%20if%20%28diff%20%3E%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20deficientList.push%28%7B%20code%3A%20tcKey%2C%20name%3A%20cfg.name%2C%20diff%3A%20diff%2C%20max%3A%20cfg.max%2C%20current%3A%20finalPts%20%7D%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20criteriaAnalysis.push%28%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20code%3A%20tcKey%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20num%3A%20cfg.num%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20name%3A%20cfg.name%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20fullName%3A%20cfg.fullName%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultPts%3A%20defPts%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20webPts%3A%20webPts%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20current%3A%20finalPts%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20max%3A%20cfg.max%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20diff%3A%20diff%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20isCapped%3A%20isCapped%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20percent%3A%20Math.min%28100%2C%20Math.round%28%28finalPts%20/%20cfg.max%29%20%2A%20100%29%29%0A%20%20%20%20%20%20%20%20%7D%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20deficientList.sort%28function%20%28a%2C%20b%29%20%7B%20return%20b.diff%20-%20a.diff%3B%20%7D%29%3B%0A%0A%20%20%20%20//%206.%20%C4%90%C3%A1nh%20gi%C3%A1%20H%E1%BB%8Dc%20b%E1%BB%95ng%20Vi%E1%BB%87n%20ISB%20cho%20K50%20IBUS%0A%20%20%20%20var%20scholarshipStatus%20%3D%20%22%22%3B%0A%20%20%20%20var%20scholarshipColor%20%3D%20%22%2310B981%22%3B%0A%20%20%20%20var%20nextMilestoneText%20%3D%20%22%22%3B%0A%20%20%20%20var%20currentRank%20%3D%20%22%22%3B%0A%0A%20%20%20%20if%20%28totalScore%20%3E%3D%2090%29%20%7B%0A%20%20%20%20%20%20%20%20currentRank%20%3D%20%22Xu%E1%BA%A5t%20s%E1%BA%AFc%20%28%E2%89%A5%2090%29%22%3B%0A%20%20%20%20%20%20%20%20scholarshipStatus%20%3D%20%22%F0%9F%8C%9F%20%C4%90%E1%BB%A7%20%C4%91i%E1%BB%81u%20ki%E1%BB%87n%20x%C3%A9t%20H%E1%BB%8Dc%20b%E1%BB%95ng%20Xu%E1%BA%A5t%20s%E1%BA%AFc%20ISB%20%28150%25%20to%C3%A0n%20ph%E1%BA%A7n%29%22%3B%0A%20%20%20%20%20%20%20%20scholarshipColor%20%3D%20%22%2310B981%22%3B%0A%20%20%20%20%20%20%20%20nextMilestoneText%20%3D%20%22%F0%9F%8E%89%20Ch%C3%BAc%20m%E1%BB%ABng%20b%E1%BA%A1n%21%20B%E1%BA%A1n%20%C4%91%C3%A3%20%C4%91%E1%BA%A1t%20m%E1%BB%A9c%20%C4%91i%E1%BB%83m%20t%E1%BB%91i%20%C6%B0u%20cao%20nh%E1%BA%A5t%20%C4%91%E1%BB%83%20x%C3%A9t%20H%E1%BB%8Dc%20b%E1%BB%95ng.%22%3B%0A%20%20%20%20%7D%20else%20if%20%28totalScore%20%3E%3D%2080%29%20%7B%0A%20%20%20%20%20%20%20%20currentRank%20%3D%20%22T%E1%BB%91t%20%2880%20-%2089%29%22%3B%0A%20%20%20%20%20%20%20%20scholarshipStatus%20%3D%20%22%E2%AD%90%20%C4%90%E1%BB%A7%20%C4%91i%E1%BB%81u%20ki%E1%BB%87n%20x%C3%A9t%20H%E1%BB%8Dc%20b%E1%BB%95ng%20Gi%E1%BB%8Fi%20ISB%20%28120%25%20to%C3%A0n%20ph%E1%BA%A7n%29%22%3B%0A%20%20%20%20%20%20%20%20scholarshipColor%20%3D%20%22%233B82F6%22%3B%0A%20%20%20%20%20%20%20%20var%20gap%20%3D%20%2890%20-%20totalScore%29.toFixed%281%29%3B%0A%20%20%20%20%20%20%20%20nextMilestoneText%20%3D%20%22%E2%9A%A1%20Ch%E1%BB%89%20c%C3%B2n%20thi%E1%BA%BFu%20%3Cb%3E%22%20%2B%20gap%20%2B%20%22%20%C4%91i%E1%BB%83m%3C/b%3E%20n%E1%BB%AFa%20%C4%91%E1%BB%83%20n%C3%A2ng%20h%E1%BA%A1ng%20l%C3%AAn%20H%E1%BB%8Dc%20b%E1%BB%95ng%20Xu%E1%BA%A5t%20s%E1%BA%AFc%20%28%E2%89%A5%2090%C4%91%29%21%22%3B%0A%20%20%20%20%7D%20else%20if%20%28totalScore%20%3E%3D%2065%29%20%7B%0A%20%20%20%20%20%20%20%20currentRank%20%3D%20%22Kh%C3%A1%20%2865%20-%2079%29%22%3B%0A%20%20%20%20%20%20%20%20scholarshipStatus%20%3D%20%22%20%C4%90%E1%BB%A7%20%C4%91i%E1%BB%81u%20ki%E1%BB%87n%20x%C3%A9t%20H%E1%BB%8Dc%20b%E1%BB%95ng%20Kh%C3%A1%20ISB%20%28100%25%20to%C3%A0n%20ph%E1%BA%A7n%29%22%3B%0A%20%20%20%20%20%20%20%20scholarshipColor%20%3D%20%22%23F59E0B%22%3B%0A%20%20%20%20%20%20%20%20var%20gap%20%3D%20%2880%20-%20totalScore%29.toFixed%281%29%3B%0A%20%20%20%20%20%20%20%20nextMilestoneText%20%3D%20%22%E2%9A%A1%20Ch%E1%BB%89%20c%C3%B2n%20thi%E1%BA%BFu%20%3Cb%3E%22%20%2B%20gap%20%2B%20%22%20%C4%91i%E1%BB%83m%3C/b%3E%20n%E1%BB%AFa%20%C4%91%E1%BB%83%20n%C3%A2ng%20h%E1%BA%A1ng%20l%C3%AAn%20H%E1%BB%8Dc%20b%E1%BB%95ng%20Gi%E1%BB%8Fi%20%28%E2%89%A5%2080%C4%91%29%21%22%3B%0A%20%20%20%20%7D%20else%20if%20%28totalScore%20%3E%3D%2050%29%20%7B%0A%20%20%20%20%20%20%20%20currentRank%20%3D%20%22Trung%20b%C3%ACnh%20%2850%20-%2064%29%22%3B%0A%20%20%20%20%20%20%20%20scholarshipStatus%20%3D%20%22%E2%9A%A0%EF%B8%8F%20Ch%C6%B0a%20%C4%91%E1%BB%A7%20%C4%91i%E1%BB%81u%20ki%E1%BB%87n%20x%C3%A9t%20H%E1%BB%8Dc%20b%E1%BB%95ng%20ISB%20%28C%E1%BA%A7n%20t%E1%BB%91i%20thi%E1%BB%83u%20Kh%C3%A1%20%E2%89%A5%2065%C4%91%29%22%3B%0A%20%20%20%20%20%20%20%20scholarshipColor%20%3D%20%22%23F97316%22%3B%0A%20%20%20%20%20%20%20%20var%20gap%20%3D%20%2865%20-%20totalScore%29.toFixed%281%29%3B%0A%20%20%20%20%20%20%20%20nextMilestoneText%20%3D%20%22%F0%9F%9A%A8%20B%C3%A1o%20%C4%91%E1%BB%99ng%3A%20C%E1%BA%A7n%20t%C3%ADch%20l%C5%A9y%20th%C3%AAm%20t%E1%BB%91i%20thi%E1%BB%83u%20%3Cb%3E%22%20%2B%20gap%20%2B%20%22%20%C4%91i%E1%BB%83m%3C/b%3E%20%C4%91%E1%BB%83%20ch%E1%BA%A1m%20ng%C6%B0%E1%BB%A1ng%20H%E1%BB%8Dc%20b%E1%BB%95ng%20Kh%C3%A1%21%22%3B%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20currentRank%20%3D%20%22Y%E1%BA%BFu%20/%20K%C3%A9m%20%28%3C%2050%29%22%3B%0A%20%20%20%20%20%20%20%20scholarshipStatus%20%3D%20%22%20C%E1%BA%A3nh%20b%C3%A1o%3A%20Nguy%20c%C6%A1%20%C4%91i%E1%BB%83m%20r%C3%A8n%20luy%E1%BB%87n%20y%E1%BA%BFu%21%22%3B%0A%20%20%20%20%20%20%20%20scholarshipColor%20%3D%20%22%23EF4444%22%3B%0A%20%20%20%20%20%20%20%20var%20gap%20%3D%20%2865%20-%20totalScore%29.toFixed%281%29%3B%0A%20%20%20%20%20%20%20%20nextMilestoneText%20%3D%20%22%F0%9F%9A%A8%20B%C3%A1o%20%C4%91%E1%BB%99ng%3A%20C%E1%BA%A7n%20t%C3%ADch%20l%C5%A9y%20th%C3%AAm%20t%E1%BB%91i%20thi%E1%BB%83u%20%3Cb%3E%22%20%2B%20gap%20%2B%20%22%20%C4%91i%E1%BB%83m%3C/b%3E%20%C4%91%E1%BB%83%20%C4%91%E1%BA%A1t%20m%E1%BB%A9c%20Kh%C3%A1.%22%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20//%207.%20T%E1%BA%A1o%20giao%20di%E1%BB%87n%20Floating%20HUD%20%28macOS%20Glassmorphism%20UI%29%0A%20%20%20%20var%20hud%20%3D%20document.createElement%28%22div%22%29%3B%0A%20%20%20%20hud.id%20%3D%20%22ueh-drl-tracker-hud%22%3B%0A%20%20%20%20hud.style.cssText%20%3D%20%5B%0A%20%20%20%20%20%20%20%20%22position%3A%20fixed%22%2C%0A%20%20%20%20%20%20%20%20%22top%3A%2020px%22%2C%0A%20%20%20%20%20%20%20%20%22right%3A%2020px%22%2C%0A%20%20%20%20%20%20%20%20%22width%3A%20450px%22%2C%0A%20%20%20%20%20%20%20%20%22max-height%3A%2092vh%22%2C%0A%20%20%20%20%20%20%20%20%22background%3A%20rgba%28255%2C%20255%2C%20255%2C%200.95%29%22%2C%0A%20%20%20%20%20%20%20%20%22backdrop-filter%3A%20blur%2820px%29%22%2C%0A%20%20%20%20%20%20%20%20%22-webkit-backdrop-filter%3A%20blur%2820px%29%22%2C%0A%20%20%20%20%20%20%20%20%22border%3A%201px%20solid%20rgba%280%2C%2095%2C%20105%2C%200.25%29%22%2C%0A%20%20%20%20%20%20%20%20%22border-radius%3A%2020px%22%2C%0A%20%20%20%20%20%20%20%20%22box-shadow%3A%200%2025px%2060px%20rgba%280%2C%200%2C%200%2C%200.25%29%2C%200%200%200%201px%20rgba%28255%2C%20255%2C%20255%2C%200.6%29%20inset%22%2C%0A%20%20%20%20%20%20%20%20%22z-index%3A%20999999%22%2C%0A%20%20%20%20%20%20%20%20%22font-family%3A%20-apple-system%2C%20BlinkMacSystemFont%2C%20%27SF%20Pro%20Display%27%2C%20%27Segoe%20UI%27%2C%20Roboto%2C%20sans-serif%22%2C%0A%20%20%20%20%20%20%20%20%22color%3A%20%231E293B%22%2C%0A%20%20%20%20%20%20%20%20%22overflow-y%3A%20auto%22%2C%0A%20%20%20%20%20%20%20%20%22padding%3A%200%22%2C%0A%20%20%20%20%20%20%20%20%22transition%3A%20all%200.3s%20cubic-bezier%280.16%2C%201%2C%200.3%2C%201%29%22%2C%0A%20%20%20%20%20%20%20%20%22animation%3A%20uehSlideIn%200.35s%20ease-out%22%0A%20%20%20%20%5D.join%28%22%3B%22%29%3B%0A%0A%20%20%20%20var%20styleSheet%20%3D%20document.createElement%28%22style%22%29%3B%0A%20%20%20%20styleSheet.innerText%20%3D%20%60%0A%20%20%20%20%20%20%20%20%40keyframes%20uehSlideIn%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20from%20%7B%20opacity%3A%200%3B%20transform%3A%20translateY%28-20px%29%20scale%280.95%29%3B%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20to%20%7B%20opacity%3A%201%3B%20transform%3A%20translateY%280%29%20scale%281%29%3B%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%23ueh-drl-tracker-hud%3A%3A-webkit-scrollbar%20%7B%20width%3A%206px%3B%20%7D%0A%20%20%20%20%20%20%20%20%23ueh-drl-tracker-hud%3A%3A-webkit-scrollbar-thumb%20%7B%20background%3A%20rgba%280%2C0%2C0%2C0.15%29%3B%20border-radius%3A%2010px%3B%20%7D%0A%20%20%20%20%20%20%20%20.ueh-hud-tab-btn.active%20%7B%20background%3A%20%23005F69%20%21important%3B%20color%3A%20white%20%21important%3B%20%7D%0A%20%20%20%20%20%20%20%20.ueh-act-card%3Ahover%20%7B%20transform%3A%20translateY%28-2px%29%3B%20box-shadow%3A%200%204px%2012px%20rgba%280%2C0%2C0%2C0.08%29%3B%20%7D%0A%20%20%20%20%60%3B%0A%20%20%20%20document.head.appendChild%28styleSheet%29%3B%0A%0A%20%20%20%20var%20webhookUrl%20%3D%20localStorage.getItem%28%22ueh_drl_webhook_url%22%29%20%7C%7C%20%22%22%3B%0A%0A%20%20%20%20hud.innerHTML%20%3D%20%60%0A%20%20%20%20%20%20%20%20%3C%21--%20Header%20--%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22background%3A%20linear-gradient%28135deg%2C%20%23005F69%200%25%2C%20%23008891%20100%25%29%3B%20color%3A%20white%3B%20padding%3A%2016px%2020px%3B%20border-radius%3A%2019px%2019px%200%200%3B%20display%3A%20flex%3B%20align-items%3A%20center%3B%20justify-content%3A%20space-between%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20align-items%3A%20center%3B%20gap%3A%2010px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22background%3A%20rgba%28255%2C255%2C255%2C0.2%29%3B%20width%3A%2034px%3B%20height%3A%2034px%3B%20border-radius%3A%2010px%3B%20display%3A%20flex%3B%20align-items%3A%20center%3B%20justify-content%3A%20center%3B%20font-size%3A%2018px%3B%22%3E%F0%9F%8E%AF%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-weight%3A%20700%3B%20font-size%3A%2015px%3B%20letter-spacing%3A%20-0.2px%3B%22%3EUEH.ISB%20DRL%20Tracker%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A%2011px%3B%20opacity%3A%200.85%3B%22%3EK50%20IBUS%20%E2%80%A2%20Chu%E1%BA%A9n%205%20Ti%C3%AAu%20ch%C3%AD%20TrackingDRL%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20gap%3A%208px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22ueh-hud-min-btn%22%20style%3D%22background%3A%20rgba%28255%2C255%2C255%2C0.2%29%3B%20border%3A%20none%3B%20color%3A%20white%3B%20width%3A%2026px%3B%20height%3A%2026px%3B%20border-radius%3A%2050%25%3B%20cursor%3A%20pointer%3B%20font-size%3A%2012px%3B%20display%3A%20flex%3B%20align-items%3A%20center%3B%20justify-content%3A%20center%3B%22%3E_%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22ueh-hud-close-btn%22%20style%3D%22background%3A%20rgba%28255%2C255%2C255%2C0.2%29%3B%20border%3A%20none%3B%20color%3A%20white%3B%20width%3A%2026px%3B%20height%3A%2026px%3B%20border-radius%3A%2050%25%3B%20cursor%3A%20pointer%3B%20font-size%3A%2014px%3B%20display%3A%20flex%3B%20align-items%3A%20center%3B%20justify-content%3A%20center%3B%22%3E%E2%9C%95%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22ueh-hud-body%22%20style%3D%22padding%3A%2018px%2020px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%21--%20Th%E1%BA%BB%20%C4%90i%E1%BB%83m%20T%E1%BB%95ng%20%26%20Ph%C3%A2n%20R%C3%A3%20Th%C3%A0nh%20Ph%E1%BA%A7n%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22background%3A%20%23F8FAFC%3B%20border%3A%201px%20solid%20%23E2E8F0%3B%20border-radius%3A%2016px%3B%20padding%3A%2016px%3B%20margin-bottom%3A%2014px%3B%20text-align%3A%20center%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A%2011px%3B%20color%3A%20%2364748B%3B%20font-weight%3A%20700%3B%20text-transform%3A%20uppercase%3B%20letter-spacing%3A%200.5px%3B%22%3ET%E1%BB%94NG%20%C4%90I%E1%BB%82M%20R%C3%88N%20LUY%E1%BB%86N%20D%E1%BB%B0%20KI%E1%BA%BEN%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A%2040px%3B%20font-weight%3A%20800%3B%20color%3A%20%23005F69%3B%20margin%3A%202px%200%202px%200%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%24%7BtotalScore.toFixed%281%29%7D%20%3Cspan%20style%3D%22font-size%3A%2018px%3B%20color%3A%20%2394A3B8%3B%20font-weight%3A%20500%3B%22%3E/%20100%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%21--%20Badge%20%C4%90i%E1%BB%83m%20th%C3%A0nh%20ph%E1%BA%A7n%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20justify-content%3A%20center%3B%20gap%3A%208px%3B%20margin-bottom%3A%208px%3B%20flex-wrap%3A%20wrap%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20style%3D%22background%3A%20%23CFF4FC%3B%20color%3A%20%23055160%3B%20font-size%3A%2011px%3B%20font-weight%3A%20700%3B%20padding%3A%203px%208px%3B%20border-radius%3A%208px%3B%20border%3A%201px%20solid%20%23B6EFFB%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%F0%9F%92%8E%20Cho%20s%E1%BA%B5n%3A%20%24%7BtotalDefaultPoints.toFixed%281%29%7D%C4%91%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20style%3D%22background%3A%20%23E2E8F0%3B%20color%3A%20%23334155%3B%20font-size%3A%2011px%3B%20font-weight%3A%20700%3B%20padding%3A%203px%208px%3B%20border-radius%3A%208px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%F0%9F%8C%90%20Web%20DRS%3A%20%24%7BtotalWebActivitiesPoints.toFixed%281%29%7D%C4%91%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20style%3D%22background%3A%20%24%7BscholarshipColor%7D1A%3B%20color%3A%20%24%7BscholarshipColor%7D%3B%20font-weight%3A%20700%3B%20font-size%3A%2011px%3B%20padding%3A%203px%208px%3B%20border-radius%3A%208px%3B%20border%3A%201px%20solid%20%24%7BscholarshipColor%7D33%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20H%E1%BA%A1ng%3A%20%24%7BcurrentRank%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A%2012px%3B%20font-weight%3A%20600%3B%20color%3A%20%231E293B%3B%20margin-bottom%3A%206px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%24%7BscholarshipStatus%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A%2011px%3B%20color%3A%20%23475569%3B%20background%3A%20%23FFFFFF%3B%20padding%3A%208px%2012px%3B%20border-radius%3A%2010px%3B%20border%3A%201px%20dashed%20%23CBD5E1%3B%20line-height%3A%201.4%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%24%7BnextMilestoneText%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%21--%20Kh%E1%BB%91i%20T%C3%B9y%20ch%E1%BB%89nh%20%C4%90i%E1%BB%83m%20Cho%20S%E1%BA%B5n%20%26%20GPA%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22background%3A%20%23F1F5F9%3B%20border%3A%201px%20solid%20%23E2E8F0%3B%20border-radius%3A%2012px%3B%20padding%3A%2010px%2012px%3B%20margin-bottom%3A%2014px%3B%20font-size%3A%2011px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20justify-content%3A%20space-between%3B%20align-items%3A%20center%3B%20margin-bottom%3A%206px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20style%3D%22display%3A%20flex%3B%20align-items%3A%20center%3B%20gap%3A%206px%3B%20font-weight%3A%20700%3B%20color%3A%20%23005F69%3B%20cursor%3A%20pointer%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20type%3D%22checkbox%22%20id%3D%22ueh-toggle-defaults%22%20%24%7BsavedIncludeDefaults%20%3F%20%22checked%22%20%3A%20%22%22%7D%20style%3D%22cursor%3A%20pointer%3B%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%3EC%E1%BB%99ng%20%C4%91i%E1%BB%83m%20cho%20s%E1%BA%B5n%20%281.1%2C%202.1%2C%203.1%2C%204.1%2C%205.1%29%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/label%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20style%3D%22color%3A%20%230369A1%3B%20font-weight%3A%20700%3B%22%3E%2B50.0%C4%91%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20justify-content%3A%20space-between%3B%20align-items%3A%20center%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20style%3D%22color%3A%20%23475569%3B%20font-weight%3A%20600%3B%22%3EX%E1%BA%BFp%20lo%E1%BA%A1i%20h%E1%BB%8Dc%20t%E1%BA%ADp%20%28M%E1%BB%A5c%202.2.1%29%3A%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cselect%20id%3D%22ueh-gpa-select%22%20style%3D%22padding%3A%202px%206px%3B%20font-size%3A%2011px%3B%20border-radius%3A%206px%3B%20border%3A%201px%20solid%20%23CBD5E1%3B%20background%3A%20white%3B%20color%3A%20%23005F69%3B%20font-weight%3A%20700%3B%20cursor%3A%20pointer%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Coption%20value%3D%22xuatsac%22%20%24%7BsavedGpaTier%20%3D%3D%3D%20%22xuatsac%22%20%3F%20%22selected%22%20%3A%20%22%22%7D%3EXu%E1%BA%A5t%20s%E1%BA%AFc%20%28%2B5%C4%91%29%3C/option%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Coption%20value%3D%22gioi%22%20%24%7BsavedGpaTier%20%3D%3D%3D%20%22gioi%22%20%3F%20%22selected%22%20%3A%20%22%22%7D%3EGi%E1%BB%8Fi%20%28%2B4%C4%91%29%3C/option%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Coption%20value%3D%22kha%22%20%24%7BsavedGpaTier%20%3D%3D%3D%20%22kha%22%20%3F%20%22selected%22%20%3A%20%22%22%7D%3EKh%C3%A1%20%28%2B3%C4%91%29%3C/option%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Coption%20value%3D%22tb%22%20%24%7BsavedGpaTier%20%3D%3D%3D%20%22tb%22%20%3F%20%22selected%22%20%3A%20%22%22%7D%3ETrung%20b%C3%ACnh%20%28%2B2%C4%91%29%3C/option%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/select%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%21--%20Tab%20%C4%90i%E1%BB%81u%20h%C6%B0%E1%BB%9Bng%3A%205%20Ti%C3%AAu%20ch%C3%AD%20vs%20Ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20g%E1%BB%A3i%20%C3%BD%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20gap%3A%208px%3B%20margin-bottom%3A%2012px%3B%20background%3A%20%23E2E8F0%3B%20padding%3A%203px%3B%20border-radius%3A%2010px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22tab-btn-scores%22%20class%3D%22ueh-hud-tab-btn%20active%22%20style%3D%22flex%3A%201%3B%20border%3A%20none%3B%20padding%3A%207px%200%3B%20border-radius%3A%208px%3B%20font-size%3A%2012px%3B%20font-weight%3A%20600%3B%20cursor%3A%20pointer%3B%20transition%3A%20all%200.2s%3B%22%3E%F0%9F%93%8A%205%20Ti%C3%AAu%20Ch%C3%AD%20Chu%E1%BA%A9n%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22tab-btn-acts%22%20class%3D%22ueh-hud-tab-btn%22%20style%3D%22flex%3A%201%3B%20border%3A%20none%3B%20padding%3A%207px%200%3B%20border-radius%3A%208px%3B%20font-size%3A%2012px%3B%20font-weight%3A%20600%3B%20cursor%3A%20pointer%3B%20background%3A%20transparent%3B%20color%3A%20%23475569%3B%20transition%3A%20all%200.2s%3B%22%3E%F0%9F%8E%AF%20Ho%E1%BA%A1t%20%C4%90%E1%BB%99ng%20G%E1%BB%A3i%20%C3%9D%20%3Cspan%20id%3D%22act-badge-count%22%20style%3D%22background%3A%23EF4444%3B%20color%3Awhite%3B%20font-size%3A9px%3B%20padding%3A1px%205px%3B%20border-radius%3A10px%3B%20margin-left%3A2px%3B%22%3E...%3C/span%3E%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%21--%20N%E1%BB%98I%20DUNG%20TAB%201%3A%205%20Ti%C3%AAu%20ch%C3%AD%20chu%E1%BA%A9n%20theo%20Tracking%20DRL.xlsx%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22tab-content-scores%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A%2011px%3B%20font-weight%3A%20700%3B%20color%3A%20%23005F69%3B%20margin-bottom%3A%208px%3B%20display%3A%20flex%3B%20justify-content%3A%20space-between%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%3ETI%C3%8AU%20CH%C3%8D%20%28TC1%20-%20TC5%29%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%3E%C4%90%C3%83%20%C4%90%E1%BA%A0T%20/%20MAX%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20flex-direction%3A%20column%3B%20gap%3A%208px%3B%20margin-bottom%3A%2014px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%24%7BcriteriaAnalysis.map%28function%20%28item%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20barColor%20%3D%20item.isCapped%20%3F%20%22%2310B981%22%20%3A%20item.diff%20%3E%208%20%3F%20%22%23EF4444%22%20%3A%20%22%23F59E0B%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20tag%20%3D%20item.isCapped%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3F%20%60%3Cspan%20style%3D%22background%3A%20%23DEF7EC%3B%20color%3A%20%2303543F%3B%20font-size%3A%2010px%3B%20font-weight%3A%20700%3B%20padding%3A%202px%206px%3B%20border-radius%3A%206px%3B%22%3E%C4%90%C3%83%20MAX%3C/span%3E%60%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3A%20%60%3Cspan%20style%3D%22background%3A%20%23FEF3C7%3B%20color%3A%20%2392400E%3B%20font-size%3A%2010px%3B%20font-weight%3A%20700%3B%20padding%3A%202px%206px%3B%20border-radius%3A%206px%3B%22%3EThi%E1%BA%BFu%20%24%7Bitem.diff.toFixed%281%29%7D%C4%91%3C/span%3E%60%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20%60%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22background%3A%20white%3B%20border%3A%201px%20solid%20%23E2E8F0%3B%20border-radius%3A%2012px%3B%20padding%3A%2010px%2012px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20justify-content%3A%20space-between%3B%20align-items%3A%20center%3B%20margin-bottom%3A%203px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A%2012px%3B%20font-weight%3A%20600%3B%20color%3A%20%231E293B%3B%20max-width%3A%20250px%3B%20overflow%3A%20hidden%3B%20text-overflow%3A%20ellipsis%3B%20white-space%3A%20nowrap%3B%22%20title%3D%22%24%7Bitem.fullName%7D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cb%20style%3D%22color%3A%20%23005F69%3B%22%3ETC%24%7Bitem.num%7D%3A%3C/b%3E%20%24%7Bitem.name%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20align-items%3A%20center%3B%20gap%3A%206px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%24%7Btag%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20style%3D%22font-size%3A%2012px%3B%20font-weight%3A%20700%3B%20color%3A%20%231E293B%3B%22%3E%24%7Bitem.current%7D/%24%7Bitem.max%7D%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A%2010px%3B%20color%3A%20%2364748B%3B%20margin-bottom%3A%204px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%24%7Bitem.defaultPts%20%3E%200%20%3F%20%60%3Cspan%20style%3D%22color%3A%230284C7%3B%20font-weight%3A600%3B%22%3E%F0%9F%92%8E%20Cho%20s%E1%BA%B5n%3A%20%24%7Bitem.defaultPts%7D%C4%91%3C/span%3E%20%E2%80%A2%20%60%20%3A%20%22%22%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%3E%F0%9F%8C%90%20DRS%3A%20%24%7Bitem.webPts%7D%C4%91%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22background%3A%20%23F1F5F9%3B%20height%3A%206px%3B%20border-radius%3A%2010px%3B%20overflow%3A%20hidden%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22background%3A%20%24%7BbarColor%7D%3B%20width%3A%20%24%7Bitem.percent%7D%25%3B%20height%3A%20100%25%3B%20border-radius%3A%2010px%3B%20transition%3A%20width%200.5s%20ease%3B%22%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%60%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%29.join%28%22%22%29%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%21--%20N%E1%BB%98I%20DUNG%20TAB%202%3A%20Ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20%C4%91ang%20m%E1%BB%9F%20kh%E1%BB%9Bp%20v%E1%BB%9Bi%20m%E1%BB%A5c%20thi%E1%BA%BFu%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22tab-content-acts%22%20style%3D%22display%3A%20none%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20justify-content%3A%20space-between%3B%20align-items%3A%20center%3B%20margin-bottom%3A%208px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20style%3D%22font-size%3A%2011px%3B%20font-weight%3A%20600%3B%20color%3A%20%2364748B%3B%22%3E%C6%AFu%20ti%C3%AAn%20b%C3%B9%20ti%C3%AAu%20ch%C3%AD%20%C4%91ang%20thi%E1%BA%BFu%3A%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22ueh-copy-acts-btn%22%20title%3D%22Sao%20ch%C3%A9p%20danh%20s%C3%A1ch%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20th%C3%A0nh%20b%E1%BA%A3ng%20t%C3%ADnh%20%28d%C3%A1n%20v%C3%A0o%20Sheet/Excel%29%22%20style%3D%22background%3A%20%23EFF6FF%3B%20color%3A%20%231D4ED8%3B%20border%3A%201px%20solid%20%23BFDBFE%3B%20padding%3A%204px%208px%3B%20border-radius%3A%206px%3B%20font-size%3A%2010px%3B%20font-weight%3A%20700%3B%20cursor%3A%20pointer%3B%20display%3A%20flex%3B%20align-items%3A%20center%3B%20gap%3A%204px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%F0%9F%93%8B%20Copy%20B%E1%BA%A3ng%20Ho%E1%BA%A1t%20%C4%90%E1%BB%99ng%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22ueh-acts-loading%22%20style%3D%22text-align%3A%20center%3B%20padding%3A%2020px%3B%20color%3A%20%2364748B%3B%20font-size%3A%2012px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A%2020px%3B%20margin-bottom%3A%206px%3B%22%3E%E2%8F%B3%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%C4%90ang%20qu%C3%A9t%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20m%E1%BB%9F%20t%E1%BA%A1i%20%3Cb%3E/Student/AllActivities%3C/b%3E...%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22ueh-acts-list%22%20style%3D%22display%3A%20flex%3B%20flex-direction%3A%20column%3B%20gap%3A%208px%3B%20max-height%3A%20280px%3B%20overflow-y%3A%20auto%3B%20padding-right%3A%202px%3B%22%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%21--%20KH%E1%BB%90I%20%C4%90%E1%BB%92NG%20B%E1%BB%98%20%26%20COPY%20D%E1%BB%AE%20LI%E1%BB%86U%20--%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22margin-top%3A%2014px%3B%20padding-top%3A%2014px%3B%20border-top%3A%201px%20dashed%20%23CBD5E1%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A%2011px%3B%20font-weight%3A%20700%3B%20color%3A%20%23475569%3B%20margin-bottom%3A%206px%3B%20display%3A%20flex%3B%20justify-content%3A%20space-between%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%3EGOOGLE%20APPS%20SCRIPT%20WEB%20APP%20URL%3A%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ca%20href%3D%22https%3A//sheets.new%22%20target%3D%22_blank%22%20style%3D%22color%3A%20%23005F69%3B%20text-decoration%3A%20none%3B%22%3ET%E1%BA%A1o%20Sheet%20m%E1%BB%9Bi%20%E2%86%97%3C/a%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22ueh-webhook-input%22%20type%3D%22text%22%20placeholder%3D%22https%3A//script.google.com/macros/s/.../exec%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20value%3D%22%24%7BwebhookUrl%7D%22%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20style%3D%22width%3A%20100%25%3B%20box-sizing%3A%20border-box%3B%20padding%3A%208px%2010px%3B%20font-size%3A%2011px%3B%20border%3A%201px%20solid%20%23CBD5E1%3B%20border-radius%3A%208px%3B%20margin-bottom%3A%208px%3B%20font-family%3A%20monospace%3B%22%20/%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20flex-direction%3A%20column%3B%20gap%3A%208px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22ueh-sync-sheet-btn%22%20style%3D%22background%3A%20%23005F69%3B%20color%3A%20white%3B%20border%3A%20none%3B%20padding%3A%2010px%3B%20border-radius%3A%2010px%3B%20font-weight%3A%20700%3B%20font-size%3A%2012px%3B%20cursor%3A%20pointer%3B%20display%3A%20flex%3B%20align-items%3A%20center%3B%20justify-content%3A%20center%3B%20gap%3A%206px%3B%20box-shadow%3A%200%204px%2012px%20rgba%280%2C95%2C105%2C0.25%29%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%3E%F0%9F%9A%80%20%C4%90%E1%BB%93ng%20b%E1%BB%99%20t%E1%BB%B1%20%C4%91%E1%BB%99ng%20v%C3%A0o%20Google%20Sheet%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20gap%3A%208px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22ueh-copy-table-btn%22%20title%3D%22Sao%20ch%C3%A9p%20to%C3%A0n%20b%E1%BB%99%20b%E1%BA%A3ng%20%C4%91i%E1%BB%83m%20%28d%C3%A1n%20%C4%91%C6%B0%E1%BB%A3c%20ngay%20v%C3%A0o%20Google%20Sheet%20ho%E1%BA%B7c%20Excel%29%22%20style%3D%22flex%3A%201%3B%20background%3A%20%23ECFDF5%3B%20color%3A%20%23065F46%3B%20border%3A%201px%20solid%20%23A7F3D0%3B%20padding%3A%209px%208px%3B%20border-radius%3A%2010px%3B%20font-weight%3A%20700%3B%20font-size%3A%2011px%3B%20cursor%3A%20pointer%3B%20display%3A%20flex%3B%20align-items%3A%20center%3B%20justify-content%3A%20center%3B%20gap%3A%204px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%F0%9F%93%8A%20Copy%20B%E1%BA%A3ng%20%C4%90i%E1%BB%83m%20%28D%C3%A1n%20Sheet%29%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%20id%3D%22ueh-copy-data-btn%22%20title%3D%22Sao%20ch%C3%A9p%20t%C3%B3m%20t%E1%BA%AFt%20d%E1%BA%A1ng%20v%C4%83n%20b%E1%BA%A3n%20%C4%91%E1%BB%83%20g%E1%BB%ADi%20chat/tin%20nh%E1%BA%AFn%22%20style%3D%22flex%3A%201%3B%20background%3A%20%23F1F5F9%3B%20color%3A%20%23334155%3B%20border%3A%201px%20solid%20%23CBD5E1%3B%20padding%3A%209px%208px%3B%20border-radius%3A%2010px%3B%20font-weight%3A%20600%3B%20font-size%3A%2011px%3B%20cursor%3A%20pointer%3B%20display%3A%20flex%3B%20align-items%3A%20center%3B%20justify-content%3A%20center%3B%20gap%3A%204px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%F0%9F%93%9D%20Copy%20T%C3%B3m%20T%E1%BA%AFt%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/button%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22ueh-sync-msg%22%20style%3D%22font-size%3A%2011px%3B%20text-align%3A%20center%3B%20margin-top%3A%206px%3B%20font-weight%3A%20600%3B%22%3E%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%60%3B%0A%0A%20%20%20%20document.body.appendChild%28hud%29%3B%0A%0A%20%20%20%20//%20Event%3A%20Thay%20%C4%91%E1%BB%95i%20Checkbox%20%C4%91i%E1%BB%83m%20cho%20s%E1%BA%B5n%20ho%E1%BA%B7c%20Dropdown%20GPA%20-%3E%20Load%20l%E1%BA%A1i%20HUD%20t%E1%BB%A9c%20th%C3%AC%0A%20%20%20%20document.getElementById%28%22ueh-toggle-defaults%22%29.onchange%20%3D%20function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20localStorage.setItem%28%22ueh_drl_inc_defaults%22%2C%20this.checked%20%3F%20%22true%22%20%3A%20%22false%22%29%3B%0A%20%20%20%20%20%20%20%20hud.remove%28%29%3B%0A%20%20%20%20%20%20%20%20//%20G%E1%BB%8Di%20l%E1%BA%A1i%20bookmarklet%0A%20%20%20%20%20%20%20%20eval%28document.getElementById%28%22mainBookmarkletLink%22%29%3F.getAttribute%28%22href%22%29%20%7C%7C%20%22%22%29%3B%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20document.getElementById%28%22ueh-gpa-select%22%29.onchange%20%3D%20function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20localStorage.setItem%28%22ueh_drl_gpa_tier%22%2C%20this.value%29%3B%0A%20%20%20%20%20%20%20%20hud.remove%28%29%3B%0A%20%20%20%20%20%20%20%20eval%28document.getElementById%28%22mainBookmarkletLink%22%29%3F.getAttribute%28%22href%22%29%20%7C%7C%20%22%22%29%3B%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20//%20X%E1%BB%AD%20l%C3%BD%20n%C3%BAt%20%C4%90%C3%B3ng%20%26%20Thu%20nh%E1%BB%8F%0A%20%20%20%20document.getElementById%28%22ueh-hud-close-btn%22%29.onclick%20%3D%20function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20hud.remove%28%29%3B%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20var%20isMin%20%3D%20false%3B%0A%20%20%20%20document.getElementById%28%22ueh-hud-min-btn%22%29.onclick%20%3D%20function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20var%20body%20%3D%20document.getElementById%28%22ueh-hud-body%22%29%3B%0A%20%20%20%20%20%20%20%20if%20%28%21isMin%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20body.style.display%20%3D%20%22none%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20hud.style.width%20%3D%20%22220px%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20this.innerText%20%3D%20%22%2B%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20isMin%20%3D%20true%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20body.style.display%20%3D%20%22block%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20hud.style.width%20%3D%20%22450px%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20this.innerText%20%3D%20%22_%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20isMin%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20//%20Tab%20switcher%0A%20%20%20%20var%20tabBtnScores%20%3D%20document.getElementById%28%22tab-btn-scores%22%29%3B%0A%20%20%20%20var%20tabBtnActs%20%3D%20document.getElementById%28%22tab-btn-acts%22%29%3B%0A%20%20%20%20var%20tabContentScores%20%3D%20document.getElementById%28%22tab-content-scores%22%29%3B%0A%20%20%20%20var%20tabContentActs%20%3D%20document.getElementById%28%22tab-content-acts%22%29%3B%0A%0A%20%20%20%20tabBtnScores.onclick%20%3D%20function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20tabBtnScores.classList.add%28%22active%22%29%3B%0A%20%20%20%20%20%20%20%20tabBtnActs.classList.remove%28%22active%22%29%3B%0A%20%20%20%20%20%20%20%20tabContentScores.style.display%20%3D%20%22block%22%3B%0A%20%20%20%20%20%20%20%20tabContentActs.style.display%20%3D%20%22none%22%3B%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20tabBtnActs.onclick%20%3D%20function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20tabBtnActs.classList.add%28%22active%22%29%3B%0A%20%20%20%20%20%20%20%20tabBtnScores.classList.remove%28%22active%22%29%3B%0A%20%20%20%20%20%20%20%20tabContentScores.style.display%20%3D%20%22none%22%3B%0A%20%20%20%20%20%20%20%20tabContentActs.style.display%20%3D%20%22block%22%3B%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20//%208.%20C%C3%A0o%20ng%E1%BA%A7m%20danh%20s%C3%A1ch%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20t%E1%BB%AB%20/Student/AllActivities%0A%20%20%20%20var%20fetchedActivities%20%3D%20%5B%5D%3B%0A%0A%20%20%20%20fetch%28%22/Student/AllActivities%22%29%0A%20%20%20%20%20%20%20%20.then%28function%20%28res%29%20%7B%20return%20res.text%28%29%3B%20%7D%29%0A%20%20%20%20%20%20%20%20.then%28function%20%28html%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20parser%20%3D%20new%20DOMParser%28%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20doc%20%3D%20parser.parseFromString%28html%2C%20%22text/html%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20tableRows%20%3D%20doc.querySelectorAll%28%22%23activitiesTable%20tbody%20tr%2C%20table%20tbody%20tr%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20loadingEl%20%3D%20document.getElementById%28%22ueh-acts-loading%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20listEl%20%3D%20document.getElementById%28%22ueh-acts-list%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20badgeCount%20%3D%20document.getElementById%28%22act-badge-count%22%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28tableRows.length%20%3D%3D%3D%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28loadingEl%29%20loadingEl.innerHTML%20%3D%20%22%F0%9F%92%A1%20Hi%E1%BB%87n%20ch%C6%B0a%20c%C3%B3%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20n%C3%A0o%20%C4%91ang%20m%E1%BB%9F%20ho%E1%BA%B7c%20b%E1%BA%A1n%20ch%C6%B0a%20%C4%91%C4%83ng%20nh%E1%BA%ADp.%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28badgeCount%29%20badgeCount.innerText%20%3D%20%220%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20tableRows.forEach%28function%20%28tr%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20text%20%3D%20tr.innerText%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20cells%20%3D%20tr.querySelectorAll%28%22td%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28cells.length%20%3E%3D%203%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20title%20%3D%20cells%5B0%5D%3F.innerText.trim%28%29%20%7C%7C%20cells%5B1%5D%3F.innerText.trim%28%29%20%7C%7C%20%22Ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20catText%20%3D%20text.toLowerCase%28%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20category%20%3D%20%22TC3%22%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20for%20%28var%20k%20in%20tcConfig%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20cfg%20%3D%20tcConfig%5Bk%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20for%20%28var%20w%20%3D%200%3B%20w%20%3C%20cfg.keywords.length%3B%20w%2B%2B%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28catText.includes%28cfg.keywords%5Bw%5D%29%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20category%20%3D%20k%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20break%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20points%20%3D%202%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20ptMatch%20%3D%20text.match%28/%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29%5Cs%2A%C4%91i%E1%BB%83m/i%29%20%7C%7C%20text.match%28/%5C%2B%5Cs%2A%28%5Cd%2B%28%5C.%5Cd%2B%29%3F%29/%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28ptMatch%29%20points%20%3D%20parseFloat%28ptMatch%5B1%5D%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20deadline%20%3D%20%22%C4%90ang%20m%E1%BB%9F%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20dateMatch%20%3D%20text.match%28/%5Cd%7B2%7D%5C/%5Cd%7B2%7D%5C/%5Cd%7B4%7D/%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28dateMatch%29%20deadline%20%3D%20dateMatch%5B0%5D%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20link%20%3D%20%22https%3A//drs.ueh.edu.vn/Student/AllActivities%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20a%20%3D%20tr.querySelector%28%22a%5Bhref%2A%3D%27Detail%27%5D%2C%20a%5Bhref%2A%3D%27Register%27%5D%2C%20a.btn%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28a%20%26%26%20a.href%29%20link%20%3D%20a.href%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20catDeficit%20%3D%20%28tcConfig%5Bcategory%5D.max%20-%20%28scores%5Bcategory%5D%20%7C%7C%200%29%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20priority%20%3D%20%22%E2%AD%90%20Khuy%E1%BA%BFn%20ngh%E1%BB%8B%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20badgeStyle%20%3D%20%22background%3A%20%23EFF6FF%3B%20color%3A%20%231D4ED8%3B%22%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20if%20%28catDeficit%20%3C%3D%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20priority%20%3D%20%22%E2%9A%AA%20%C4%90%C3%83%20MAX%20%28Kh%C3%B4ng%20t%C4%83ng%20t%E1%BB%95ng%29%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20badgeStyle%20%3D%20%22background%3A%20%23F1F5F9%3B%20color%3A%20%2364748B%3B%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20if%20%28catDeficit%20%3E%3D%208%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20priority%20%3D%20%22%F0%9F%94%A5%F0%9F%94%A5%20%C6%AFU%20TI%C3%8AN%20CAO%20%28B%C3%B9%20%22%20%2B%20catDeficit.toFixed%281%29%20%2B%20%22%C4%91%20thi%E1%BA%BFu%29%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20badgeStyle%20%3D%20%22background%3A%20%23FEF2F2%3B%20color%3A%20%23B91C1C%3B%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20priority%20%3D%20%22%E2%AD%90%20KHUY%E1%BA%BEN%20NGH%E1%BB%8A%20%28B%C3%B9%20%22%20%2B%20catDeficit.toFixed%281%29%20%2B%20%22%C4%91%20thi%E1%BA%BFu%29%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20badgeStyle%20%3D%20%22background%3A%20%23FEFCE8%3B%20color%3A%20%23854D0E%3B%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20fetchedActivities.push%28%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20title%3A%20title%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20category%3A%20category%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20points%3A%20points%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20deadline%3A%20deadline%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20priority%3A%20priority%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20badgeStyle%3A%20badgeStyle%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20link%3A%20link%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20deficit%3A%20catDeficit%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20fetchedActivities.sort%28function%20%28a%2C%20b%29%20%7B%20return%20b.deficit%20-%20a.deficit%3B%20%7D%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28badgeCount%29%20badgeCount.innerText%20%3D%20fetchedActivities.length%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28loadingEl%29%20loadingEl.remove%28%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28fetchedActivities.length%20%3D%3D%3D%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20listEl.innerHTML%20%3D%20%60%3Cdiv%20style%3D%22text-align%3Acenter%3B%20color%3A%2394A3B8%3B%20padding%3A12px%3B%20font-size%3A12px%3B%22%3EKh%C3%B4ng%20c%C3%B3%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20n%C3%A0o%20%C4%91ang%20m%E1%BB%9F.%3C/div%3E%60%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20listEl.innerHTML%20%3D%20fetchedActivities.map%28function%20%28act%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%20%60%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22ueh-act-card%22%20style%3D%22background%3A%20white%3B%20border%3A%201px%20solid%20%23E2E8F0%3B%20border-radius%3A%2012px%3B%20padding%3A%2010px%2012px%3B%20transition%3A%20all%200.2s%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20justify-content%3A%20space-between%3B%20align-items%3A%20flex-start%3B%20margin-bottom%3A%204px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20style%3D%22font-size%3A%2010px%3B%20font-weight%3A%20700%3B%20padding%3A%202px%206px%3B%20border-radius%3A%206px%3B%20background%3A%20%23005F691A%3B%20color%3A%20%23005F69%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%24%7Bact.category%7D%3A%20%24%7BtcConfig%5Bact.category%5D.name%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%20style%3D%22font-size%3A%2010px%3B%20font-weight%3A%20700%3B%20padding%3A%202px%206px%3B%20border-radius%3A%206px%3B%20%24%7Bact.badgeStyle%7D%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%24%7Bact.priority%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22font-size%3A%2012px%3B%20font-weight%3A%20600%3B%20color%3A%20%231E293B%3B%20line-height%3A%201.3%3B%20margin-bottom%3A%206px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%24%7Bact.title%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3A%20flex%3B%20justify-content%3A%20space-between%3B%20align-items%3A%20center%3B%20font-size%3A%2011px%3B%20color%3A%20%2364748B%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cspan%3E%E2%9E%95%20%3Cb%3E%24%7Bact.points%7D%C4%91%3C/b%3E%20%E2%80%A2%20H%E1%BA%A1n%3A%20%24%7Bact.deadline%7D%3C/span%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ca%20href%3D%22%24%7Bact.link%7D%22%20target%3D%22_blank%22%20style%3D%22color%3A%20%23005F69%3B%20font-weight%3A%20700%3B%20text-decoration%3A%20none%3B%20background%3A%20%23E6F4F5%3B%20padding%3A%203px%208px%3B%20border-radius%3A%206px%3B%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%C4%90%C4%83ng%20k%C3%BD%20%E2%86%97%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/a%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C/div%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%60%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%29.join%28%22%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%29%0A%20%20%20%20%20%20%20%20.catch%28function%20%28err%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20console.error%28%22L%E1%BB%97i%20fetch%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%3A%22%2C%20err%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20loadingEl%20%3D%20document.getElementById%28%22ueh-acts-loading%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28loadingEl%29%20loadingEl.innerHTML%20%3D%20%22%E2%9A%A0%EF%B8%8F%20Kh%C3%B4ng%20th%E1%BB%83%20t%E1%BB%B1%20%C4%91%E1%BB%99ng%20%C4%91%E1%BB%8Dc%20danh%20s%C3%A1ch%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng.%22%3B%0A%20%20%20%20%20%20%20%20%7D%29%3B%0A%0A%20%20%20%20//%209.%20X%E1%BB%AD%20l%C3%BD%20%C4%90%E1%BB%93ng%20b%E1%BB%99%20Google%20Sheet%0A%20%20%20%20var%20syncBtn%20%3D%20document.getElementById%28%22ueh-sync-sheet-btn%22%29%3B%0A%20%20%20%20var%20syncMsg%20%3D%20document.getElementById%28%22ueh-sync-msg%22%29%3B%0A%0A%20%20%20%20syncBtn.onclick%20%3D%20function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20var%20inputUrl%20%3D%20document.getElementById%28%22ueh-webhook-input%22%29.value.trim%28%29%3B%0A%20%20%20%20%20%20%20%20if%20%28%21inputUrl%20%7C%7C%20%21inputUrl.startsWith%28%22https%3A//script.google.com%22%29%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.style.color%20%3D%20%22%23EF4444%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.innerText%20%3D%20%22%E2%9A%A0%EF%B8%8F%20Vui%20l%C3%B2ng%20nh%E1%BA%ADp%20%C4%91%C3%BAng%20URL%20Google%20Apps%20Script%20Web%20App%21%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20localStorage.setItem%28%22ueh_drl_webhook_url%22%2C%20inputUrl%29%3B%0A%20%20%20%20%20%20%20%20syncBtn.disabled%20%3D%20true%3B%0A%20%20%20%20%20%20%20%20syncBtn.innerHTML%20%3D%20%22%E2%8F%B3%20%C4%90ang%20g%E1%BB%ADi%20d%E1%BB%AF%20li%E1%BB%87u...%22%3B%0A%20%20%20%20%20%20%20%20syncMsg.innerText%20%3D%20%22%22%3B%0A%0A%20%20%20%20%20%20%20%20var%20payload%20%3D%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20studentName%3A%20studentName%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20studentId%3A%20studentId%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20semester%3A%20semester%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20totalScore%3A%20totalScore%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20scores%3A%20scores%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20criteriaAnalysis%3A%20criteriaAnalysis%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20defaultPoints%3A%20totalDefaultPoints%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20webPoints%3A%20totalWebActivitiesPoints%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20recommendedActivities%3A%20fetchedActivities%0A%20%20%20%20%20%20%20%20%7D%3B%0A%0A%20%20%20%20%20%20%20%20fetch%28inputUrl%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20method%3A%20%22POST%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20mode%3A%20%22no-cors%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20headers%3A%20%7B%20%22Content-Type%22%3A%20%22application/json%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20body%3A%20JSON.stringify%28payload%29%0A%20%20%20%20%20%20%20%20%7D%29%0A%20%20%20%20%20%20%20%20.then%28function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncBtn.disabled%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncBtn.innerHTML%20%3D%20%22%E2%9C%85%20%C4%90%E1%BB%93ng%20b%E1%BB%99%20th%C3%A0nh%20c%C3%B4ng%21%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncBtn.style.background%20%3D%20%22%2310B981%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.style.color%20%3D%20%22%2310B981%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.innerText%20%3D%20%22D%E1%BB%AF%20li%E1%BB%87u%20%C4%91%C3%A3%20%C4%91%C6%B0%E1%BB%A3c%20c%E1%BA%ADp%20nh%E1%BA%ADt%20v%C3%A0o%20Google%20Sheet%21%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20setTimeout%28function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20syncBtn.innerHTML%20%3D%20%22%F0%9F%9A%80%20%C4%90%E1%BB%93ng%20b%E1%BB%99%20t%E1%BB%B1%20%C4%91%E1%BB%99ng%20v%C3%A0o%20Google%20Sheet%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20syncBtn.style.background%20%3D%20%22%23005F69%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%203500%29%3B%0A%20%20%20%20%20%20%20%20%7D%29%0A%20%20%20%20%20%20%20%20.catch%28function%20%28err%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncBtn.disabled%20%3D%20false%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncBtn.innerHTML%20%3D%20%22%E2%9D%8C%20Th%E1%BB%AD%20l%E1%BA%A1i%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.style.color%20%3D%20%22%23EF4444%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.innerText%20%3D%20%22L%E1%BB%97i%20khi%20g%E1%BB%ADi%3A%20%22%20%2B%20err.message%3B%0A%20%20%20%20%20%20%20%20%7D%29%3B%0A%20%20%20%20%7D%3B%0A%0A%20%20%20%20//%2010.%20X%E1%BB%AD%20l%C3%BD%20Copy%20B%E1%BA%A3ng%20%C4%90i%E1%BB%83m%20%28Kh%E1%BB%9Bp%20100%25%20Tracking%20DRL.xlsx%29%0A%20%20%20%20var%20copyTableBtn%20%3D%20document.getElementById%28%22ueh-copy-table-btn%22%29%3B%0A%20%20%20%20if%20%28copyTableBtn%29%20%7B%0A%20%20%20%20%20%20%20%20copyTableBtn.onclick%20%3D%20function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20tsvRows%20%3D%20%5B%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20tsvRows.push%28%5B%22%F0%9F%8E%93%20B%E1%BA%A2NG%20%C4%90I%E1%BB%82M%20R%C3%88N%20LUY%E1%BB%86N%20UEH.ISB%20-%20K50%20CHUY%C3%8AN%20NG%C3%80NH%20IBUS%22%5D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20tsvRows.push%28%5B%22Sinh%20vi%C3%AAn%3A%22%2C%20studentName%2C%20%22MSSV%3A%22%2C%20studentId%2C%20%22H%E1%BB%8Dc%20k%E1%BB%B3%20x%C3%A9t%3A%22%2C%20semester%5D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20tsvRows.push%28%5B%22T%E1%BB%95ng%20%C4%91i%E1%BB%83m%20d%E1%BB%B1%20ki%E1%BA%BFn%3A%22%2C%20totalScore.toFixed%281%29%20%2B%20%22%20/%20100%22%2C%20%22X%E1%BA%BFp%20lo%E1%BA%A1i%3A%22%2C%20currentRank%2C%20%22H%E1%BB%8Dc%20b%E1%BB%95ng%20ISB%3A%22%2C%20scholarshipStatus%5D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20tsvRows.push%28%5B%22C%C6%A1%20c%E1%BA%A5u%20%C4%91i%E1%BB%83m%3A%22%2C%20%22Cho%20s%E1%BA%B5n%3A%20%22%20%2B%20totalDefaultPoints.toFixed%281%29%20%2B%20%22%C4%91%22%2C%20%22DRS%20Web%3A%20%22%20%2B%20totalWebActivitiesPoints.toFixed%281%29%20%2B%20%22%C4%91%22%2C%20%22GPA%3A%20%22%20%2B%20gpaPointsMap%5BsavedGpaTier%5D.label%5D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20tsvRows.push%28%5B%5D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20tsvRows.push%28%5B%22Ti%C3%AAu%20ch%C3%AD%22%2C%20%22T%C3%AAn%20ti%C3%AAu%20ch%C3%AD%20r%C3%A8n%20luy%E1%BB%87n%22%2C%20%22%C4%90i%E1%BB%83m%20cho%20s%E1%BA%B5n%22%2C%20%22%C4%90i%E1%BB%83m%20web%20DRS%22%2C%20%22%C4%90i%E1%BB%83m%20%C4%91%C3%A3%20%C4%91%E1%BA%A1t%22%2C%20%22M%E1%BB%A9c%20t%E1%BB%91i%20%C4%91a%22%2C%20%22C%C3%B2n%20thi%E1%BA%BFu%22%2C%20%22Ti%E1%BA%BFn%20%C4%91%E1%BB%99%22%2C%20%22Tr%E1%BA%A1ng%20th%C3%A1i%22%5D%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20for%20%28var%20i%20%3D%200%3B%20i%20%3C%20criteriaAnalysis.length%3B%20i%2B%2B%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20it%20%3D%20criteriaAnalysis%5Bi%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20statusText%20%3D%20it.isCapped%20%3F%20%22%C4%90%C3%83%20%C4%90%E1%BA%A0T%20MAX%20%28K%E1%BB%8ACH%20TR%E1%BA%A6N%29%22%20%3A%20%28it.diff%20%3E%200%20%3F%20%22C%E1%BA%A7n%20th%C3%AAm%20%22%20%2B%20it.diff.toFixed%281%29%20%2B%20%22%20%C4%91i%E1%BB%83m%22%20%3A%20%22Ch%C6%B0a%20c%C3%B3%20%C4%91i%E1%BB%83m%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20tsvRows.push%28%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20it.num%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20it.fullName%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20it.defaultPts%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20it.webPts%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20it.current%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20it.max%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20it.diff%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20it.percent%20%2B%20%22%25%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20statusText%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20totalMissing%20%3D%20Math.max%280%2C%20100%20-%20totalScore%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20tsvRows.push%28%5B%22T%E1%BB%94NG%20C%E1%BB%98NG%22%2C%20%22T%E1%BB%95ng%20%C4%91i%E1%BB%83m%20r%C3%A8n%20luy%E1%BB%87n%20h%E1%BB%8Dc%20k%E1%BB%B3%22%2C%20totalDefaultPoints.toFixed%281%29%2C%20totalWebActivitiesPoints.toFixed%281%29%2C%20totalScore.toFixed%281%29%2C%20%22100%22%2C%20totalMissing.toFixed%281%29%2C%20Math.round%28%28totalScore%20/%20100%29%20%2A%20100%29%20%2B%20%22%25%22%2C%20currentRank%5D%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20tsvContent%20%3D%20tsvRows.map%28function%20%28r%29%20%7B%20return%20r.join%28%22%5Ct%22%29%3B%20%7D%29.join%28%22%5Cn%22%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20navigator.clipboard.writeText%28tsvContent%29.then%28function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.style.color%20%3D%20%22%23059669%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.innerHTML%20%3D%20%22%E2%9C%85%20%3Cb%3E%C4%90%C3%A3%20copy%20B%E1%BA%A3ng%20%C4%90i%E1%BB%83m%20Chu%E1%BA%A9n%21%3C/b%3E%20M%E1%BB%9F%20Google%20Sheet%20/%20Excel%20v%C3%A0%20b%E1%BA%A5m%20%3Cb%3ECmd%20%2B%20V%3C/b%3E%20%C4%91%E1%BB%83%20d%C3%A1n.%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20copyTableBtn.innerHTML%20%3D%20%22%E2%9C%93%20%C4%90%C3%A3%20Copy%21%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20setTimeout%28function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20copyTableBtn.innerHTML%20%3D%20%22%F0%9F%93%8A%20Copy%20B%E1%BA%A3ng%20%C4%90i%E1%BB%83m%20%28D%C3%A1n%20Sheet%29%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%203000%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%29.catch%28function%20%28err%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20alert%28%22L%E1%BB%97i%20sao%20ch%C3%A9p%3A%20%22%20%2B%20err%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%29%3B%0A%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20//%2011.%20X%E1%BB%AD%20l%C3%BD%20Copy%20B%E1%BA%A3ng%20Ho%E1%BA%A1t%20%C4%90%E1%BB%99ng%20G%E1%BB%A3i%20%C3%9D%0A%20%20%20%20var%20copyActsBtn%20%3D%20document.getElementById%28%22ueh-copy-acts-btn%22%29%3B%0A%20%20%20%20if%20%28copyActsBtn%29%20%7B%0A%20%20%20%20%20%20%20%20copyActsBtn.onclick%20%3D%20function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20if%20%28%21fetchedActivities%20%7C%7C%20fetchedActivities.length%20%3D%3D%3D%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20alert%28%22Ch%C6%B0a%20c%C3%B3%20danh%20s%C3%A1ch%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%20%C4%91%E1%BB%83%20copy%21%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20actRows%20%3D%20%5B%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20actRows.push%28%5B%22%F0%9F%8E%AF%20DANH%20S%C3%81CH%20HO%E1%BA%A0T%20%C4%90%E1%BB%98NG%20KHUY%E1%BA%BEN%20NGH%E1%BB%8A%20L%E1%BA%A4Y%20%C4%90I%E1%BB%82M%20%28UEH.ISB%20K50%29%22%5D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20actRows.push%28%5B%22M%E1%BB%A9c%20%C4%91%E1%BB%99%20%C6%B0u%20ti%C3%AAn%22%2C%20%22Ti%C3%AAu%20ch%C3%AD%20r%C3%A8n%20luy%E1%BB%87n%22%2C%20%22T%C3%AAn%20ho%E1%BA%A1t%20%C4%91%E1%BB%99ng%22%2C%20%22%C4%90i%E1%BB%83m%20d%E1%BB%B1%20ki%E1%BA%BFn%22%2C%20%22H%E1%BA%A1n%20ch%C3%B3t%20/%20T%E1%BB%95%20ch%E1%BB%A9c%22%2C%20%22%C4%90%C6%B0%E1%BB%9Dng%20d%E1%BA%ABn%20%C4%91%C4%83ng%20k%C3%BD%22%5D%29%3B%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20for%20%28var%20j%20%3D%200%3B%20j%20%3C%20fetchedActivities.length%3B%20j%2B%2B%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20var%20a%20%3D%20fetchedActivities%5Bj%5D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20actRows.push%28%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20a.priority%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20a.category%20%2B%20%22%3A%20%22%20%2B%20%28tcConfig%5Ba.category%5D%3F.name%20%7C%7C%20%22%22%29%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20a.title%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20a.points%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20a.deadline%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20a.link%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%5D%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20var%20actTsv%20%3D%20actRows.map%28function%20%28r%29%20%7B%20return%20r.join%28%22%5Ct%22%29%3B%20%7D%29.join%28%22%5Cn%22%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20navigator.clipboard.writeText%28actTsv%29.then%28function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20copyActsBtn.innerHTML%20%3D%20%22%E2%9C%93%20%C4%90%C3%A3%20Copy%20B%E1%BA%A3ng%21%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20setTimeout%28function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20copyActsBtn.innerHTML%20%3D%20%22%F0%9F%93%8B%20Copy%20B%E1%BA%A3ng%20Ho%E1%BA%A1t%20%C4%90%E1%BB%99ng%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%203000%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.style.color%20%3D%20%22%23059669%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.innerHTML%20%3D%20%22%E2%9C%85%20%3Cb%3E%C4%90%C3%A3%20copy%20B%E1%BA%A3ng%20Ho%E1%BA%A1t%20%C4%90%E1%BB%99ng%21%3C/b%3E%20M%E1%BB%9F%20Google%20Sheet%20v%C3%A0%20nh%E1%BA%A5n%20%3Cb%3ECmd%20%2B%20V%3C/b%3E%20%C4%91%E1%BB%83%20d%C3%A1n.%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%29%3B%0A%20%20%20%20%20%20%20%20%7D%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20//%2012.%20X%E1%BB%AD%20l%C3%BD%20Copy%20t%C3%B3m%20t%E1%BA%AFt%20v%C4%83n%20b%E1%BA%A3n%0A%20%20%20%20document.getElementById%28%22ueh-copy-data-btn%22%29.onclick%20%3D%20function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20var%20summaryText%20%3D%20%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%F0%9F%8E%93%20K%E1%BA%BET%20QU%E1%BA%A2%20%C4%90I%E1%BB%82M%20R%C3%88N%20LUY%E1%BB%86N%20UEH.ISB%20%28K50%20IBUS%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22-------------------------------------------%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%F0%9F%91%A4%20Sinh%20vi%C3%AAn%3A%20%22%20%2B%20studentName%20%2B%20%22%20%28%22%20%2B%20studentId%20%2B%20%22%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%F0%9F%93%85%20H%E1%BB%8Dc%20k%E1%BB%B3%3A%20%22%20%2B%20semester%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%F0%9F%8F%86%20T%E1%BB%95ng%20%C4%91i%E1%BB%83m%20d%E1%BB%B1%20ki%E1%BA%BFn%3A%20%22%20%2B%20totalScore.toFixed%281%29%20%2B%20%22%20/%20100%20%28H%E1%BA%A1ng%3A%20%22%20%2B%20currentRank%20%2B%20%22%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%F0%9F%92%8E%20Bao%20g%E1%BB%93m%3A%20%22%20%2B%20totalDefaultPoints.toFixed%281%29%20%2B%20%22%C4%91%20cho%20s%E1%BA%B5n%20%2B%20%22%20%2B%20totalWebActivitiesPoints.toFixed%281%29%20%2B%20%22%C4%91%20DRS%20web%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%F0%9F%93%9C%20H%E1%BB%8Dc%20b%E1%BB%95ng%20ISB%3A%20%22%20%2B%20scholarshipStatus%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22%F0%9F%93%8C%20Chi%20ti%E1%BA%BFt%205%20Ti%C3%AAu%20ch%C3%AD%20r%C3%A8n%20luy%E1%BB%87n%20%28chu%E1%BA%A9n%20TrackingDRL%29%3A%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22-%20TC1%20%28N%E1%BB%99i%20quy%2C%20quy%20ch%E1%BA%BF%29%3A%20%22%20%2B%20scores.TC1%20%2B%20%22/25%20%28Cho%20s%E1%BA%B5n%2015%C4%91%2C%20thi%E1%BA%BFu%20%22%20%2B%20%2825%20-%20scores.TC1%29%20%2B%20%22%C4%91%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22-%20TC2%20%28H%E1%BB%8Dc%20t%E1%BA%ADp%20%26%20GPA%29%3A%20%22%20%2B%20scores.TC2%20%2B%20%22/20%20%28Cho%20s%E1%BA%B5n%2010%C4%91%20%2B%20GPA%20%22%20%2B%20currentGpaPts%20%2B%20%22%C4%91%2C%20thi%E1%BA%BFu%20%22%20%2B%20%2820%20-%20scores.TC2%29%20%2B%20%22%C4%91%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22-%20TC3%20%28V%C4%83n%20h%C3%B3a%2C%20th%E1%BB%83%20thao%2C%20%C4%90H%20Xanh%29%3A%20%22%20%2B%20scores.TC3%20%2B%20%22/20%20%28Cho%20s%E1%BA%B5n%205%C4%91%2C%20thi%E1%BA%BFu%20%22%20%2B%20%2820%20-%20scores.TC3%29%20%2B%20%22%C4%91%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22-%20TC4%20%28C%C3%B4ng%20d%C3%A2n%20%26%20C%E1%BB%99ng%20%C4%91%E1%BB%93ng%29%3A%20%22%20%2B%20scores.TC4%20%2B%20%22/15%20%28Cho%20s%E1%BA%B5n%2010%C4%91%2C%20thi%E1%BA%BFu%20%22%20%2B%20%2815%20-%20scores.TC4%29%20%2B%20%22%C4%91%29%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%22-%20TC5%20%28C%C3%A1n%20s%E1%BB%B1%20l%E1%BB%9Bp%20%26%20Khen%20th%C6%B0%E1%BB%9Fng%29%3A%20%22%20%2B%20scores.TC5%20%2B%20%22/20%20%28Cho%20s%E1%BA%B5n%2010%C4%91%2C%20thi%E1%BA%BFu%20%22%20%2B%20%2820%20-%20scores.TC5%29%20%2B%20%22%C4%91%29%22%0A%20%20%20%20%20%20%20%20%5D.join%28%22%5Cn%22%29%3B%0A%0A%20%20%20%20%20%20%20%20navigator.clipboard.writeText%28summaryText%29.then%28function%20%28%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.style.color%20%3D%20%22%23059669%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20syncMsg.innerText%20%3D%20%22%E2%9C%85%20%C4%90%C3%A3%20sao%20ch%C3%A9p%20t%C3%B3m%20t%E1%BA%AFt%20v%C4%83n%20b%E1%BA%A3n%20v%C3%A0o%20b%E1%BB%99%20nh%E1%BB%9B%20t%E1%BA%A1m%21%22%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20setTimeout%28function%20%28%29%20%7B%20syncMsg.innerText%20%3D%20%22%22%3B%20%7D%2C%203000%29%3B%0A%20%20%20%20%20%20%20%20%7D%29%3B%0A%20%20%20%20%7D%3B%0A%0A%7D%29%28%29%3B%0A">
+                    <i class="fa-solid fa-crosshairs"></i>
+                    🎯 Track DRL UEH-ISB (K50)
+                </a>
+            </div>
+
+            <div class="d-flex justify-content-center gap-3">
+                <button class="btn btn-outline-secondary btn-sm" onclick="copyBookmarkletCode()">
+                    <i class="fa-regular fa-copy me-1"></i> Copy mã Bookmarklet (Dán thủ công nếu không kéo được)
+                </button>
+            </div>
+        </div>
+
+        <!-- 2 LỰA CHỌN ĐỒNG BỘ / COPY KẾT QUẢ -->
+        <div class="card-custom">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="step-circle">2</div>
+                <h3 class="fw-bold mb-0">2 Cách lấy dữ liệu vào Google Sheet (Linh hoạt 100%)</h3>
+            </div>
+
+            <div class="row g-3">
+                <!-- Cách A: Copy Bảng Trực Tiếp -->
+                <div class="col-md-6">
+                    <div class="p-3 h-100 border rounded-4" style="background: #F0FDF4; border-color: #86EFAC !important;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge-new">✨ NHANH NHẤT • KHÔNG CẦN CÀI ĐẶT</span>
+                        </div>
+                        <h5 class="fw-bold text-success">📊 Cách A: Copy Bảng Điểm 9 Cột Chuẩn</h5>
+                        <p class="small text-muted mb-3">Không cần cài đặt Apps Script. Ngay trên cửa sổ popup của tool, bạn chỉ cần bấm nút là copy ngay được bảng tính có đủ Điểm cho sẵn, Điểm web, Tổng điểm.</p>
+                        <ol class="small text-secondary ps-3 mb-0 lh-lg">
+                            <li>Bấm nút <b>📊 Copy Bảng Điểm (Dán Sheet)</b>.</li>
+                            <li>Mở Google Sheet hoặc Excel mới (ví dụ: <a href="https://sheets.new" target="_blank">sheets.new</a>).</li>
+                            <li>Chọn ô <b>A1</b> và nhấn phím <b><code>Cmd + V</code></b>. Bảng điểm khớp 100% Tracking DRL.xlsx sẽ hiện ra ngay ngắn!</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Cách B: Tự Động Đồng Bộ Qua Webhook -->
+                <div class="col-md-6">
+                    <div class="p-3 h-100 border rounded-4" style="background: #EFF6FF; border-color: #93C5FD !important;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-primary">🚀 TỰ ĐỘNG 1-CLICK</span>
+                        </div>
+                        <h5 class="fw-bold text-primary">🌐 Cách B: Đồng Bộ Tự Động</h5>
+                        <p class="small text-muted mb-3">Thiết lập Apps Script 1 lần duy nhất để mỗi lần mở DRS chỉ cần bấm 1 nút là dữ liệu tự nhảy vào Sheet Dashboard được định dạng chuẩn.</p>
+                        <ol class="small text-secondary ps-3 mb-0 lh-lg">
+                            <li>Xem các bước thiết lập Apps Script ở mục bên dưới.</li>
+                            <li>Dán URL Web App vào ô nhập trên Bookmarklet.</li>
+                            <li>Nhấn <b>🚀 Đồng bộ tự động vào Google Sheet</b>.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HƯỚNG DẪN CÀI ĐẶT APPS SCRIPT (NẾU DÙNG CÁCH B) -->
+        <div class="card-custom">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="step-circle">3</div>
+                <h3 class="fw-bold mb-0">Mã Google Apps Script v3.5 (Dành cho Cách B)</h3>
+            </div>
+
+            <ol class="text-secondary lh-lg mb-3 ps-3">
+                <li>Mở <a href="https://sheets.new" target="_blank" class="fw-bold text-decoration-none">sheets.new ↗</a> ➔ Chọn: <b>Tiện ích mở rộng (Extensions)</b> ➔ <b>Apps Script</b>.</li>
+                <li>Xóa hết code cũ, bấm nút <b>Copy Mã Apps Script</b> và dán vào:</li>
+            </ol>
+
+            <div class="position-relative mb-3">
+                <button class="btn btn-sm btn-primary position-absolute top-0 end-0 m-3" onclick="copyAppsScriptCode()">
+                    <i class="fa-regular fa-copy me-1"></i> Copy Mã Apps Script
+                </button>
+                <div class="code-box" id="appsScriptCodeDisplay">/**
+ * ==============================================================================
+ * GOOGLE APPS SCRIPT: HỆ THỐNG THEO DÕI ĐIỂM RÈN LUYỆN UEH - ISB (K50 IBUS)
+ * ==============================================================================
+ * Phiên bản: 3.5 (Cập nhật khớp 100% Tracking DRL.xlsx &amp; Quy chế mới UEH 2026)
+ * Cơ chế phân bổ điểm:
+ *  - Điểm cho sẵn (Nền tảng): 54.0đ (1.1: 15đ, 2.1: 10đ, 2.2.1 GPA Giỏi: 4đ, 3.1: 5đ, 4.1: 10đ, 5.1: 10đ)
+ *  - Điểm hoạt động (DRS Web): Talkshow, hội thảo, thể thao, tình nguyện, v.v.
+ *  - 5 Tiêu chí: TC1 (25đ), TC2 (20đ), TC3 (20đ), TC4 (15đ), TC5 (20đ) -&gt; Tổng 100đ
+ * ==============================================================================
+ */
+
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+    // 1. Cập nhật Tab Tổng quan Dashboard
+    updateDashboardSheet(ss, data);
+
+    // 2. Cập nhật Tab Hoạt Động Gợi Ý
+    updateActivitiesSheet(ss, data.recommendedActivities || []);
+
+    // 3. Ghi lịch sử đồng bộ
+    logSyncHistory(ss, data);
+
+    return ContentService.createTextOutput(JSON.stringify({
+      status: &quot;success&quot;,
+      message: &quot;Đồng bộ thành công dữ liệu ĐRL chuẩn 5 Tiêu chí cho sinh viên K50 IBUS!&quot;,
+      timestamp: new Date().toISOString()
+    })).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: &quot;error&quot;,
+      message: error.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput(&quot;UEH-ISB DRL Sync Web App (v3.5) đang hoạt động bình thường! Dùng Bookmarklet trên drs.ueh.edu.vn để đẩy dữ liệu.&quot;);
+}
+
+/**
+ * Cập nhật Tab Tổng quan &amp; Thống kê điểm 5 Tiêu chí chuẩn theo Tracking DRL.xlsx
+ */
+function updateDashboardSheet(ss, data) {
+  var sheetName = &quot;📊 Tổng quan K50 IBUS&quot;;
+  var sheet = ss.getSheetByName(sheetName);
+  if (!sheet) {
+    sheet = ss.insertSheet(sheetName, 0);
+  }
+  sheet.clear();
+  sheet.setGridlines(true);
+
+  // Palette màu chuẩn UEH &amp; Tracking Sheet
+  var uehTeal = &quot;#005F69&quot;;
+  var uehLightTeal = &quot;#E6F4F5&quot;;
+  var textDark = &quot;#1E293B&quot;;
+  var borderGray = &quot;#CBD5E1&quot;;
+  var blueDefaultBg = &quot;#E0F2FE&quot;; // Màu xanh nhạt đại diện điểm cho sẵn
+
+  // Tiêu đề Dashboard
+  sheet.getRange(&quot;A1:I1&quot;).merge()
+    .setValue(&quot;🎓 BẢNG THEO DÕI ĐIỂM RÈN LUYỆN UEH.ISB - K50 CHUYÊN NGÀNH IBUS&quot;)
+    .setFontSize(14)
+    .setFontWeight(&quot;bold&quot;)
+    .setFontColor(&quot;#FFFFFF&quot;)
+    .setBackground(uehTeal)
+    .setHorizontalAlignment(&quot;center&quot;)
+    .setVerticalAlignment(&quot;middle&quot;);
+  sheet.setRowHeight(1, 42);
+
+  // Thẻ thông tin sinh viên (Cột A -&gt; D)
+  sheet.getRange(&quot;A3:D3&quot;).merge().setValue(&quot;👤 THÔNG TIN SINH VIÊN:&quot;).setFontWeight(&quot;bold&quot;).setFontColor(uehTeal);
+  sheet.getRange(&quot;A4&quot;).setValue(&quot;Họ và Tên:&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;B4:D4&quot;).merge().setValue(data.studentName || &quot;Sinh viên K50 ISB-IBUS&quot;);
+  sheet.getRange(&quot;A5&quot;).setValue(&quot;Mã số SV:&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;B5:D5&quot;).merge().setValue(data.studentId || &quot;Chưa xác định&quot;);
+  sheet.getRange(&quot;A6&quot;).setValue(&quot;Học kỳ xét:&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;B6:D6&quot;).merge().setValue(data.semester || &quot;Học kỳ hiện tại&quot;);
+  sheet.getRange(&quot;A7&quot;).setValue(&quot;Cập nhật lúc:&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;B7:D7&quot;).merge().setValue(Utilities.formatDate(new Date(), &quot;GMT+7&quot;, &quot;HH:mm:ss dd/MM/yyyy&quot;));
+
+  // Thẻ Tổng điểm &amp; Đánh giá xếp loại ISB (Cột F -&gt; I)
+  var totalScore = Number(data.totalScore || 0);
+  var rank = &quot;Chưa xếp loại&quot;;
+  var scholarshipMsg = &quot;Chưa đạt ngưỡng học bổng&quot;;
+  var cardBg = &quot;#F1F5F9&quot;;
+
+  if (totalScore &gt;= 90) {
+    rank = &quot;XUẤT SẮC (≥ 90)&quot;;
+    scholarshipMsg = &quot;🌟 Đủ điều kiện xét Học bổng Xuất sắc ISB (150% toàn phần)&quot;;
+    cardBg = &quot;#ECFDF5&quot;;
+  } else if (totalScore &gt;= 80) {
+    rank = &quot;TỐT (80 - 89)&quot;;
+    scholarshipMsg = &quot;⭐ Đủ điều kiện xét Học bổng Giỏi ISB (120% toàn phần)&quot;;
+    cardBg = &quot;#EFF6FF&quot;;
+  } else if (totalScore &gt;= 65) {
+    rank = &quot;KHÁ (65 - 79)&quot;;
+    scholarshipMsg = &quot; Đủ điều kiện xét Học bổng Khá ISB (100% toàn phần)&quot;;
+    cardBg = &quot;#FEFCE8&quot;;
+  } else if (totalScore &gt;= 50) {
+    rank = &quot;TRUNG BÌNH (50 - 64)&quot;;
+    var gap = (65 - totalScore).toFixed(1);
+    scholarshipMsg = &quot;⚠️ Cần tích lũy thêm tối thiểu &quot; + gap + &quot;đ để đạt ngưỡng xét học bổng Khá!&quot;;
+    cardBg = &quot;#FFF7ED&quot;;
+  } else {
+    rank = &quot;YẾU / KÉM (&lt; 50)&quot;;
+    scholarshipMsg = &quot; Cảnh báo: Nguy cơ không đủ điều kiện rèn luyện!&quot;;
+    cardBg = &quot;#FEF2F2&quot;;
+  }
+
+  sheet.getRange(&quot;F3:I3&quot;).merge().setValue(&quot;🏆 KẾT QUẢ ĐIỂM RÈN LUYỆN DỰ KIẾN&quot;).setFontWeight(&quot;bold&quot;).setFontColor(uehTeal).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(&quot;F4:I5&quot;).merge()
+    .setValue(totalScore.toFixed(1) + &quot; / 100&quot;)
+    .setFontSize(22)
+    .setFontWeight(&quot;bold&quot;)
+    .setFontColor(uehTeal)
+    .setBackground(cardBg)
+    .setHorizontalAlignment(&quot;center&quot;)
+    .setVerticalAlignment(&quot;middle&quot;);
+  
+  sheet.getRange(&quot;F6:I6&quot;).merge()
+    .setValue(&quot;Xếp loại: &quot; + rank)
+    .setFontWeight(&quot;bold&quot;)
+    .setBackground(cardBg)
+    .setHorizontalAlignment(&quot;center&quot;);
+
+  sheet.getRange(&quot;F7:I7&quot;).merge()
+    .setValue(scholarshipMsg)
+    .setFontSize(9)
+    .setFontColor(&quot;#475569&quot;)
+    .setBackground(cardBg)
+    .setHorizontalAlignment(&quot;center&quot;);
+
+  // Bảng phân rã 5 Tiêu chí chuẩn theo TrackingDRL.xlsx
+  sheet.getRange(&quot;A9:I9&quot;).merge()
+    .setValue(&quot;📌 BẢNG CHI TIẾT 5 TIÊU CHÍ ĐIỂM RÈN LUYỆN (KHỚP 100% TRACKING DRL)&quot;)
+    .setFontWeight(&quot;bold&quot;)
+    .setFontColor(uehTeal);
+
+  var headers = [
+    &quot;Tiêu chí&quot;, 
+    &quot;Tên tiêu chí rèn luyện&quot;, 
+    &quot;Điểm cho sẵn (Nền tảng)&quot;, 
+    &quot;Điểm hoạt động (DRS Web)&quot;, 
+    &quot;Điểm đã đạt&quot;, 
+    &quot;Mức tối đa&quot;, 
+    &quot;Còn thiếu&quot;, 
+    &quot;Tiến độ&quot;, 
+    &quot;Trạng thái&quot;
+  ];
+  sheet.getRange(&quot;A10:I10&quot;).setValues([headers])
+    .setFontWeight(&quot;bold&quot;)
+    .setBackground(uehLightTeal)
+    .setFontColor(textDark)
+    .setHorizontalAlignment(&quot;center&quot;);
+
+  var tcConfig = [
+    { num: 1, code: &quot;TC1&quot;, name: &quot;Chấp hành pháp luật, nội quy, quy chế UEH&quot;, defaultPts: 15, max: 25 },
+    { num: 2, code: &quot;TC2&quot;, name: &quot;Thái độ và trách nhiệm trong học tập&quot;, defaultPts: 14, max: 20 },
+    { num: 3, code: &quot;TC3&quot;, name: &quot;Hoạt động chính trị, văn thể mỹ &amp; ĐH Xanh&quot;, defaultPts: 5, max: 20 },
+    { num: 4, code: &quot;TC4&quot;, name: &quot;Ý thức công dân trong quan hệ cộng đồng&quot;, defaultPts: 10, max: 15 },
+    { num: 5, code: &quot;TC5&quot;, name: &quot;Cán sự lớp, đoàn thể &amp; Thành tích thi đua&quot;, defaultPts: 10, max: 20 }
+  ];
+
+  var analysisList = data.criteriaAnalysis || [];
+  var analysisMap = {};
+  for (var a = 0; a &lt; analysisList.length; a++) {
+    analysisMap[analysisList[a].code] = analysisList[a];
+  }
+
+  var scoresMap = data.scores || {};
+  var rows = [];
+
+  for (var i = 0; i &lt; tcConfig.length; i++) {
+    var c = tcConfig[i];
+    var item = analysisMap[c.code];
+    var defPts = item ? Number(item.defaultPts || 0) : c.defaultPts;
+    var webPts = item ? Number(item.webPts || 0) : Number(scoresMap[c.code] || 0);
+    var current = item ? Number(item.current || 0) : Math.min(c.max, defPts + webPts);
+    var missing = Math.max(0, c.max - current);
+    var percent = (current / c.max);
+    var status = &quot;Đang thiếu&quot;;
+
+    if (current &gt;= c.max) {
+      status = &quot; ĐÃ ĐẠT MAX (KỊCH TRẦN)&quot;;
+    } else if (current &gt; 0) {
+      status = &quot;⚡ Cần thêm &quot; + missing.toFixed(1) + &quot; điểm&quot;;
+    } else {
+      status = &quot; Chưa có điểm&quot;;
+    }
+
+    rows.push([
+      &quot;TC&quot; + c.num,
+      c.name,
+      defPts,
+      webPts,
+      current,
+      c.max,
+      missing,
+      percent,
+      status
+    ]);
+  }
+
+  sheet.getRange(11, 1, rows.length, 9).setValues(rows);
+
+  // Format cột
+  sheet.getRange(&quot;A11:A15&quot;).setHorizontalAlignment(&quot;center&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;C11:C15&quot;).setHorizontalAlignment(&quot;center&quot;).setBackground(blueDefaultBg);
+  sheet.getRange(&quot;D11:D15&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(&quot;E11:G15&quot;).setHorizontalAlignment(&quot;center&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;H11:H15&quot;).setNumberFormat(&quot;0.0%&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(&quot;I11:I15&quot;).setHorizontalAlignment(&quot;left&quot;);
+
+  // Format hàng tổng kết (Hàng 16)
+  var totalRowIndex = 16;
+  sheet.getRange(totalRowIndex, 1).setValue(&quot;TỔNG CỘNG&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 2).setValue(&quot;Tổng điểm rèn luyện dự kiến&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(totalRowIndex, 3).setFormula(&quot;=SUM(C11:C15)&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;).setBackground(blueDefaultBg);
+  sheet.getRange(totalRowIndex, 4).setFormula(&quot;=SUM(D11:D15)&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 5).setFormula(&quot;=SUM(E11:E15)&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 6).setValue(100).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 7).setFormula(&quot;=F16-E16&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 8).setFormula(&quot;=E16/F16&quot;).setNumberFormat(&quot;0.0%&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 9).setValue(rank).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;A16:I16&quot;).setBackground(&quot;#F1F5F9&quot;);
+
+  // Border &amp; Column width
+  sheet.getRange(&quot;A10:I16&quot;).setBorder(true, true, true, true, true, true, borderGray, SpreadsheetApp.BorderStyle.SOLID);
+  sheet.autoResizeColumn(1);
+  sheet.setColumnWidth(2, 330);
+  sheet.autoResizeColumn(3);
+  sheet.autoResizeColumn(4);
+  sheet.autoResizeColumn(5);
+  sheet.autoResizeColumn(6);
+  sheet.autoResizeColumn(7);
+  sheet.autoResizeColumn(8);
+  sheet.setColumnWidth(9, 260);
+}
+
+/**
+ * Cập nhật Tab Gợi ý Hoạt động theo 5 Tiêu chí
+ */
+function updateActivitiesSheet(ss, activities) {
+  var sheetName = &quot;🎯 Hoạt Động Gợi Ý&quot;;
+  var sheet = ss.getSheetByName(sheetName);
+  if (!sheet) {
+    sheet = ss.insertSheet(sheetName, 1);
+  }
+  sheet.clear();
+  sheet.setGridlines(true);
+
+  var uehTeal = &quot;#005F69&quot;;
+  var uehLightTeal = &quot;#E6F4F5&quot;;
+  var textDark = &quot;#1E293B&quot;;
+  var borderGray = &quot;#CBD5E1&quot;;
+
+  // Tiêu đề
+  sheet.getRange(&quot;A1:G1&quot;).merge()
+    .setValue(&quot;🎯 DANH SÁCH HOẠT ĐỘNG KHUYẾN NGHỊ LẤY ĐIỂM (UEH.ISB K50)&quot;)
+    .setFontSize(13)
+    .setFontWeight(&quot;bold&quot;)
+    .setFontColor(&quot;#FFFFFF&quot;)
+    .setBackground(uehTeal)
+    .setHorizontalAlignment(&quot;center&quot;)
+    .setVerticalAlignment(&quot;middle&quot;);
+  sheet.setRowHeight(1, 38);
+
+  sheet.getRange(&quot;A2:G2&quot;).merge()
+    .setValue(&quot;💡 Danh sách hoạt động đang mở được sắp xếp ưu tiên theo đúng tiêu chí mà bạn đang thiếu điểm.&quot;)
+    .setFontSize(9)
+    .setFontStyle(&quot;italic&quot;)
+    .setFontColor(&quot;#64748B&quot;);
+
+  var headers = [&quot;Mức độ ưu tiên&quot;, &quot;Tiêu chí rèn luyện&quot;, &quot;Tên hoạt động&quot;, &quot;Điểm dự kiến&quot;, &quot;Hạn đăng ký / Tổ chức&quot;, &quot;Trạng thái&quot;, &quot;Đường dẫn đăng ký&quot;];
+  sheet.getRange(&quot;A4:G4&quot;).setValues([headers])
+    .setFontWeight(&quot;bold&quot;)
+    .setBackground(uehLightTeal)
+    .setFontColor(textDark)
+    .setHorizontalAlignment(&quot;center&quot;);
+
+  if (!activities || activities.length === 0) {
+    sheet.getRange(&quot;A5:G5&quot;).merge()
+      .setValue(&quot;Hiện chưa tìm thấy hoạt động đang mở hoặc hệ thống DRS đang trong giai đoạn cập nhật.&quot;)
+      .setHorizontalAlignment(&quot;center&quot;)
+      .setFontColor(&quot;#94A3B8&quot;);
+    return;
+  }
+
+  var rows = [];
+  for (var i = 0; i &lt; activities.length; i++) {
+    var act = activities[i];
+    rows.push([
+      act.priority || &quot;⭐ Khuyến nghị&quot;,
+      act.category || &quot;TC&quot;,
+      act.title || &quot;Không rõ tên&quot;,
+      act.points || 0,
+      act.deadline || &quot;Xem chi tiết&quot;,
+      &quot;Đang mở&quot;,
+      act.link || &quot;https://drs.ueh.edu.vn/Student/AllActivities&quot;
+    ]);
+  }
+
+  sheet.getRange(5, 1, rows.length, 7).setValues(rows);
+
+  // Định dạng
+  sheet.getRange(5, 1, rows.length, 2).setHorizontalAlignment(&quot;center&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(5, 4, rows.length, 1).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(5, 5, rows.length, 2).setHorizontalAlignment(&quot;center&quot;);
+
+  sheet.getRange(4, 1, rows.length + 1, 7).setBorder(true, true, true, true, true, true, borderGray, SpreadsheetApp.BorderStyle.SOLID);
+  sheet.autoResizeColumn(1);
+  sheet.autoResizeColumn(2);
+  sheet.setColumnWidth(3, 340);
+  sheet.autoResizeColumn(4);
+  sheet.autoResizeColumn(5);
+  sheet.autoResizeColumn(6);
+  sheet.setColumnWidth(7, 280);
+}
+
+/**
+ * Ghi lại lịch sử cập nhật điểm
+ */
+function logSyncHistory(ss, data) {
+  var sheetName = &quot;🕒 Lịch Sử Đồng Bộ&quot;;
+  var sheet = ss.getSheetByName(sheetName);
+  if (!sheet) {
+    sheet = ss.insertSheet(sheetName, 2);
+    var headers = [
+      &quot;Thời gian đồng bộ&quot;, 
+      &quot;Học kỳ&quot;, 
+      &quot;Tổng điểm ĐRL&quot;, 
+      &quot;Điểm cho sẵn&quot;, 
+      &quot;Điểm DRS&quot;, 
+      &quot;Điểm TC1&quot;, 
+      &quot;Điểm TC2&quot;, 
+      &quot;Điểm TC3&quot;, 
+      &quot;Điểm TC4&quot;, 
+      &quot;Điểm TC5&quot;, 
+      &quot;Xếp loại&quot;
+    ];
+    sheet.getRange(&quot;A1:K1&quot;).setValues([headers])
+      .setFontWeight(&quot;bold&quot;)
+      .setBackground(&quot;#005F69&quot;)
+      .setFontColor(&quot;#FFFFFF&quot;)
+      .setHorizontalAlignment(&quot;center&quot;);
+    sheet.autoResizeColumns(1, 11);
+  }
+
+  var scores = data.scores || {};
+  var totalScore = Number(data.totalScore || 0);
+  var defPts = Number(data.defaultPoints || 0);
+  var webPts = Number(data.webPoints || 0);
+  var rank = totalScore &gt;= 90 ? &quot;Xuất sắc&quot; : totalScore &gt;= 80 ? &quot;Tốt&quot; : totalScore &gt;= 65 ? &quot;Khá&quot; : totalScore &gt;= 50 ? &quot;Trung bình&quot; : &quot;Yếu/Kém&quot;;
+
+  var row = [
+    Utilities.formatDate(new Date(), &quot;GMT+7&quot;, &quot;yyyy-MM-dd HH:mm:ss&quot;),
+    data.semester || &quot;Kỳ hiện tại&quot;,
+    totalScore,
+    defPts,
+    webPts,
+    scores.TC1 || 0,
+    scores.TC2 || 0,
+    scores.TC3 || 0,
+    scores.TC4 || 0,
+    scores.TC5 || 0,
+    rank
+  ];
+
+  sheet.appendRow(row);
+  var lastRow = sheet.getLastRow();
+  sheet.getRange(lastRow, 1, 1, 11).setHorizontalAlignment(&quot;center&quot;);
+}
+</div>
+            </div>
+
+            <ol start="3" class="text-secondary lh-lg mb-0 ps-3">
+                <li>Nhấn <b>Lưu (Save)</b> (<code>Cmd + S</code>) ➔ Bấm <b>Triển khai (Deploy)</b> ➔ <b>Triển khai dưới dạng ứng dụng web</b>.</li>
+                <li>Mục <i>"Ai có quyền truy cập"</i>: Chọn <b>Bất kỳ ai (Anyone)</b>.</li>
+                <li>Nhấn <b>Triển khai</b> và sao chép <b>URL ứng dụng web</b> để dán vào công cụ.</li>
+            </ol>
+        </div>
+
+        <!-- BƯỚC SỬ DỤNG TRÊN DRS -->
+        <div class="card-custom">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="step-circle">4</div>
+                <h3 class="fw-bold mb-0">Sử dụng trên drs.ueh.edu.vn</h3>
+            </div>
+
+            <ul class="list-unstyled lh-lg text-secondary mb-0">
+                <li class="mb-2"><i class="fa-solid fa-circle-check text-success me-2"></i><b>Bước 1:</b> Truy cập <a href="https://drs.ueh.edu.vn/Student/TrainingScore" target="_blank"><b>drs.ueh.edu.vn/Student/TrainingScore</b></a> và đăng nhập tài khoản UEH.</li>
+                <li class="mb-2"><i class="fa-solid fa-circle-check text-success me-2"></i><b>Bước 2:</b> Bấm vào nút <b>🎯 Track DRL UEH-ISB (K50)</b> trên thanh Bookmark.</li>
+                <li class="mb-2"><i class="fa-solid fa-circle-check text-success me-2"></i><b>Bước 3:</b> Cửa sổ phân tích sẽ hiện lên ngay lập tức:
+                    <ul class="ps-3 text-dark">
+                        <li><b>Tổng điểm chính xác:</b> Hiển thị đầy đủ tổng điểm bao gồm điểm cho sẵn nền tảng và điểm hoạt động tích lũy trên web DRS.</li>
+                        <li><b>Tùy chỉnh GPA:</b> Có thể chọn mức học lực dự kiến (Xuất sắc / Giỏi / Khá / Trung bình) để hệ thống tự cộng chính xác vào TC2.</li>
+                        <li><b>Khoảng cách Học bổng ISB:</b> Biết chính xác khoảng cách điểm còn thiếu để đạt các ngưỡng xét Học bổng Viện ISB (Khá / Giỏi / Xuất sắc).</li>
+                        <li><b>Tab Hoạt động gợi ý:</b> Tự động quét và đề xuất các sự kiện đang mở để đăng ký lấy điểm bù vào đúng các tiêu chí thiếu.</li>
+                        <li><b>Copy / Đồng bộ:</b> Bấm <b>Copy Bảng Điểm</b> dán vào Sheet/Excel hoặc bấm <b>Đồng bộ tự động</b>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        function copyAppsScriptCode() {
+            const code = document.getElementById('appsScriptCodeDisplay').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('✅ Đã copy toàn bộ mã Google Apps Script v3.5! Hãy dán vào Apps Script của Google Sheet.');
+            });
+        }
+
+        function copyBookmarkletCode() {
+            const href = document.getElementById('mainBookmarkletLink').getAttribute('href');
+            navigator.clipboard.writeText(href).then(() => {
+                alert('✅ Đã copy mã Bookmarklet v3.5! Bạn có thể tạo Bookmark thủ công trên Mac (Safari / Chrome) và dán mã này vào phần URL.');
+            });
+        }
+    </script>
+</body>
+</html>
