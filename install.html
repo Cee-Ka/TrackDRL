@@ -75,8 +75,11 @@
             padding: 18px;
             font-family: 'SF Mono', Monaco, Consolas, monospace;
             font-size: 12px;
-            max-height: 280px;
-            overflow-y: auto;
+            max-height: 380px;
+            overflow: auto;
+            white-space: pre !important;
+            word-break: normal !important;
+            word-wrap: normal !important;
             position: relative;
         }
         .badge-k50 {
@@ -203,11 +206,16 @@
                 <li>Xóa hết code cũ, bấm nút <b>Copy Mã Apps Script</b> và dán vào:</li>
             </ol>
 
-            <div class="position-relative mb-3">
-                <button class="btn btn-sm btn-primary position-absolute top-0 end-0 m-3" onclick="copyAppsScriptCode()">
-                    <i class="fa-regular fa-copy me-1"></i> Copy Mã Apps Script
-                </button>
-                <div class="code-box" id="appsScriptCodeDisplay">/**
+            <div class="mb-3">
+                <div class="d-flex justify-content-end gap-2 mb-2">
+                    <a href="google_apps_script.js" download="Code.gs" class="btn btn-sm btn-outline-primary">
+                        <i class="fa-solid fa-file-arrow-down me-1"></i> Tải file Code.gs
+                    </a>
+                    <button class="btn btn-sm btn-primary" onclick="copyAppsScriptCode()">
+                        <i class="fa-regular fa-copy me-1"></i> Copy Mã Apps Script
+                    </button>
+                </div>
+                <pre class="code-box" id="appsScriptCodeDisplay"><code>/**
  * ==============================================================================
  * GOOGLE APPS SCRIPT: HỆ THỐNG THEO DÕI ĐIỂM RÈN LUYỆN UEH - ISB (K50 IBUS)
  * ==============================================================================
@@ -224,7 +232,7 @@ function doPost(e) {
     var data = JSON.parse(e.postData.contents);
     var ss = SpreadsheetApp.getActiveSpreadsheet();
 
-    // 1. Đồng bộ trực tiếp vào Tab 'Listing DRL' (Khớp 100% bảng Tracking DRL.xlsx)
+    // 1. Đồng bộ trực tiếp vào Tab &#x27;Listing DRL&#x27; (Khớp 100% bảng Tracking DRL.xlsx)
     syncListingDrlSheet(ss, data.registeredActivities || []);
 
     // 2. Cập nhật Tab Tổng quan Dashboard
@@ -237,44 +245,44 @@ function doPost(e) {
     logSyncHistory(ss, data);
 
     return ContentService.createTextOutput(JSON.stringify({
-      status: "success",
-      message: "Đồng bộ thành công dữ liệu ĐRL chuẩn Tracking DRL.xlsx (Listing DRL &amp; 5 Tiêu chí)!",
+      status: &quot;success&quot;,
+      message: &quot;Đồng bộ thành công dữ liệu ĐRL chuẩn Tracking DRL.xlsx (Listing DRL &amp; 5 Tiêu chí)!&quot;,
       timestamp: new Date().toISOString()
     })).setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
     return ContentService.createTextOutput(JSON.stringify({
-      status: "error",
+      status: &quot;error&quot;,
       message: error.toString()
     })).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
 function doGet(e) {
-  return ContentService.createTextOutput("UEH-ISB DRL Sync Web App (v3.5) đang hoạt động bình thường! Dùng Bookmarklet trên drs.ueh.edu.vn để đẩy dữ liệu.");
+  return ContentService.createTextOutput(&quot;UEH-ISB DRL Sync Web App (v3.5) đang hoạt động bình thường! Dùng Bookmarklet trên drs.ueh.edu.vn để đẩy dữ liệu.&quot;);
 }
 
 /**
- * Đồng bộ danh sách hoạt động trực tiếp vào Tab 'Listing DRL'
- * Khớp 100% cấu trúc Bảng 'Listing' trong file 'Tracking DRL.xlsx' (8 cột chuẩn):
+ * Đồng bộ danh sách hoạt động trực tiếp vào Tab &#x27;Listing DRL&#x27;
+ * Khớp 100% cấu trúc Bảng &#x27;Listing&#x27; trong file &#x27;Tracking DRL.xlsx&#x27; (8 cột chuẩn):
  * [A] Hoạt động | [B] Mã hoạt động | [C] Mục | [D] Tình trạng | [E] Điểm | [F] Đóng tiền | [G] Link | [H] Note
  */
 function syncListingDrlSheet(ss, registeredActivities) {
-  var sheetName = "Listing DRL";
+  var sheetName = &quot;Listing DRL&quot;;
   var sheet = ss.getSheetByName(sheetName);
-  var uehTeal = "#005F69";
+  var uehTeal = &quot;#005F69&quot;;
 
-  var headers = ["Hoạt động", "Mã hoạt động", "Mục", "Tình trạng", "Điểm", "Đóng tiền", "Link", "Note"];
+  var headers = [&quot;Hoạt động&quot;, &quot;Mã hoạt động&quot;, &quot;Mục&quot;, &quot;Tình trạng&quot;, &quot;Điểm&quot;, &quot;Đóng tiền&quot;, &quot;Link&quot;, &quot;Note&quot;];
 
   if (!sheet) {
     // Nếu chưa có tab Listing DRL (ví dụ người dùng mở Google Sheet mới)
     sheet = ss.insertSheet(sheetName, 0);
-    sheet.getRange("A1:H1").setValues([headers])
-      .setFontWeight("bold")
+    sheet.getRange(&quot;A1:H1&quot;).setValues([headers])
+      .setFontWeight(&quot;bold&quot;)
       .setBackground(uehTeal)
-      .setFontColor("#FFFFFF")
-      .setHorizontalAlignment("center")
-      .setVerticalAlignment("middle");
+      .setFontColor(&quot;#FFFFFF&quot;)
+      .setHorizontalAlignment(&quot;center&quot;)
+      .setVerticalAlignment(&quot;middle&quot;);
     sheet.setRowHeight(1, 36);
     sheet.setFrozenRows(1);
   }
@@ -292,8 +300,8 @@ function syncListingDrlSheet(ss, registeredActivities) {
     var existingValues = sheet.getRange(2, 1, lastRow - 1, numCols).getValues();
     for (var r = 0; r &lt; existingValues.length; r++) {
       var rowIdx = r + 2;
-      var actName = (existingValues[r][0] || "").toString().trim();
-      var actCode = (existingValues[r][1] || "").toString().trim();
+      var actName = (existingValues[r][0] || &quot;&quot;).toString().trim();
+      var actCode = (existingValues[r][1] || &quot;&quot;).toString().trim();
       if (actCode) {
         codeMap[actCode] = rowIdx;
       }
@@ -318,9 +326,9 @@ function syncListingDrlSheet(ss, registeredActivities) {
       // Đã có trong Sheet: Cập nhật mã mục, tình trạng 100%, điểm DRS
       if (act.criteria) sheet.getRange(targetRow, 3).setValue(act.criteria);
       
-      var statusVal = (act.status === "100%" || act.points &gt; 0) ? 1 : 0.5;
-      sheet.getRange(targetRow, 4).setValue(statusVal).setNumberFormat("0%").setHorizontalAlignment("center");
-      sheet.getRange(targetRow, 5).setValue(act.points).setNumberFormat("0.0").setHorizontalAlignment("center");
+      var statusVal = (act.status === &quot;100%&quot; || act.points &gt; 0) ? 1 : 0.5;
+      sheet.getRange(targetRow, 4).setValue(statusVal).setNumberFormat(&quot;0%&quot;).setHorizontalAlignment(&quot;center&quot;);
+      sheet.getRange(targetRow, 5).setValue(act.points).setNumberFormat(&quot;0.0&quot;).setHorizontalAlignment(&quot;center&quot;);
 
       // Giữ nguyên cột Đóng tiền (F), chỉ điền Link/Note nếu ô hiện tại đang trống
       var currentLink = sheet.getRange(targetRow, 7).getValue();
@@ -333,28 +341,28 @@ function syncListingDrlSheet(ss, registeredActivities) {
       }
     } else {
       // Hoạt động mới từ DRS: Thêm dòng mới vào cuối bảng Listing DRL
-      var newStatus = (act.status === "100%" || act.points &gt; 0) ? 1 : 0.5;
+      var newStatus = (act.status === &quot;100%&quot; || act.points &gt; 0) ? 1 : 0.5;
       var newRow = [
         act.name,
-        act.code || "",
-        act.criteria || "",
+        act.code || &quot;&quot;,
+        act.criteria || &quot;&quot;,
         newStatus,
         act.points || 0,
-        "", // Đóng tiền
-        act.link || "",
-        act.note || "Đồng bộ từ DRS"
+        &quot;&quot;, // Đóng tiền
+        act.link || &quot;&quot;,
+        act.note || &quot;Đồng bộ từ DRS&quot;
       ];
       sheet.appendRow(newRow);
       var newRowIdx = sheet.getLastRow();
 
-      sheet.getRange(newRowIdx, 1).setHorizontalAlignment("left");
-      sheet.getRange(newRowIdx, 2).setHorizontalAlignment("center");
-      sheet.getRange(newRowIdx, 3).setHorizontalAlignment("center");
-      sheet.getRange(newRowIdx, 4).setNumberFormat("0%").setHorizontalAlignment("center");
-      sheet.getRange(newRowIdx, 5).setNumberFormat("0.0").setHorizontalAlignment("center");
-      sheet.getRange(newRowIdx, 6).setHorizontalAlignment("center");
-      sheet.getRange(newRowIdx, 7).setHorizontalAlignment("left");
-      sheet.getRange(newRowIdx, 8).setHorizontalAlignment("left");
+      sheet.getRange(newRowIdx, 1).setHorizontalAlignment(&quot;left&quot;);
+      sheet.getRange(newRowIdx, 2).setHorizontalAlignment(&quot;center&quot;);
+      sheet.getRange(newRowIdx, 3).setHorizontalAlignment(&quot;center&quot;);
+      sheet.getRange(newRowIdx, 4).setNumberFormat(&quot;0%&quot;).setHorizontalAlignment(&quot;center&quot;);
+      sheet.getRange(newRowIdx, 5).setNumberFormat(&quot;0.0&quot;).setHorizontalAlignment(&quot;center&quot;);
+      sheet.getRange(newRowIdx, 6).setHorizontalAlignment(&quot;center&quot;);
+      sheet.getRange(newRowIdx, 7).setHorizontalAlignment(&quot;left&quot;);
+      sheet.getRange(newRowIdx, 8).setHorizontalAlignment(&quot;left&quot;);
     }
   }
 
@@ -373,7 +381,7 @@ function syncListingDrlSheet(ss, registeredActivities) {
  * Cập nhật Tab Tổng quan &amp; Thống kê điểm 5 Tiêu chí chuẩn theo Tracking DRL.xlsx
  */
 function updateDashboardSheet(ss, data) {
-  var sheetName = "📊 Tổng quan K50 IBUS";
+  var sheetName = &quot;📊 Tổng quan K50 IBUS&quot;;
   var sheet = ss.getSheetByName(sheetName);
   if (!sheet) {
     sheet = ss.insertSheet(sheetName, 0);
@@ -382,115 +390,115 @@ function updateDashboardSheet(ss, data) {
   sheet.setGridlines(true);
 
   // Palette màu chuẩn UEH &amp; Tracking Sheet
-  var uehTeal = "#005F69";
-  var uehLightTeal = "#E6F4F5";
-  var textDark = "#1E293B";
-  var borderGray = "#CBD5E1";
-  var blueDefaultBg = "#E0F2FE"; // Màu xanh nhạt đại diện điểm cho sẵn
+  var uehTeal = &quot;#005F69&quot;;
+  var uehLightTeal = &quot;#E6F4F5&quot;;
+  var textDark = &quot;#1E293B&quot;;
+  var borderGray = &quot;#CBD5E1&quot;;
+  var blueDefaultBg = &quot;#E0F2FE&quot;; // Màu xanh nhạt đại diện điểm cho sẵn
 
   // Tiêu đề Dashboard
-  sheet.getRange("A1:I1").merge()
-    .setValue("🎓 BẢNG THEO DÕI ĐIỂM RÈN LUYỆN UEH.ISB - K50 CHUYÊN NGÀNH IBUS")
+  sheet.getRange(&quot;A1:I1&quot;).merge()
+    .setValue(&quot;🎓 BẢNG THEO DÕI ĐIỂM RÈN LUYỆN UEH.ISB - K50 CHUYÊN NGÀNH IBUS&quot;)
     .setFontSize(14)
-    .setFontWeight("bold")
-    .setFontColor("#FFFFFF")
+    .setFontWeight(&quot;bold&quot;)
+    .setFontColor(&quot;#FFFFFF&quot;)
     .setBackground(uehTeal)
-    .setHorizontalAlignment("center")
-    .setVerticalAlignment("middle");
+    .setHorizontalAlignment(&quot;center&quot;)
+    .setVerticalAlignment(&quot;middle&quot;);
   sheet.setRowHeight(1, 42);
 
   // Thẻ thông tin sinh viên (Cột A -&gt; D)
-  sheet.getRange("A3:D3").merge().setValue("👤 THÔNG TIN SINH VIÊN:").setFontWeight("bold").setFontColor(uehTeal);
-  sheet.getRange("A4").setValue("Họ và Tên:").setFontWeight("bold");
-  sheet.getRange("B4:D4").merge().setValue(data.studentName || "Sinh viên K50 ISB-IBUS");
-  sheet.getRange("A5").setValue("Mã số SV:").setFontWeight("bold");
-  sheet.getRange("B5:D5").merge().setValue(data.studentId || "Chưa xác định");
-  sheet.getRange("A6").setValue("Học kỳ xét:").setFontWeight("bold");
-  sheet.getRange("B6:D6").merge().setValue(data.semester || "Học kỳ hiện tại");
-  sheet.getRange("A7").setValue("Cập nhật lúc:").setFontWeight("bold");
-  sheet.getRange("B7:D7").merge().setValue(Utilities.formatDate(new Date(), "GMT+7", "HH:mm:ss dd/MM/yyyy"));
+  sheet.getRange(&quot;A3:D3&quot;).merge().setValue(&quot;👤 THÔNG TIN SINH VIÊN:&quot;).setFontWeight(&quot;bold&quot;).setFontColor(uehTeal);
+  sheet.getRange(&quot;A4&quot;).setValue(&quot;Họ và Tên:&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;B4:D4&quot;).merge().setValue(data.studentName || &quot;Sinh viên K50 ISB-IBUS&quot;);
+  sheet.getRange(&quot;A5&quot;).setValue(&quot;Mã số SV:&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;B5:D5&quot;).merge().setValue(data.studentId || &quot;Chưa xác định&quot;);
+  sheet.getRange(&quot;A6&quot;).setValue(&quot;Học kỳ xét:&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;B6:D6&quot;).merge().setValue(data.semester || &quot;Học kỳ hiện tại&quot;);
+  sheet.getRange(&quot;A7&quot;).setValue(&quot;Cập nhật lúc:&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;B7:D7&quot;).merge().setValue(Utilities.formatDate(new Date(), &quot;GMT+7&quot;, &quot;HH:mm:ss dd/MM/yyyy&quot;));
 
   // Thẻ Tổng điểm &amp; Đánh giá xếp loại ISB (Cột F -&gt; I)
   var totalScore = Number(data.totalScore || 0);
-  var rank = "Chưa xếp loại";
-  var scholarshipMsg = "Chưa đạt ngưỡng học bổng";
-  var cardBg = "#F1F5F9";
+  var rank = &quot;Chưa xếp loại&quot;;
+  var scholarshipMsg = &quot;Chưa đạt ngưỡng học bổng&quot;;
+  var cardBg = &quot;#F1F5F9&quot;;
 
   if (totalScore &gt;= 90) {
-    rank = "XUẤT SẮC (≥ 90)";
-    scholarshipMsg = "🌟 Đủ điều kiện xét Học bổng Xuất sắc ISB (150% toàn phần)";
-    cardBg = "#ECFDF5";
+    rank = &quot;XUẤT SẮC (≥ 90)&quot;;
+    scholarshipMsg = &quot;🌟 Đủ điều kiện xét Học bổng Xuất sắc ISB (150% toàn phần)&quot;;
+    cardBg = &quot;#ECFDF5&quot;;
   } else if (totalScore &gt;= 80) {
-    rank = "TỐT (80 - 89)";
-    scholarshipMsg = "⭐ Đủ điều kiện xét Học bổng Giỏi ISB (120% toàn phần)";
-    cardBg = "#EFF6FF";
+    rank = &quot;TỐT (80 - 89)&quot;;
+    scholarshipMsg = &quot;⭐ Đủ điều kiện xét Học bổng Giỏi ISB (120% toàn phần)&quot;;
+    cardBg = &quot;#EFF6FF&quot;;
   } else if (totalScore &gt;= 65) {
-    rank = "KHÁ (65 - 79)";
-    scholarshipMsg = " Đủ điều kiện xét Học bổng Khá ISB (100% toàn phần)";
-    cardBg = "#FEFCE8";
+    rank = &quot;KHÁ (65 - 79)&quot;;
+    scholarshipMsg = &quot; Đủ điều kiện xét Học bổng Khá ISB (100% toàn phần)&quot;;
+    cardBg = &quot;#FEFCE8&quot;;
   } else if (totalScore &gt;= 50) {
-    rank = "TRUNG BÌNH (50 - 64)";
+    rank = &quot;TRUNG BÌNH (50 - 64)&quot;;
     var gap = (65 - totalScore).toFixed(1);
-    scholarshipMsg = "⚠️ Cần tích lũy thêm tối thiểu " + gap + "đ để đạt ngưỡng xét học bổng Khá!";
-    cardBg = "#FFF7ED";
+    scholarshipMsg = &quot;⚠️ Cần tích lũy thêm tối thiểu &quot; + gap + &quot;đ để đạt ngưỡng xét học bổng Khá!&quot;;
+    cardBg = &quot;#FFF7ED&quot;;
   } else {
-    rank = "YẾU / KÉM (&lt; 50)";
-    scholarshipMsg = " Cảnh báo: Nguy cơ không đủ điều kiện rèn luyện!";
-    cardBg = "#FEF2F2";
+    rank = &quot;YẾU / KÉM (&lt; 50)&quot;;
+    scholarshipMsg = &quot; Cảnh báo: Nguy cơ không đủ điều kiện rèn luyện!&quot;;
+    cardBg = &quot;#FEF2F2&quot;;
   }
 
-  sheet.getRange("F3:I3").merge().setValue("🏆 KẾT QUẢ ĐIỂM RÈN LUYỆN DỰ KIẾN").setFontWeight("bold").setFontColor(uehTeal).setHorizontalAlignment("center");
-  sheet.getRange("F4:I5").merge()
-    .setValue(totalScore.toFixed(1) + " / 100")
+  sheet.getRange(&quot;F3:I3&quot;).merge().setValue(&quot;🏆 KẾT QUẢ ĐIỂM RÈN LUYỆN DỰ KIẾN&quot;).setFontWeight(&quot;bold&quot;).setFontColor(uehTeal).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(&quot;F4:I5&quot;).merge()
+    .setValue(totalScore.toFixed(1) + &quot; / 100&quot;)
     .setFontSize(22)
-    .setFontWeight("bold")
+    .setFontWeight(&quot;bold&quot;)
     .setFontColor(uehTeal)
     .setBackground(cardBg)
-    .setHorizontalAlignment("center")
-    .setVerticalAlignment("middle");
+    .setHorizontalAlignment(&quot;center&quot;)
+    .setVerticalAlignment(&quot;middle&quot;);
   
-  sheet.getRange("F6:I6").merge()
-    .setValue("Xếp loại: " + rank)
-    .setFontWeight("bold")
+  sheet.getRange(&quot;F6:I6&quot;).merge()
+    .setValue(&quot;Xếp loại: &quot; + rank)
+    .setFontWeight(&quot;bold&quot;)
     .setBackground(cardBg)
-    .setHorizontalAlignment("center");
+    .setHorizontalAlignment(&quot;center&quot;);
 
-  sheet.getRange("F7:I7").merge()
+  sheet.getRange(&quot;F7:I7&quot;).merge()
     .setValue(scholarshipMsg)
     .setFontSize(9)
-    .setFontColor("#475569")
+    .setFontColor(&quot;#475569&quot;)
     .setBackground(cardBg)
-    .setHorizontalAlignment("center");
+    .setHorizontalAlignment(&quot;center&quot;);
 
   // Bảng phân rã 5 Tiêu chí chuẩn theo TrackingDRL.xlsx
-  sheet.getRange("A9:I9").merge()
-    .setValue("📌 BẢNG CHI TIẾT 5 TIÊU CHÍ ĐIỂM RÈN LUYỆN (KHỚP 100% TRACKING DRL)")
-    .setFontWeight("bold")
+  sheet.getRange(&quot;A9:I9&quot;).merge()
+    .setValue(&quot;📌 BẢNG CHI TIẾT 5 TIÊU CHÍ ĐIỂM RÈN LUYỆN (KHỚP 100% TRACKING DRL)&quot;)
+    .setFontWeight(&quot;bold&quot;)
     .setFontColor(uehTeal);
 
   var headers = [
-    "Tiêu chí", 
-    "Tên tiêu chí rèn luyện", 
-    "Điểm cho sẵn (Nền tảng)", 
-    "Điểm hoạt động (DRS Web)", 
-    "Điểm đã đạt", 
-    "Mức tối đa", 
-    "Còn thiếu", 
-    "Tiến độ", 
-    "Trạng thái"
+    &quot;Tiêu chí&quot;, 
+    &quot;Tên tiêu chí rèn luyện&quot;, 
+    &quot;Điểm cho sẵn (Nền tảng)&quot;, 
+    &quot;Điểm hoạt động (DRS Web)&quot;, 
+    &quot;Điểm đã đạt&quot;, 
+    &quot;Mức tối đa&quot;, 
+    &quot;Còn thiếu&quot;, 
+    &quot;Tiến độ&quot;, 
+    &quot;Trạng thái&quot;
   ];
-  sheet.getRange("A10:I10").setValues([headers])
-    .setFontWeight("bold")
+  sheet.getRange(&quot;A10:I10&quot;).setValues([headers])
+    .setFontWeight(&quot;bold&quot;)
     .setBackground(uehLightTeal)
     .setFontColor(textDark)
-    .setHorizontalAlignment("center");
+    .setHorizontalAlignment(&quot;center&quot;);
 
   var tcConfig = [
-    { num: 1, code: "TC1", name: "Chấp hành pháp luật, nội quy, quy chế UEH", defaultPts: 15, max: 25 },
-    { num: 2, code: "TC2", name: "Thái độ và trách nhiệm trong học tập", defaultPts: 14, max: 20 },
-    { num: 3, code: "TC3", name: "Hoạt động chính trị, văn thể mỹ &amp; ĐH Xanh", defaultPts: 5, max: 20 },
-    { num: 4, code: "TC4", name: "Ý thức công dân trong quan hệ cộng đồng", defaultPts: 10, max: 15 },
-    { num: 5, code: "TC5", name: "Cán sự lớp, đoàn thể &amp; Thành tích thi đua", defaultPts: 10, max: 20 }
+    { num: 1, code: &quot;TC1&quot;, name: &quot;Chấp hành pháp luật, nội quy, quy chế UEH&quot;, defaultPts: 15, max: 25 },
+    { num: 2, code: &quot;TC2&quot;, name: &quot;Thái độ và trách nhiệm trong học tập&quot;, defaultPts: 14, max: 20 },
+    { num: 3, code: &quot;TC3&quot;, name: &quot;Hoạt động chính trị, văn thể mỹ &amp; ĐH Xanh&quot;, defaultPts: 5, max: 20 },
+    { num: 4, code: &quot;TC4&quot;, name: &quot;Ý thức công dân trong quan hệ cộng đồng&quot;, defaultPts: 10, max: 15 },
+    { num: 5, code: &quot;TC5&quot;, name: &quot;Cán sự lớp, đoàn thể &amp; Thành tích thi đua&quot;, defaultPts: 10, max: 20 }
   ];
 
   var analysisList = data.criteriaAnalysis || [];
@@ -510,18 +518,18 @@ function updateDashboardSheet(ss, data) {
     var current = item ? Number(item.current || 0) : Math.min(c.max, defPts + webPts);
     var missing = Math.max(0, c.max - current);
     var percent = (current / c.max);
-    var status = "Đang thiếu";
+    var status = &quot;Đang thiếu&quot;;
 
     if (current &gt;= c.max) {
-      status = " ĐÃ ĐẠT MAX (KỊCH TRẦN)";
+      status = &quot; ĐÃ ĐẠT MAX (KỊCH TRẦN)&quot;;
     } else if (current &gt; 0) {
-      status = "⚡ Cần thêm " + missing.toFixed(1) + " điểm";
+      status = &quot;⚡ Cần thêm &quot; + missing.toFixed(1) + &quot; điểm&quot;;
     } else {
-      status = " Chưa có điểm";
+      status = &quot; Chưa có điểm&quot;;
     }
 
     rows.push([
-      "TC" + c.num,
+      &quot;TC&quot; + c.num,
       c.name,
       defPts,
       webPts,
@@ -536,28 +544,28 @@ function updateDashboardSheet(ss, data) {
   sheet.getRange(11, 1, rows.length, 9).setValues(rows);
 
   // Format cột
-  sheet.getRange("A11:A15").setHorizontalAlignment("center").setFontWeight("bold");
-  sheet.getRange("C11:C15").setHorizontalAlignment("center").setBackground(blueDefaultBg);
-  sheet.getRange("D11:D15").setHorizontalAlignment("center");
-  sheet.getRange("E11:G15").setHorizontalAlignment("center").setFontWeight("bold");
-  sheet.getRange("H11:H15").setNumberFormat("0.0%").setHorizontalAlignment("center");
-  sheet.getRange("I11:I15").setHorizontalAlignment("left");
+  sheet.getRange(&quot;A11:A15&quot;).setHorizontalAlignment(&quot;center&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;C11:C15&quot;).setHorizontalAlignment(&quot;center&quot;).setBackground(blueDefaultBg);
+  sheet.getRange(&quot;D11:D15&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(&quot;E11:G15&quot;).setHorizontalAlignment(&quot;center&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;H11:H15&quot;).setNumberFormat(&quot;0.0%&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(&quot;I11:I15&quot;).setHorizontalAlignment(&quot;left&quot;);
 
   // Format hàng tổng kết (Hàng 16)
   var totalRowIndex = 16;
-  sheet.getRange(totalRowIndex, 1).setValue("TỔNG CỘNG").setFontWeight("bold").setHorizontalAlignment("center");
-  sheet.getRange(totalRowIndex, 2).setValue("Tổng điểm rèn luyện dự kiến").setFontWeight("bold");
-  sheet.getRange(totalRowIndex, 3).setFormula("=SUM(C11:C15)").setFontWeight("bold").setHorizontalAlignment("center").setBackground(blueDefaultBg);
-  sheet.getRange(totalRowIndex, 4).setFormula("=SUM(D11:D15)").setFontWeight("bold").setHorizontalAlignment("center");
-  sheet.getRange(totalRowIndex, 5).setFormula("=SUM(E11:E15)").setFontWeight("bold").setHorizontalAlignment("center");
-  sheet.getRange(totalRowIndex, 6).setValue(100).setFontWeight("bold").setHorizontalAlignment("center");
-  sheet.getRange(totalRowIndex, 7).setFormula("=F16-E16").setFontWeight("bold").setHorizontalAlignment("center");
-  sheet.getRange(totalRowIndex, 8).setFormula("=E16/F16").setNumberFormat("0.0%").setFontWeight("bold").setHorizontalAlignment("center");
-  sheet.getRange(totalRowIndex, 9).setValue(rank).setFontWeight("bold");
-  sheet.getRange("A16:I16").setBackground("#F1F5F9");
+  sheet.getRange(totalRowIndex, 1).setValue(&quot;TỔNG CỘNG&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 2).setValue(&quot;Tổng điểm rèn luyện dự kiến&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(totalRowIndex, 3).setFormula(&quot;=SUM(C11:C15)&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;).setBackground(blueDefaultBg);
+  sheet.getRange(totalRowIndex, 4).setFormula(&quot;=SUM(D11:D15)&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 5).setFormula(&quot;=SUM(E11:E15)&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 6).setValue(100).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 7).setFormula(&quot;=F16-E16&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 8).setFormula(&quot;=E16/F16&quot;).setNumberFormat(&quot;0.0%&quot;).setFontWeight(&quot;bold&quot;).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(totalRowIndex, 9).setValue(rank).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(&quot;A16:I16&quot;).setBackground(&quot;#F1F5F9&quot;);
 
   // Border &amp; Column width
-  sheet.getRange("A10:I16").setBorder(true, true, true, true, true, true, borderGray, SpreadsheetApp.BorderStyle.SOLID);
+  sheet.getRange(&quot;A10:I16&quot;).setBorder(true, true, true, true, true, true, borderGray, SpreadsheetApp.BorderStyle.SOLID);
   sheet.autoResizeColumn(1);
   sheet.setColumnWidth(2, 330);
   sheet.autoResizeColumn(3);
@@ -573,7 +581,7 @@ function updateDashboardSheet(ss, data) {
  * Cập nhật Tab Gợi ý Hoạt động theo 5 Tiêu chí
  */
 function updateActivitiesSheet(ss, activities) {
-  var sheetName = "🎯 Hoạt Động Gợi Ý";
+  var sheetName = &quot;🎯 Hoạt Động Gợi Ý&quot;;
   var sheet = ss.getSheetByName(sheetName);
   if (!sheet) {
     sheet = ss.insertSheet(sheetName, 1);
@@ -581,40 +589,40 @@ function updateActivitiesSheet(ss, activities) {
   sheet.clear();
   sheet.setGridlines(true);
 
-  var uehTeal = "#005F69";
-  var uehLightTeal = "#E6F4F5";
-  var textDark = "#1E293B";
-  var borderGray = "#CBD5E1";
+  var uehTeal = &quot;#005F69&quot;;
+  var uehLightTeal = &quot;#E6F4F5&quot;;
+  var textDark = &quot;#1E293B&quot;;
+  var borderGray = &quot;#CBD5E1&quot;;
 
   // Tiêu đề
-  sheet.getRange("A1:G1").merge()
-    .setValue("🎯 DANH SÁCH HOẠT ĐỘNG KHUYẾN NGHỊ LẤY ĐIỂM (UEH.ISB K50)")
+  sheet.getRange(&quot;A1:G1&quot;).merge()
+    .setValue(&quot;🎯 DANH SÁCH HOẠT ĐỘNG KHUYẾN NGHỊ LẤY ĐIỂM (UEH.ISB K50)&quot;)
     .setFontSize(13)
-    .setFontWeight("bold")
-    .setFontColor("#FFFFFF")
+    .setFontWeight(&quot;bold&quot;)
+    .setFontColor(&quot;#FFFFFF&quot;)
     .setBackground(uehTeal)
-    .setHorizontalAlignment("center")
-    .setVerticalAlignment("middle");
+    .setHorizontalAlignment(&quot;center&quot;)
+    .setVerticalAlignment(&quot;middle&quot;);
   sheet.setRowHeight(1, 38);
 
-  sheet.getRange("A2:G2").merge()
-    .setValue("💡 Danh sách hoạt động đang mở được sắp xếp ưu tiên theo đúng tiêu chí mà bạn đang thiếu điểm.")
+  sheet.getRange(&quot;A2:G2&quot;).merge()
+    .setValue(&quot;💡 Danh sách hoạt động đang mở được sắp xếp ưu tiên theo đúng tiêu chí mà bạn đang thiếu điểm.&quot;)
     .setFontSize(9)
-    .setFontStyle("italic")
-    .setFontColor("#64748B");
+    .setFontStyle(&quot;italic&quot;)
+    .setFontColor(&quot;#64748B&quot;);
 
-  var headers = ["Mức độ ưu tiên", "Tiêu chí rèn luyện", "Tên hoạt động", "Điểm dự kiến", "Hạn đăng ký / Tổ chức", "Trạng thái", "Đường dẫn đăng ký"];
-  sheet.getRange("A4:G4").setValues([headers])
-    .setFontWeight("bold")
+  var headers = [&quot;Mức độ ưu tiên&quot;, &quot;Tiêu chí rèn luyện&quot;, &quot;Tên hoạt động&quot;, &quot;Điểm dự kiến&quot;, &quot;Hạn đăng ký / Tổ chức&quot;, &quot;Trạng thái&quot;, &quot;Đường dẫn đăng ký&quot;];
+  sheet.getRange(&quot;A4:G4&quot;).setValues([headers])
+    .setFontWeight(&quot;bold&quot;)
     .setBackground(uehLightTeal)
     .setFontColor(textDark)
-    .setHorizontalAlignment("center");
+    .setHorizontalAlignment(&quot;center&quot;);
 
   if (!activities || activities.length === 0) {
-    sheet.getRange("A5:G5").merge()
-      .setValue("Hiện chưa tìm thấy hoạt động đang mở hoặc hệ thống DRS đang trong giai đoạn cập nhật.")
-      .setHorizontalAlignment("center")
-      .setFontColor("#94A3B8");
+    sheet.getRange(&quot;A5:G5&quot;).merge()
+      .setValue(&quot;Hiện chưa tìm thấy hoạt động đang mở hoặc hệ thống DRS đang trong giai đoạn cập nhật.&quot;)
+      .setHorizontalAlignment(&quot;center&quot;)
+      .setFontColor(&quot;#94A3B8&quot;);
     return;
   }
 
@@ -622,22 +630,22 @@ function updateActivitiesSheet(ss, activities) {
   for (var i = 0; i &lt; activities.length; i++) {
     var act = activities[i];
     rows.push([
-      act.priority || "⭐ Khuyến nghị",
-      act.category || "TC",
-      act.title || "Không rõ tên",
+      act.priority || &quot;⭐ Khuyến nghị&quot;,
+      act.category || &quot;TC&quot;,
+      act.title || &quot;Không rõ tên&quot;,
       act.points || 0,
-      act.deadline || "Xem chi tiết",
-      "Đang mở",
-      act.link || "https://drs.ueh.edu.vn/Student/AllActivities"
+      act.deadline || &quot;Xem chi tiết&quot;,
+      &quot;Đang mở&quot;,
+      act.link || &quot;https://drs.ueh.edu.vn/Student/AllActivities&quot;
     ]);
   }
 
   sheet.getRange(5, 1, rows.length, 7).setValues(rows);
 
   // Định dạng
-  sheet.getRange(5, 1, rows.length, 2).setHorizontalAlignment("center").setFontWeight("bold");
-  sheet.getRange(5, 4, rows.length, 1).setHorizontalAlignment("center");
-  sheet.getRange(5, 5, rows.length, 2).setHorizontalAlignment("center");
+  sheet.getRange(5, 1, rows.length, 2).setHorizontalAlignment(&quot;center&quot;).setFontWeight(&quot;bold&quot;);
+  sheet.getRange(5, 4, rows.length, 1).setHorizontalAlignment(&quot;center&quot;);
+  sheet.getRange(5, 5, rows.length, 2).setHorizontalAlignment(&quot;center&quot;);
 
   sheet.getRange(4, 1, rows.length + 1, 7).setBorder(true, true, true, true, true, true, borderGray, SpreadsheetApp.BorderStyle.SOLID);
   sheet.autoResizeColumn(1);
@@ -653,28 +661,28 @@ function updateActivitiesSheet(ss, activities) {
  * Ghi lại lịch sử cập nhật điểm
  */
 function logSyncHistory(ss, data) {
-  var sheetName = "🕒 Lịch Sử Đồng Bộ";
+  var sheetName = &quot;🕒 Lịch Sử Đồng Bộ&quot;;
   var sheet = ss.getSheetByName(sheetName);
   if (!sheet) {
     sheet = ss.insertSheet(sheetName, 2);
     var headers = [
-      "Thời gian đồng bộ", 
-      "Học kỳ", 
-      "Tổng điểm ĐRL", 
-      "Điểm cho sẵn", 
-      "Điểm DRS", 
-      "Điểm TC1", 
-      "Điểm TC2", 
-      "Điểm TC3", 
-      "Điểm TC4", 
-      "Điểm TC5", 
-      "Xếp loại"
+      &quot;Thời gian đồng bộ&quot;, 
+      &quot;Học kỳ&quot;, 
+      &quot;Tổng điểm ĐRL&quot;, 
+      &quot;Điểm cho sẵn&quot;, 
+      &quot;Điểm DRS&quot;, 
+      &quot;Điểm TC1&quot;, 
+      &quot;Điểm TC2&quot;, 
+      &quot;Điểm TC3&quot;, 
+      &quot;Điểm TC4&quot;, 
+      &quot;Điểm TC5&quot;, 
+      &quot;Xếp loại&quot;
     ];
-    sheet.getRange("A1:K1").setValues([headers])
-      .setFontWeight("bold")
-      .setBackground("#005F69")
-      .setFontColor("#FFFFFF")
-      .setHorizontalAlignment("center");
+    sheet.getRange(&quot;A1:K1&quot;).setValues([headers])
+      .setFontWeight(&quot;bold&quot;)
+      .setBackground(&quot;#005F69&quot;)
+      .setFontColor(&quot;#FFFFFF&quot;)
+      .setHorizontalAlignment(&quot;center&quot;);
     sheet.autoResizeColumns(1, 11);
   }
 
@@ -682,11 +690,11 @@ function logSyncHistory(ss, data) {
   var totalScore = Number(data.totalScore || 0);
   var defPts = Number(data.defaultPoints || 0);
   var webPts = Number(data.webPoints || 0);
-  var rank = totalScore &gt;= 90 ? "Xuất sắc" : totalScore &gt;= 80 ? "Tốt" : totalScore &gt;= 65 ? "Khá" : totalScore &gt;= 50 ? "Trung bình" : "Yếu/Kém";
+  var rank = totalScore &gt;= 90 ? &quot;Xuất sắc&quot; : totalScore &gt;= 80 ? &quot;Tốt&quot; : totalScore &gt;= 65 ? &quot;Khá&quot; : totalScore &gt;= 50 ? &quot;Trung bình&quot; : &quot;Yếu/Kém&quot;;
 
   var row = [
-    Utilities.formatDate(new Date(), "GMT+7", "yyyy-MM-dd HH:mm:ss"),
-    data.semester || "Kỳ hiện tại",
+    Utilities.formatDate(new Date(), &quot;GMT+7&quot;, &quot;yyyy-MM-dd HH:mm:ss&quot;),
+    data.semester || &quot;Kỳ hiện tại&quot;,
     totalScore,
     defPts,
     webPts,
@@ -700,9 +708,9 @@ function logSyncHistory(ss, data) {
 
   sheet.appendRow(row);
   var lastRow = sheet.getLastRow();
-  sheet.getRange(lastRow, 1, 1, 11).setHorizontalAlignment("center");
+  sheet.getRange(lastRow, 1, 1, 11).setHorizontalAlignment(&quot;center&quot;);
 }
-</div>
+</code></pre>
             </div>
 
             <ol start="3" class="text-secondary lh-lg mb-0 ps-3">
@@ -738,9 +746,19 @@ function logSyncHistory(ss, data) {
 
     <script>
         function copyAppsScriptCode() {
-            const code = document.getElementById('appsScriptCodeDisplay').innerText;
+            const pre = document.getElementById('appsScriptCodeDisplay');
+            const code = pre ? pre.textContent : '';
             navigator.clipboard.writeText(code).then(() => {
-                alert('✅ Đã copy toàn bộ mã Google Apps Script v3.5! Hãy dán vào Apps Script của Google Sheet.');
+                alert('✅ Đã copy toàn bộ mã Google Apps Script v3.5 (giữ nguyên đầy đủ định dạng dòng và dấu xuống hàng)! Hãy dán vào file Code.gs trên Google Apps Script.');
+            }).catch(() => {
+                const range = document.createRange();
+                range.selectNodeContents(pre);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                document.execCommand('copy');
+                selection.removeAllRanges();
+                alert('✅ Đã copy toàn bộ mã Google Apps Script v3.5!');
             });
         }
 
